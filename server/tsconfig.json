@@ -6,13 +6,6 @@
     "sourceMap": true,
     "outDir": "./dist",
     "esModuleInterop": true,
-    //    "forceConsistentCasingInFileNames": true,
-    //    "strict": true,
-    //    "noImplicitAny": true,
-    //    "strictNullChecks": true,
-    //    "strictFunctionTypes": true,
-    //    "skipLibCheck": true,
-    //    "resolveJsonModule": true
   },
   "include": [
     "src/**/*"

@@ -5,12 +5,11 @@ import express from "express";
 import http from "http";
 import cors from "cors";
 import { Server } from "socket.io";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 
-import { resolvers } from "./resolvers";
-import { typeDefs } from "./schema";
-import router from "./routes";
+import mergedResolvers from "./resolvers";
+import mergedTypeDefs from "./typeDefs";
+import { connectDB } from "./db/connection";
 
 interface MyContext {
   token?: string;
@@ -22,8 +21,8 @@ const app = express();
 const httpServer = http.createServer(app);
 
 const server = new ApolloServer<MyContext>({
-  typeDefs,
-  resolvers,
+  typeDefs: mergedTypeDefs,
+  resolvers: mergedResolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 const io = new Server(httpServer, {
@@ -45,12 +44,6 @@ io.on("connection", (socket) => {
   });
 });
 
-mongoose.Promise = Promise;
-mongoose.connect(process.env.DATABASE_URL!);
-mongoose.connection.on("error", (error: Error) => console.log(error));
-
-app.use("/", router());
-
 const startServer = async () => {
   await server.start();
 
@@ -66,6 +59,7 @@ const startServer = async () => {
   await new Promise<void>((resolve) =>
     httpServer.listen({ port: process.env.PORT! }, resolve),
   );
+  await connectDB();
   console.log(`Server start on http://localhost:8080`);
 };
 
