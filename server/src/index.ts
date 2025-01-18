@@ -56,7 +56,7 @@ io.on("connection", (socket) => {
 
 const startServer = async () => {
   await server.start();
-
+  app.use(authMiddleware);
   app.use(
     "/",
     cors<cors.CorsRequest>(),
@@ -66,7 +66,6 @@ const startServer = async () => {
     }),
   );
 
-  app.use(authMiddleware);
   await new Promise<void>((resolve) =>
     httpServer.listen({ port: process.env.PORT! }, resolve),
   );

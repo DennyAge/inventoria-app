@@ -16,7 +16,8 @@ export const authMiddleware = (
 
   try {
     const decoded = verifyToken(token);
-    // req.user = decoded;
+    // @ts-ignore
+    req.user = decoded;
     next();
   } catch (error) {
     res.status(401).json({ message: "Invalid token" });
