@@ -29,7 +29,9 @@ const userTypeDef = gql`
   input SignUpInput {
     fullName: String!
     email: String!
-    authentication: AuthenticationInput!
+    password: String!
+    authentication: [AuthenticationInput!]
+    role: String!
   }
   input AuthenticationInput {
     password: String!

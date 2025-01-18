@@ -6,25 +6,35 @@ import http from "http";
 import cors from "cors";
 import { Server } from "socket.io";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
 import mergedResolvers from "./resolvers";
 import mergedTypeDefs from "./typeDefs";
 import { connectDB } from "./db/connection";
-
-interface MyContext {
-  token?: string;
-}
+import { authMiddleware } from "./middleware/authMiddleware";
 
 dotenv.config();
 
 const app = express();
+app.use(cookieParser());
+
 const httpServer = http.createServer(app);
 
-const server = new ApolloServer<MyContext>({
+interface Context {
+  req: Express.Request;
+  res: Express.Response;
+  user?: {
+    id: string;
+    email: string;
+  };
+}
+
+const server = new ApolloServer<Context>({
   typeDefs: mergedTypeDefs,
   resolvers: mergedResolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
+
 const io = new Server(httpServer, {
   cors: {
     origin: "http://localhost:3000",
@@ -52,15 +62,16 @@ const startServer = async () => {
     cors<cors.CorsRequest>(),
     express.json(),
     expressMiddleware(server, {
-      context: async ({ req }) => ({ token: req.headers.token }),
+      context: async ({ req, res }) => ({ req, res }),
     }),
   );
 
+  app.use(authMiddleware);
   await new Promise<void>((resolve) =>
     httpServer.listen({ port: process.env.PORT! }, resolve),
   );
   await connectDB();
-  console.log(`Server start on http://localhost:8080`);
+  console.log(`Server start on http://localhost:${process.env.PORT}`);
 };
 
 startServer().catch((error) => {
