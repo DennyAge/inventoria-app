@@ -1,3 +1,5 @@
 export const config = {
-  env: {},
+  env: {
+    apiEndpoint: process.env.PUBLIC_API_URL!,
+  },
 };

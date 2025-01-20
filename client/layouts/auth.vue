@@ -1,18 +1,31 @@
 <template>
-  <main class="auth-layout">
+  <main v-if="!authUser" class="auth-layout">
     <div class="auth-layout__left-side">
       <div class="logo">
         <Image src="/logo.png" alt="logo" width="35px" />
-        <span>Inventory</span>
+        <span>Inventoria</span>
       </div>
     </div>
     <div class="auth-layout__right-side">
       <slot />
     </div>
   </main>
+  <Loader v-else />
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useRouter } from "vue-router";
+import { onMounted } from "vue";
+import Loader from "~/components/Loader.vue";
+const { authUser } = await GqlGetAuthUser();
+const router = useRouter();
+
+onMounted(() => {
+  if (authUser) {
+    router.push("/");
+  }
+});
+</script>
 
 <style scoped>
 .auth-layout {
@@ -34,5 +47,8 @@
 }
 .auth-layout__right-side {
   flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

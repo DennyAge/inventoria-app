@@ -12,11 +12,14 @@ import mergedResolvers from "./resolvers";
 import mergedTypeDefs from "./typeDefs";
 import { connectDB } from "./db/connection";
 import { authMiddleware } from "./middleware/authMiddleware";
+import { socketIO } from "./lib/socket";
+import * as process from "node:process";
 
 dotenv.config();
 
 const app = express();
 app.use(cookieParser());
+app.use(authMiddleware);
 
 const httpServer = http.createServer(app);
 
@@ -24,7 +27,7 @@ interface Context {
   req: Express.Request;
   res: Express.Response;
   user?: {
-    id: string;
+    _id: string;
     email: string;
   };
 }
@@ -37,29 +40,22 @@ const server = new ApolloServer<Context>({
 
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.CLIENT_URL!,
+    credentials: true,
     methods: ["GET", "POST"],
   },
 });
 
-io.on("connection", (socket) => {
-  console.log("New session connected");
-
-  const activeSessions = io.engine.clientsCount;
-  io.emit("activeSessions", activeSessions);
-
-  socket.on("disconnect", () => {
-    console.log("Session disconnected");
-    io.emit("activeSessions", io.engine.clientsCount);
-  });
-});
+socketIO(io);
 
 const startServer = async () => {
   await server.start();
-  app.use(authMiddleware);
   app.use(
-    "/",
-    cors<cors.CorsRequest>(),
+    "/graphql",
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    }),
     express.json(),
     expressMiddleware(server, {
       context: async ({ req, res }) => ({ req, res }),

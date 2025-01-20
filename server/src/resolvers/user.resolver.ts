@@ -5,7 +5,8 @@ export const userResolver = {
   Query: {
     authUser: async (_, __, context) => {
       try {
-        const user = await context.getUser();
+        const userId = context?.req?.user?.id;
+        const user = await User.findById(userId);
         return user;
       } catch (err) {
         console.error("Error in authUser: ", err);
@@ -17,7 +18,7 @@ export const userResolver = {
         const user = await User.findById(userId);
         return user;
       } catch (err) {
-        console.error("Error in user query:", err);
+        console.error("Error in user queries:", err);
         throw new Error(err.message || "Error getting user");
       }
     },
@@ -26,7 +27,7 @@ export const userResolver = {
         const users = await User.find();
         return users;
       } catch (err) {
-        console.error("Error in user query:", err);
+        console.error("Error in user queries:", err);
         throw new Error(err.message || "Error getting user");
       }
     },
@@ -34,8 +35,8 @@ export const userResolver = {
   Mutation: {
     signUp: async (_, { input }) => {
       try {
-        const { fullName, email, password, role } = input;
-        if (!fullName || !email || !password || !role) {
+        const { fullName, email, password } = input;
+        if (!fullName || !email || !password) {
           throw new Error("All fields are required");
         }
         const existingUser = await User.findOne({ email });
@@ -48,7 +49,7 @@ export const userResolver = {
         const newUser = new User({
           fullName,
           email,
-          role,
+          role: "user",
           authentication: {
             salt,
             password: hashedPassword,
@@ -97,7 +98,7 @@ export const userResolver = {
     },
     logout: async (_, __, context) => {
       try {
-        context.res.clearCookie("session_token"); // Очистка cookies
+        context.res.clearCookie("session_token");
         return { message: "Logged out successfully" };
       } catch (error) {
         console.error("Error in logout:", error);

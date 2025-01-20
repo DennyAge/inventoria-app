@@ -3,7 +3,7 @@
     <div>
       <div class="sidebar__logo">
         <Image src="/logo.png" alt="logo" width="35px" />
-        <span class="sidebar__logo__title">Inventory</span>
+        <span class="sidebar__logo__title">Inventoria</span>
       </div>
       <nav class="nav">
         <NuxtLink
@@ -29,6 +29,7 @@
 import { navigationLinks } from "~/constants/index.js";
 import LanguageSelect from "~/components/LanguageSelect.vue";
 import UserCard from "~/components/UserCard.vue";
+import type { User } from "~/types";
 
 interface Props {
   user: User;

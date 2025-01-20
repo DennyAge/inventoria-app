@@ -1,3 +1,17 @@
+import { Socket } from "socket.io-client";
+
+declare module "#app" {
+  interface NuxtApp {
+    $socket: Socket;
+  }
+}
+
+declare module "vue" {
+  interface ComponentCustomProperties {
+    $socket: Socket;
+  }
+}
+
 interface Price {
   value: number;
   symbol: string;
@@ -32,5 +46,4 @@ interface Order {
 interface User {
   fullName: string;
   email: string;
-  role?: string;
 }

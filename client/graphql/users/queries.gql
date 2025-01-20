@@ -1,0 +1,23 @@
+query getAuthUser {
+  authUser {
+    email,
+    fullName,
+  }
+}
+
+query getUsers {
+  users {
+    _id
+    email,
+    fullName,
+
+  }
+}
+query getUser($userId: ID!) {
+  user(userId: $userId) {
+      _id,
+    email,
+    fullName,
+  }
+}
+

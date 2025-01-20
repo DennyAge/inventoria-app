@@ -7,7 +7,6 @@
     "outDir": "./dist",
     "esModuleInterop": true,
   },
-  "typeRoots": ["./node_modules/@types", "./types"],
   "include": [
     "src/**/*"
   ],

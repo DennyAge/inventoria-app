@@ -2,10 +2,14 @@ import { orders } from "../mockData";
 
 export const orderResolver = {
   Query: {
-    orders: () => {
+    orders: (_, __, context) => {
       return orders;
     },
-    order: (_, { orderId }) => {
+    order: (_, { orderId }, context) => {
+      const user = context.req?.user;
+      if (!user) {
+        return;
+      }
       return orders.find((order) => order._id === orderId);
     },
   },

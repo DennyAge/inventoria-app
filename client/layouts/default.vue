@@ -1,16 +1,28 @@
 <template>
-  <main class="page-container">
-    <Sidebar :user="user" />
+  <main v-if="authUser" class="page-container">
+    <Sidebar :user="authUser" />
     <div class="page-content">
       <slot />
     </div>
   </main>
+  <Loader v-else />
 </template>
 
 <script setup lang="ts">
 import Sidebar from "~/components/Sidebar.vue";
-import { useAuthStore } from "~/stores/auth.store";
-const { user } = useAuthStore();
+import Loader from "~/components/Loader.vue";
+
+import { useRouter } from "vue-router";
+import { onMounted } from "vue";
+
+const { authUser } = await GqlGetAuthUser();
+const router = useRouter();
+
+onMounted(() => {
+  if (!authUser) {
+    router.push("/sign-in");
+  }
+});
 </script>
 
 <style scoped>

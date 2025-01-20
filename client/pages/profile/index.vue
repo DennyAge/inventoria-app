@@ -1,15 +1,19 @@
 <template>
   <section>
     <Header />
-    <div class="dashboard-page">
-      <PageHeader :title="$t('dashboard')" />
+    <div class="orders-page">
+      <button @click="logout" type="button" class="btn btn-success">
+        Logout
+      </button>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import { useRouter } from "#vue-router";
+
 useHead({
-  title: "Dashboard",
+  title: "Profile",
   link: [
     {
       rel: "icon",
@@ -18,13 +22,16 @@ useHead({
     },
   ],
 });
-
 import Header from "~/components/Header.vue";
-import PageHeader from "~/components/PageHeader.vue";
+const router = useRouter();
+const logout = async () => {
+  await GqlLogout();
+  router.push("/sign-in");
+};
 </script>
 
 <style scoped>
-.dashboard-page {
+.orders-page {
   padding: 2rem 3rem;
 }
 </style>

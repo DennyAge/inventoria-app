@@ -11,11 +11,13 @@
   },
   "dependencies": {
     "@eslint/eslintrc": "^3.2.0",
-    "@nuxtjs/robots": "^5.1.1",
+    "@nuxtjs/robots": "^3.0.0",
     "date-fns": "^4.1.0",
     "nuxt": "^3.15.2",
+    "nuxt-graphql-client": "^0.2.43",
     "nuxt-site-config": "^3.0.6",
     "socket.io-client": "^4.8.1",
+    "usebootstrap": "^3.5.100",
     "vue": "latest",
     "vue-router": "latest"
   },
@@ -29,7 +31,6 @@
     "eslint": "^9.18.0",
     "globals": "^15.14.0",
     "prettier": "^3.4.2",
-    "typescript": "^5.7.3",
-    "usebootstrap": "^3.5.100"
+    "typescript": "^5.7.3"
   }
 }

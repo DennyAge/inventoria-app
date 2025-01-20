@@ -1,6 +1,8 @@
 <template>
-  <div class="user">
-    <div class="user__int">{{ getInitials(user.fullName) || "IN" }}</div>
+  <div class="user" @click="">
+    <button class="user__int" @click="router.push('/profile')">
+      {{ getInitials(user.fullName) || "IN" }}
+    </button>
     <div class="user__info">
       <p>{{ user.fullName }}</p>
       <span>{{ user.email }}</span>
@@ -10,6 +12,9 @@
 
 <script setup lang="ts">
 import { getInitials } from "~/lib/utils";
+import { useRouter } from "#vue-router";
+import type { User } from "~/types";
+const router = useRouter();
 
 interface Props {
   user: User;
@@ -31,6 +36,7 @@ const props = defineProps<Props>();
   display: flex;
   flex-direction: row;
   align-items: center;
+  border: none;
   justify-content: center;
 
   background: var(--color-accent-blue-100);

@@ -8,18 +8,23 @@
       <Icon name="lucide:alarm-clock" class="icon" />
       <span> {{ time }}</span>
     </div>
-    <div class="date-time__session">0</div>
+    <div v-if="activeSessions" class="date-time__session">
+      {{ activeSessions }}
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted, onBeforeUnmount, watch } from "vue";
 import { formatDate, formatTime, getDayOfWeek } from "~/lib/utils";
+import { useNuxtApp } from "#app";
+const { $socket } = useNuxtApp();
 const { locale } = useI18n();
 
 const date = ref<string>("");
 const time = ref<string>("");
 const day = ref<string>("");
+const activeSessions = ref<number>(1);
 
 const updateDateTime = (): void => {
   date.value = formatDate(new Date(), locale.value);
@@ -30,12 +35,17 @@ const updateDateTime = (): void => {
 let timer: ReturnType<typeof setInterval>;
 
 onMounted(() => {
+  $socket.on("activeSessions", (count: number) => {
+    activeSessions.value = count;
+  });
+
   updateDateTime();
   timer = setInterval(updateDateTime, 1000);
 });
 
 onBeforeUnmount(() => {
   clearInterval(timer);
+  $socket.off("activeSessions");
 });
 
 watch(locale, () => {

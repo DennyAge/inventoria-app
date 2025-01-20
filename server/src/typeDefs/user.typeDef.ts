@@ -30,13 +30,6 @@ const userTypeDef = gql`
     fullName: String!
     email: String!
     password: String!
-    authentication: [AuthenticationInput!]
-    role: String!
-  }
-  input AuthenticationInput {
-    password: String!
-    salt: String!
-    sessionToken: String!
   }
   input LoginInput {
     email: String!

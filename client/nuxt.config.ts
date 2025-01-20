@@ -8,11 +8,27 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/icon",
     "usebootstrap",
+    "nuxt-graphql-client",
   ],
   i18n: {
     vueI18n: "./i18n.config.ts",
   },
   pinia: {
     storesDirs: ["./stores/**"],
+  },
+  runtimeConfig: {
+    public: {
+      GQL_HOST: "http://localhost:8080/graphql",
+    },
+  },
+  "graphql-client": {
+    clients: {
+      default: {
+        host: process.env.GQL_HOST! || "http://localhost:8080/graphql",
+        corsOptions: {
+          credentials: "include",
+        },
+      },
+    },
   },
 });

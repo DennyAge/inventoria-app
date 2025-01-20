@@ -7,19 +7,14 @@ export const authMiddleware = (
   next: NextFunction,
 ): void => {
   const token = req.cookies.session_token;
-
-  console.log(token);
-  if (!token) {
-    res.status(401).json({ message: "Unauthorized" });
-    return;
+  if (token) {
+    try {
+      const decoded = verifyToken(token);
+      // @ts-ignore
+      req.user = decoded;
+    } catch (error) {
+      res.status(401).json({ message: "Invalid token" });
+    }
   }
-
-  try {
-    const decoded = verifyToken(token);
-    // @ts-ignore
-    req.user = decoded;
-    next();
-  } catch (error) {
-    res.status(401).json({ message: "Invalid token" });
-  }
+  next();
 };
