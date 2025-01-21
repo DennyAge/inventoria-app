@@ -1,11 +1,10 @@
 mutation createProduct($input: CreateProductInput!) {
     createProduct(input: $input) {
-        date
         guarantee {
             end
             start
         }
-        isNew
+        isUsed
         order
         photo
         price {
@@ -17,6 +16,8 @@ mutation createProduct($input: CreateProductInput!) {
         specification
         title
         type
+        createdAt
+        updatedAt
     }
 }
 
@@ -25,6 +26,7 @@ mutation updateProduct($productId: ID!, $input: UpdateProductInput!) {
     updateProduct(productId: $productId, input: $input) {
         _id
         title
+        updatedAt
     }
 }
 

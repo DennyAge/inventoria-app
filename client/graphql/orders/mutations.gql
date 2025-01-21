@@ -1,12 +1,13 @@
 mutation createOrder($input: CreateOrderInput!) {
     createOrder(input: $input) {
         _id
-        date
+        title
         description
         products {
             _id
         }
-        title
+        createdAt
+        updatedAt
     }
 }
 mutation updateOrder($orderId: ID!, $input: UpdateOrderInput!) {

@@ -2,11 +2,12 @@ import gql from "graphql-tag";
 
 export const orderTypeDef = gql`
   type Order {
-    _id: ID
+    _id: ID!
     title: String!
-    date: String
-    description: String
+    description: String!
     products: [Product]
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Query {
@@ -22,15 +23,15 @@ export const orderTypeDef = gql`
 
   input CreateOrderInput {
     title: String!
-    description: String
+    description: String!
     products: [CreateProductInput]
   }
 
   input UpdateOrderInput {
-    title: String
-    date: String
-    description: String
+    title: String!
+    description: String!
     products: [UpdateProductInput]
+    updatedAt: String!
   }
   type DeleteOrderResponse {
     message: String!

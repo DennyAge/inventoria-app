@@ -3,7 +3,6 @@ mutation Login($input: LoginInput!) {
     _id
     email
     fullName
-
   }
 }
 mutation Register($input: SignUpInput!) {
@@ -11,6 +10,8 @@ mutation Register($input: SignUpInput!) {
     _id
     email
     fullName
+    createdAt
+    updatedAt
   }
 }
 mutation Logout {

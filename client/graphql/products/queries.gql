@@ -1,69 +1,72 @@
 query getAllProducts {
   products {
     _id
-    date
+    title
+    serialNumber
+    isUsed
+    order
+    photo
     guarantee {
       end
       start
     }
-    isNew
-    order
-    photo
     price {
       isDefault
       symbol
       value
     }
-    serialNumber
     specification
-    title
     type
+    createdAt
+    updatedAt
   }
 }
 
 query getProductById($productId: ID!) {
   product(productId: $productId) {
     _id
-    date
+    title
+    serialNumber
+    isUsed
+    order
+    photo
     guarantee {
       end
       start
     }
-    isNew
-    order
-    photo
     price {
       isDefault
       symbol
       value
     }
-    serialNumber
     specification
-    title
     type
+    createdAt
+    updatedAt
   }
 }
 
 query getProductsByOrderId($orderId: ID!) {
   productsByOrderId(orderId: $orderId) {
     _id
-    date
+    title
+    serialNumber
+    isUsed
+    order
+    photo
     guarantee {
       end
       start
     }
-    isNew
-    order
-    photo
     price {
       isDefault
       symbol
       value
     }
-    serialNumber
     specification
-    title
     type
+    createdAt
+    updatedAt
   }
 }
 

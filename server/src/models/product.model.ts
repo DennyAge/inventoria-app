@@ -13,7 +13,7 @@ interface IGuarantee extends Document {
 
 export interface IProduct extends Document {
   serialNumber: string;
-  isNew: boolean;
+  isUsed: boolean;
   photo: string;
   title: string;
   type: string;
@@ -21,7 +21,8 @@ export interface IProduct extends Document {
   guarantee: IGuarantee;
   price: IPrice[];
   order: string;
-  date: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 const ProductSchema = new mongoose.Schema(
   {
@@ -29,7 +30,7 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    isNew: {
+    isUsed: {
       type: Number,
       required: true,
     },
@@ -58,10 +59,6 @@ const ProductSchema = new mongoose.Schema(
       required: true,
     },
     order: {
-      type: String,
-      required: true,
-    },
-    date: {
       type: String,
       required: true,
     },

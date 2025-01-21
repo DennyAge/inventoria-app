@@ -54,7 +54,7 @@ onMounted(async () => {
 }
 .auth-layout__left-side {
   flex: 1;
-  background: url("/chris-lee-unsplash.jpg") no-repeat center/cover;
+  background: url("/images/chris-lee-unsplash.jpg") no-repeat center/cover;
 }
 .auth-layout__right-side {
   flex: 1;

@@ -13,17 +13,18 @@ export const productTypeDef = gql`
   }
 
   type Product {
-    _id: ID
-    serialNumber: String
-    isNew: Boolean
+    _id: ID!
+    serialNumber: String!
+    isUsed: Boolean
     photo: String
-    title: String
-    type: String
-    specification: String
-    guarantee: Guarantee
-    price: [Price]
-    order: String
-    date: String
+    title: String!
+    type: String!
+    specification: String!
+    guarantee: Guarantee!
+    price: [Price]!
+    order: String!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Query {
@@ -39,37 +40,38 @@ export const productTypeDef = gql`
   }
 
   input PriceInput {
-    value: Float
-    symbol: String
-    isDefault: Boolean
+    value: Float!
+    symbol: String!
+    isDefault: Boolean!
   }
 
   input GuaranteeInput {
-    start: String
-    end: String
+    start: String!
+    end: String!
   }
 
   input CreateProductInput {
-    serialNumber: String
-    isNew: Boolean
+    serialNumber: String!
+    isUsed: Boolean!
     photo: String
     title: String!
-    type: String!
-    specification: String
-    guarantee: GuaranteeInput
+    type: String
+    specification: String!
+    guarantee: GuaranteeInput!
     price: [PriceInput]
     order: String
-    date: String
+    createdAt: String!
+    updatedAt: String!
   }
 
   input UpdateProductInput {
-    photo: String
-    title: String
-    type: String
-    specification: String
-    guarantee: GuaranteeInput
-    price: [PriceInput]
-    date: String
+    photo: String!
+    title: String!
+    type: String!
+    specification: String!
+    guarantee: GuaranteeInput!
+    price: [PriceInput]!
+    updatedAt: String!
   }
   type DeleteProductResponse {
     message: String!

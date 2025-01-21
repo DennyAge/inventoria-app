@@ -26,7 +26,7 @@ interface Guarantee {
 interface Product {
   _id: string;
   serialNumber: string;
-  isNew: boolean;
+  isUsed: boolean;
   photo: string;
   title: string;
   type: string;
@@ -34,19 +34,23 @@ interface Product {
   guarantee: Guarantee;
   price: Price[];
   order: number;
-  date: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 interface Order {
   _id: string;
   title: string;
-  date: string;
   description: string;
+  createdAt: string;
+  updatedAt: string;
 }
 interface User {
   _id?: string;
   fullName: string;
   email: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 interface LoginInput {
   email: string;

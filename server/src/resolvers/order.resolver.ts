@@ -4,8 +4,7 @@ export const orderResolver = {
   Query: {
     orders: async () => {
       try {
-        const orders = await Order.find();
-        return orders;
+        return await Order.find();
       } catch (error) {
         console.log("Error getting orders", error);
         throw new Error(error.message || "Error getting orders");
@@ -13,8 +12,7 @@ export const orderResolver = {
     },
     order: async (_, { orderId }) => {
       try {
-        const order = await Order.findById(orderId);
-        return order;
+        return await Order.findById(orderId);
       } catch (error) {
         console.log("Error getting order", error);
         throw new Error(error.message || "Error getting order");
@@ -24,11 +22,11 @@ export const orderResolver = {
   Mutation: {
     createOrder: async (_, { input }) => {
       try {
-        const { title, description, products } = input;
+        const { title, description } = input;
         const newOrder = new Order({
           title,
-          date: new Date(),
           description,
+          // TODO: later implemented create new product functional.
           products: [],
         });
         await newOrder.save();
@@ -44,7 +42,6 @@ export const orderResolver = {
         const { title, description, products } = input;
 
         const order = await Order.findById(orderId);
-
         if (!order) {
           throw new Error("Order not found");
         }
@@ -55,6 +52,7 @@ export const orderResolver = {
             title,
             description,
             products,
+            updatedAt: new Date().toISOString(),
           },
           { new: true },
         );

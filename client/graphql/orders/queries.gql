@@ -1,23 +1,25 @@
 query getAllOrders {
   orders {
     _id
-    date
+    title
     description
     products {
       _id
     }
-    title
+    createdAt
+    updatedAt
   }
 }
 
 query getOrderById($orderId: ID!) {
   order(orderId: $orderId) {
     _id
-    date
+    title
     description
     products {
       _id
     }
-    title
+    createdAt
+    updatedAt
   }
 }

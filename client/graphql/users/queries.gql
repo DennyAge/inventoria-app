@@ -10,6 +10,8 @@ query getUsers {
     _id
     email,
     fullName,
+    createdAt
+    updatedAt
 
   }
 }
@@ -18,6 +20,8 @@ query getUserById($userId: ID!) {
       _id,
     email,
     fullName,
+    createdAt
+    updatedAt
   }
 }
 

@@ -5,8 +5,7 @@ export const productResolver = {
   Query: {
     products: async (_, __) => {
       try {
-        const products = await Product.find();
-        return products;
+        return await Product.find();
       } catch (error) {
         console.log("Error getting products", error);
         throw new Error(error.message || "Error getting products");
@@ -14,8 +13,7 @@ export const productResolver = {
     },
     product: async (_, { productId }) => {
       try {
-        const product = await Product.findById(productId);
-        return product;
+        return await Product.findById(productId);
       } catch (error) {
         console.log("Error getting product", error);
         throw new Error(error.message || "Error getting product");
@@ -34,19 +32,22 @@ export const productResolver = {
   Mutation: {
     createProduct: async (_, { input }) => {
       try {
-        const { photo, title, type, specification, guarantee, price, order } =
-          input;
+        const { title, type, specification, price, order } = input;
         const newProduct = new Product({
           serialNumber: generateSerialNumber(),
-          isNew: true,
-          photo,
+          isUsed: false,
+          //TODO: later add AWS for upload img and add photo input
+          photo: "",
           title,
           type,
           specification,
-          guarantee,
+          //TODO: later add guarantee input
+          guarantee: {
+            start: new Date().toISOString(),
+            end: new Date().toISOString(),
+          },
           price,
           order,
-          date: new Date(),
         });
         await newProduct.save();
 
@@ -70,7 +71,7 @@ export const productResolver = {
         const updatedProduct = await Product.findByIdAndUpdate(
           productId,
           {
-            isNew: true,
+            isUsed: false,
             photo,
             title,
             type,
@@ -78,6 +79,7 @@ export const productResolver = {
             guarantee,
             price,
             order,
+            updatedAt: new Date().toISOString(),
           },
           { new: true },
         );
