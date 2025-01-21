@@ -13,7 +13,7 @@ query getUsers {
 
   }
 }
-query getUser($userId: ID!) {
+query getUserById($userId: ID!) {
   user(userId: $userId) {
       _id,
     email,

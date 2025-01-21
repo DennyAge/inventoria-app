@@ -9,7 +9,6 @@ export const userResolver = {
         const user = await User.findById(userId);
         return user;
       } catch (err) {
-        console.error("Error in authUser: ", err);
         throw new Error("Internal server error");
       }
     },
@@ -90,7 +89,8 @@ export const userResolver = {
           sameSite: "none",
           expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
         });
-        return user;
+        return context.res.status(200).json(user).end();
+        // return user;
       } catch (err) {
         console.error("Error in login:", err);
         throw new Error(err.message || "Internal server error");

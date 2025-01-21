@@ -1,0 +1,23 @@
+mutation createOrder($input: CreateOrderInput!) {
+    createOrder(input: $input) {
+        _id
+        date
+        description
+        products {
+            _id
+        }
+        title
+    }
+}
+mutation updateOrder($orderId: ID!, $input: UpdateOrderInput!) {
+    updateOrder(orderId: $orderId, input: $input) {
+        _id
+        title
+    }
+}
+
+mutation deleteOrder($orderId: ID!) {
+    deleteOrder(orderId: $orderId) {
+        message
+    }
+}

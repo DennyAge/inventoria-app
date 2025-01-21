@@ -33,8 +33,8 @@ export const productTypeDef = gql`
 
   type Mutation {
     createProduct(input: CreateProductInput!): Product!
-    updateProduct(input: UpdateProductInput!): Product!
-    deleteProduct(productId: ID!): Product!
+    updateProduct(productId: ID!, input: UpdateProductInput!): Product!
+    deleteProduct(productId: ID!): DeleteProductResponse
   }
 
   input PriceInput {
@@ -49,7 +49,7 @@ export const productTypeDef = gql`
   }
 
   input CreateProductInput {
-    serialNumber: Int
+    serialNumber: Int!
     isNew: Int
     photo: String
     title: String!
@@ -58,7 +58,7 @@ export const productTypeDef = gql`
     guarantee: GuaranteeInput
     price: [PriceInput]
     order: Int
-    date: String
+    date: String!
   }
 
   input UpdateProductInput {
@@ -69,6 +69,9 @@ export const productTypeDef = gql`
     guarantee: GuaranteeInput
     price: [PriceInput]
     date: String
+  }
+  type DeleteProductResponse {
+    message: String!
   }
 `;
 

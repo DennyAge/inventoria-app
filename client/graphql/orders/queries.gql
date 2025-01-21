@@ -1,0 +1,23 @@
+query getAllOrders {
+  orders {
+    _id
+    date
+    description
+    products {
+      _id
+    }
+    title
+  }
+}
+
+query getOrderById($orderId: ID!) {
+  order(orderId: $orderId) {
+    _id
+    date
+    description
+    products {
+      _id
+    }
+    title
+  }
+}

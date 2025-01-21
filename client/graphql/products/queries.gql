@@ -1,0 +1,48 @@
+query getAllProducts {
+  products {
+    _id
+    date
+    guarantee {
+      end
+      start
+    }
+    isNew
+    order
+    photo
+    price {
+      isDefault
+      symbol
+      value
+    }
+    serialNumber
+    specification
+    title
+    type
+  }
+}
+
+query getProductById($productId: ID!) {
+  product(productId: $productId) {
+    _id
+    date
+    guarantee {
+      end
+      start
+    }
+    isNew
+    order
+    photo
+    price {
+      isDefault
+      symbol
+      value
+    }
+    serialNumber
+    specification
+    title
+    type
+  }
+}
+
+
+

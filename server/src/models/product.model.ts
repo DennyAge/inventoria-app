@@ -10,10 +10,10 @@ interface IGuarantee extends Document {
   start: string;
   end: string;
 }
-// @ts-ignore
+
 export interface IProduct extends Document {
   serialNumber: number;
-  isNew: number;
+  isNew: boolean;
   photo: string;
   title: string;
   type: string;

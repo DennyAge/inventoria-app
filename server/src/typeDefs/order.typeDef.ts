@@ -16,8 +16,8 @@ export const orderTypeDef = gql`
 
   type Mutation {
     createOrder(input: CreateOrderInput!): Order!
-    updateOrder(input: UpdateOrderInput!): Order!
-    deleteOrder(orderId: ID!): Order!
+    updateOrder(orderId: ID!, input: UpdateOrderInput!): Order!
+    deleteOrder(orderId: ID!): DeleteOrderResponse
   }
 
   input CreateOrderInput {
@@ -32,6 +32,9 @@ export const orderTypeDef = gql`
     date: String
     description: String
     products: [UpdateProductInput]
+  }
+  type DeleteOrderResponse {
+    message: String!
   }
 `;
 

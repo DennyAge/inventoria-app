@@ -1,0 +1,35 @@
+mutation createProduct($input: CreateProductInput!) {
+    createProduct(input: $input) {
+        date
+        guarantee {
+            end
+            start
+        }
+        isNew
+        order
+        photo
+        price {
+            isDefault
+            symbol
+            value
+        }
+        serialNumber
+        specification
+        title
+        type
+    }
+}
+
+
+mutation updateProduct($productId: ID!, $input: UpdateProductInput!) {
+    updateProduct(productId: $productId, input: $input) {
+        _id
+        title
+    }
+}
+
+mutation deleteProduct($productId: ID!) {
+    deleteProduct(productId: $productId) {
+      message
+    }
+}
