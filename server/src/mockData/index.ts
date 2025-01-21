@@ -4,27 +4,21 @@ export const orders = [
     title: "Order 1",
     date: "2017-06-29 12:09:33",
     description: "desc",
-    get products() {
-      return products;
-    },
+    products: [],
   },
   {
     _id: 2,
     title: "Order 2",
     date: "2017-06-29 12:09:33",
     description: "desc",
-    get products() {
-      return products;
-    },
+    products: [],
   },
   {
     _id: 3,
     title: "Order 3",
     date: "2017-06-29 12:09:33",
     description: "desc",
-    get products() {
-      return products;
-    },
+    products: [],
   },
 ];
 
@@ -32,7 +26,7 @@ export const products = [
   {
     _id: 1,
     serialNumber: 1234,
-    isNew: 1,
+    isNew: false,
     photo: "pathToFile.jpg",
     title: "Product 1",
     type: "Monitors",
@@ -51,7 +45,7 @@ export const products = [
   {
     _id: 2,
     serialNumber: 1234,
-    isNew: 1,
+    isNew: true,
     photo: "pathToFile.jpg",
     title: "Product 1",
     type: "Monitors",
@@ -67,10 +61,4 @@ export const products = [
     order: 2,
     date: "2017-06-29 12:09:33",
   },
-];
-export const users = [
-  { _id: "1", fullName: "Test Dev 1", email: "test@dev.com" },
-  { _id: "2", fullName: "Test Dev 2", email: "test@dev.com" },
-  { _id: "3", fullName: "Test Dev 3", email: "test@dev.com" },
-  { _id: "4", fullName: "Test Dev 4", email: "test@dev.com" },
 ];

@@ -1,5 +1,6 @@
 import { products } from "../mockData";
 import { Product } from "../models/product.model";
+import { generateSerialNumber } from "../lib";
 
 export const productResolver = {
   Query: {
@@ -24,7 +25,7 @@ export const productResolver = {
         const { photo, title, type, specification, guarantee, price, order } =
           input;
         const newProduct = new Product({
-          serialNumber: "12121",
+          serialNumber: generateSerialNumber(),
           isNew: true,
           photo,
           title,
