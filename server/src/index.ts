@@ -42,7 +42,8 @@ const io = new Server(httpServer, {
   cors: {
     origin: process.env.CLIENT_URL!,
     credentials: true,
-    methods: ["GET", "POST"],
+    methods: ["POST", "GET", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   },
 });
 
@@ -53,8 +54,10 @@ const startServer = async () => {
   app.use(
     "/graphql",
     cors({
-      origin: "http://localhost:3000",
+      origin: process.env.CLIENT_URL!,
       credentials: true,
+      methods: ["POST", "GET", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
     }),
     express.json(),
     expressMiddleware(server, {
@@ -68,7 +71,6 @@ const startServer = async () => {
   await connectDB();
   console.log(`Server start on http://localhost:${process.env.PORT}`);
 };
-
 startServer().catch((error) => {
   console.error("Failed to start server:", error);
 });

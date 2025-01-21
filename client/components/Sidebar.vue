@@ -19,7 +19,7 @@
       </nav>
     </div>
     <div class="sidebar__footer">
-      <UserCard :user="user" />
+      <UserCard v-if="user"  :user="user" />
       <LanguageSelect />
     </div>
   </div>

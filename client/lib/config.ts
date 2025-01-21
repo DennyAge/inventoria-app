@@ -1,5 +1,5 @@
 export const config = {
   env: {
-    apiEndpoint: process.env.PUBLIC_API_URL!,
+    apiEndpoint: process.env.NUXT_PUBLIC_API_URL!,
   },
 };

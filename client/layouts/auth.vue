@@ -1,5 +1,5 @@
 <template>
-  <main v-if="!authUser" class="auth-layout">
+  <main v-if="!user" class="auth-layout">
     <div class="auth-layout__left-side">
       <div class="logo">
         <Image src="/logo.png" alt="logo" width="35px" />
@@ -17,12 +17,18 @@
 import { useRouter } from "vue-router";
 import { onMounted } from "vue";
 import Loader from "~/components/Loader.vue";
-const { authUser } = await GqlGetAuthUser();
+import type { User } from "~/types";
+const user = ref<User | null>(null);
 const router = useRouter();
-
-onMounted(() => {
-  if (authUser) {
-    router.push("/");
+onMounted(async () => {
+  try {
+    const { authUser } = await GqlGetAuthUser();
+    if (authUser) {
+      user.value = authUser;
+      router.push("/");
+    }
+  } catch (erorr) {
+    console.log(erorr);
   }
 });
 </script>

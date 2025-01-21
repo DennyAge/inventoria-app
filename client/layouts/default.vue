@@ -1,6 +1,6 @@
 <template>
-  <main v-if="authUser" class="page-container">
-    <Sidebar :user="authUser" />
+  <main v-if="user" class="page-container">
+    <Sidebar :user="user" />
     <div class="page-content">
       <slot />
     </div>
@@ -14,12 +14,19 @@ import Loader from "~/components/Loader.vue";
 
 import { useRouter } from "vue-router";
 import { onMounted } from "vue";
-
-const { authUser } = await GqlGetAuthUser();
+import type { User } from "~/types";
+const user = ref<User | null>(null);
 const router = useRouter();
 
-onMounted(() => {
-  if (!authUser) {
+onMounted(async () => {
+  try {
+    const { authUser } = await GqlGetAuthUser();
+    if (!authUser) {
+      router.push("/sign-in");
+    } else {
+      user.value = authUser;
+    }
+  } catch (erorr) {
     router.push("/sign-in");
   }
 });

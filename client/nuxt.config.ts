@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: [
     "nuxt-site-config",
     "@pinia/nuxt",
@@ -18,14 +18,31 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      GQL_HOST: "http://localhost:8080/graphql",
+      GQL_HOST: process.env.GQL_HOST!,
     },
   },
+  nitro: {
+    devProxy: {
+      "/graphql": {
+        target: process.env.GQL_HOST!,
+        changeOrigin: true,
+      },
+    },
+  },
+
   "graphql-client": {
+    tokenStorage: {
+      mode: "localStorage",
+    },
+    codegen: {
+      disableOnBuild: true,
+    },
     clients: {
       default: {
-        host: process.env.GQL_HOST! || "http://localhost:8080/graphql",
+        host: process.env.GQL_HOST!,
+        schema: "./schema.json",
         corsOptions: {
+          mode: "cors",
           credentials: "include",
         },
       },
