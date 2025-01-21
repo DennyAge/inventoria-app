@@ -55,10 +55,6 @@ const errorMessage = ref<string>("");
 
 const router = useRouter();
 
-watch([email, password], () => {
-  errorMessage.value = "";
-});
-
 const login = async () => {
   try {
     await GqlLogin({

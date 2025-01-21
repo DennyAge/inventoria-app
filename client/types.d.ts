@@ -24,9 +24,9 @@ interface Guarantee {
 }
 
 interface Product {
-  id: number;
-  serialNumber: number;
-  isNew: number;
+  _id: string;
+  serialNumber: string;
+  isNew: boolean;
   photo: string;
   title: string;
   type: string;
@@ -38,12 +38,23 @@ interface Product {
 }
 
 interface Order {
-  id: number;
+  _id: string;
   title: string;
   date: string;
   description: string;
 }
 interface User {
+  _id?: string;
   fullName: string;
   email: string;
+}
+interface LoginInput {
+  email: string;
+  password: string;
+}
+
+interface SignUpInput {
+  email: string;
+  password: string;
+  fullName: string;
 }

@@ -44,5 +44,27 @@ query getProductById($productId: ID!) {
   }
 }
 
+query getProductsByOrderId($orderId: ID!) {
+  productsByOrderId(orderId: $orderId) {
+    _id
+    date
+    guarantee {
+      end
+      start
+    }
+    isNew
+    order
+    photo
+    price {
+      isDefault
+      symbol
+      value
+    }
+    serialNumber
+    specification
+    title
+    type
+  }
+}
 
 

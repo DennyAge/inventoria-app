@@ -10,7 +10,7 @@
       type="button"
       class="btn btn-success"
     >
-      Primary
+      + Add New
     </button>
   </div>
 </template>
@@ -18,7 +18,7 @@
 <script setup lang="ts">
 interface Props {
   title: string;
-  count?: string;
+  count?: string | number;
   addBtn?: boolean;
   onClick?: () => void;
 }
@@ -33,6 +33,7 @@ const props = withDefaults(defineProps<Props>(), {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  margin-bottom: 2rem;
 }
 .page-header__title {
   font-size: 1.7rem;

@@ -22,12 +22,13 @@ onMounted(async () => {
   try {
     const { authUser } = await GqlGetAuthUser();
     if (!authUser) {
-      router.push("/sign-in");
+      await router.push("/sign-in");
     } else {
       user.value = authUser;
     }
-  } catch (erorr) {
-    router.push("/sign-in");
+  } catch (err) {
+    console.log(err);
+    await router.push("/sign-in");
   }
 });
 </script>

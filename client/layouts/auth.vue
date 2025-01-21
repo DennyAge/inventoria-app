@@ -16,16 +16,21 @@
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
 import { onMounted } from "vue";
+
 import Loader from "~/components/Loader.vue";
+
 import type { User } from "~/types";
+
 const user = ref<User | null>(null);
+
 const router = useRouter();
+
 onMounted(async () => {
   try {
     const { authUser } = await GqlGetAuthUser();
     if (authUser) {
       user.value = authUser;
-      router.push("/");
+      await router.push("/");
     }
   } catch (erorr) {
     console.log(erorr);
@@ -49,7 +54,7 @@ onMounted(async () => {
 }
 .auth-layout__left-side {
   flex: 1;
-  background: url("/chris-lee-unsplash.jpg") no-repeat;
+  background: url("/chris-lee-unsplash.jpg") no-repeat center/cover;
 }
 .auth-layout__right-side {
   flex: 1;

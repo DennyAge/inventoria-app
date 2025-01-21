@@ -21,6 +21,15 @@ export const productResolver = {
         throw new Error(error.message || "Error getting product");
       }
     },
+    productsByOrderId: async (_, { orderId }) => {
+      try {
+        const res = await Product.find({ order: orderId });
+        return res;
+      } catch (error) {
+        console.log("Error getting product", error);
+        throw new Error(error.message || "Error getting product");
+      }
+    },
   },
   Mutation: {
     createProduct: async (_, { input }) => {

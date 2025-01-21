@@ -29,6 +29,7 @@ export const productTypeDef = gql`
   type Query {
     products: [Product!]
     product(productId: ID!): Product
+    productsByOrderId(orderId: ID!): [Product!]
   }
 
   type Mutation {
