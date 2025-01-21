@@ -4,7 +4,7 @@ export const productTypeDef = gql`
   type Price {
     value: Float
     symbol: String
-    isDefault: Int
+    isDefault: Boolean
   }
 
   type Guarantee {
@@ -14,15 +14,15 @@ export const productTypeDef = gql`
 
   type Product {
     _id: ID
-    serialNumber: Int
-    isNew: Int
+    serialNumber: String
+    isNew: Boolean
     photo: String
     title: String
     type: String
     specification: String
     guarantee: Guarantee
     price: [Price]
-    order: Int
+    order: String
     date: String
   }
 
@@ -40,7 +40,7 @@ export const productTypeDef = gql`
   input PriceInput {
     value: Float
     symbol: String
-    isDefault: Int
+    isDefault: Boolean
   }
 
   input GuaranteeInput {
@@ -49,16 +49,16 @@ export const productTypeDef = gql`
   }
 
   input CreateProductInput {
-    serialNumber: Int!
-    isNew: Int
+    serialNumber: String
+    isNew: Boolean
     photo: String
     title: String!
     type: String!
     specification: String
     guarantee: GuaranteeInput
     price: [PriceInput]
-    order: Int
-    date: String!
+    order: String
+    date: String
   }
 
   input UpdateProductInput {

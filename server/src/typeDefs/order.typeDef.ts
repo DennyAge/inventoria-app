@@ -4,7 +4,7 @@ export const orderTypeDef = gql`
   type Order {
     _id: ID
     title: String!
-    date: String!
+    date: String
     description: String
     products: [Product]
   }
@@ -22,7 +22,6 @@ export const orderTypeDef = gql`
 
   input CreateOrderInput {
     title: String!
-    date: String!
     description: String
     products: [CreateProductInput]
   }

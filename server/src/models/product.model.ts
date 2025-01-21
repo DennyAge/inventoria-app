@@ -3,7 +3,7 @@ import mongoose, { Document } from "mongoose";
 interface IPrice extends Document {
   value: number;
   symbol: string;
-  isDefault: number;
+  isDefault: boolean;
 }
 
 interface IGuarantee extends Document {
@@ -12,7 +12,7 @@ interface IGuarantee extends Document {
 }
 
 export interface IProduct extends Document {
-  serialNumber: number;
+  serialNumber: string;
   isNew: boolean;
   photo: string;
   title: string;
@@ -20,13 +20,13 @@ export interface IProduct extends Document {
   specification: string;
   guarantee: IGuarantee;
   price: IPrice[];
-  order: number;
+  order: string;
   date: string;
 }
 const ProductSchema = new mongoose.Schema(
   {
     serialNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
     isNew: {
@@ -58,7 +58,7 @@ const ProductSchema = new mongoose.Schema(
       required: true,
     },
     order: {
-      type: Number,
+      type: String,
       required: true,
     },
     date: {

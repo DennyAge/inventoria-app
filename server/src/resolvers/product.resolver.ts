@@ -1,22 +1,25 @@
-import { products } from "../mockData";
 import { Product } from "../models/product.model";
 import { generateSerialNumber } from "../lib";
 
 export const productResolver = {
   Query: {
-    products: (_, __, context) => {
-      const user = context.req?.user;
-      if (!user) {
-        return;
+    products: async (_, __) => {
+      try {
+        const products = await Product.find();
+        return products;
+      } catch (error) {
+        console.log("Error getting products", error);
+        throw new Error(error.message || "Error getting products");
       }
-      return products;
     },
-    product: (_, { productId }, context) => {
-      const user = context.req?.user;
-      if (!user) {
-        return;
+    product: async (_, { productId }) => {
+      try {
+        const product = await Product.findById(productId);
+        return product;
+      } catch (error) {
+        console.log("Error getting product", error);
+        throw new Error(error.message || "Error getting product");
       }
-      return products.find((product) => product._id === productId);
     },
   },
   Mutation: {
