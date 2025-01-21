@@ -10,10 +10,7 @@
       />
       <div class="orders-page__body">
         <div class="orders-page__list">
-          <div
-            v-for="(order, index) in orders"
-            :key="order?._id || order.title"
-          >
+          <div v-for="order in orders" :key="order?._id || order.title">
             <OrderCard :order="order" />
           </div>
         </div>

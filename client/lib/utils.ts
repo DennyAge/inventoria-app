@@ -1,3 +1,5 @@
+import type { Product } from "~/types";
+
 export const getInitials = (name: string): string =>
   name
     .split(" ")
@@ -27,4 +29,46 @@ export const getDayOfWeek = (date: Date, locale: string): string => {
     weekday: "long",
   });
   return formatter.format(date);
+};
+
+export const formatTimestampLong = (timestampStr: string, locale: string) => {
+  const timestamp = Number(timestampStr);
+
+  const date = new Date(timestamp);
+
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = date.toLocaleString(locale, { month: "short" });
+  const year = date.getFullYear();
+
+  return `${day} / ${month} / ${year}`;
+};
+export const formatTimestampShort = (timestampStr: string) => {
+  const timestamp = Number(timestampStr);
+
+  const date = new Date(timestamp);
+
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+
+  return `${day} / ${month}`;
+};
+
+export const sumPricesByProduct = (data: Product[]) => {
+  let USD = 0;
+  let UAH = 0;
+
+  data.forEach((item) => {
+    item.price.forEach((priceItem) => {
+      if (priceItem.symbol === "USD") {
+        USD += priceItem.value;
+      } else if (priceItem.symbol === "UAH") {
+        UAH += priceItem.value;
+      }
+    });
+  });
+
+  return {
+    USD,
+    UAH,
+  };
 };
