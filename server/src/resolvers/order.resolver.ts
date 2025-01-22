@@ -22,12 +22,11 @@ export const orderResolver = {
   Mutation: {
     createOrder: async (_, { input }) => {
       try {
-        const { title, description } = input;
+        const { title, description, products } = input;
         const newOrder = new Order({
           title,
           description,
-          // TODO: later implemented create new product functional.
-          products: [],
+          products,
         });
         await newOrder.save();
 
@@ -39,7 +38,7 @@ export const orderResolver = {
     },
     updateOrder: async (_, { orderId, input }) => {
       try {
-        const { title, description } = input;
+        const { title, description, products } = input;
 
         const order = await Order.findById(orderId);
         if (!order) {
@@ -51,6 +50,7 @@ export const orderResolver = {
           {
             title,
             description,
+            products,
           },
           { new: true },
         );

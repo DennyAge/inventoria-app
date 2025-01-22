@@ -34,6 +34,9 @@ const updateDateTime = (): void => {
 let timer: ReturnType<typeof setInterval>;
 
 onMounted(() => {
+  $socket.on("connection", (count: number) => {
+    console.log(count);
+  });
   $socket.on("activeSessions", (count: number) => {
     activeSessions.value = count;
   });

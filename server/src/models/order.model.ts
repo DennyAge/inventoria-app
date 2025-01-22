@@ -1,10 +1,14 @@
 import mongoose, { Document } from "mongoose";
 import { IProduct } from "./product.model";
 
+interface IProductIds extends Document {
+  id: string;
+}
+
 interface IOrder extends Document {
   title: string;
   description: string;
-  products: IProduct[];
+  products: IProductIds[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,7 +23,11 @@ const OrderSchema = new mongoose.Schema(
       required: true,
     },
     products: {
-      type: Object,
+      type: [
+        {
+          id: String,
+        },
+      ],
       required: true,
     },
   },

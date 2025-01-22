@@ -23,6 +23,10 @@ interface Guarantee {
   end: string;
 }
 
+interface ProductIds {
+  id: string;
+}
+
 interface Product {
   _id: string;
   serialNumber: string;
@@ -46,6 +50,7 @@ interface Order {
   _id: string;
   title: string;
   description: string;
+  products?: { id: string }[] | null | undefined;
   createdAt: string;
   updatedAt: string;
 }
@@ -69,6 +74,7 @@ interface SignUpInput {
 interface UpdateOrderInput {
   title: string;
   description: string;
+  products: ProductIds[];
 }
 interface UpdateProductInput {
   photo: string;
@@ -78,7 +84,4 @@ interface UpdateProductInput {
   guarantee: Guarantee;
   price: Price[];
   updatedAt: string;
-}
-interface GetAllProductsResponse {
-  products: Product[];
 }

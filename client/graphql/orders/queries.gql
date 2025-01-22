@@ -3,6 +3,9 @@ query getAllOrders {
     _id
     title
     description
+    products {
+      id
+    }
     createdAt
     updatedAt
   }
@@ -13,6 +16,9 @@ query getOrderById($orderId: ID!) {
     _id
     title
     description
+    products {
+      id
+    }
     createdAt
     updatedAt
   }
