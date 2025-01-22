@@ -88,7 +88,6 @@ export const userResolver = {
           sameSite: "none",
           expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
         });
-        // return context.res.status(200).json(user).end();
       } catch (err) {
         console.error("Error in login:", err);
         throw new Error(err.message || "Internal server error");

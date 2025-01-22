@@ -53,22 +53,22 @@ export const formatTimestampShort = (timestampStr: string) => {
   return `${day} / ${month}`;
 };
 
-export const sumPricesByProduct = (data: Product[]) => {
-  let USD = 0;
-  let UAH = 0;
+export const sumPricesByProduct = (
+  data: Product[] | Product,
+): { USD: number; UAH: number } => {
+  const products = Array.isArray(data) ? data : [data];
 
-  data.forEach((item) => {
-    item.price.forEach((priceItem) => {
-      if (priceItem.symbol === "USD") {
-        USD += priceItem.value;
-      } else if (priceItem.symbol === "UAH") {
-        UAH += priceItem.value;
-      }
-    });
-  });
-
-  return {
-    USD,
-    UAH,
-  };
+  return products.reduce(
+    (acc, item) => {
+      item.price.forEach((priceItem) => {
+        if (priceItem?.symbol === "USD") {
+          acc.USD += priceItem?.value;
+        } else if (priceItem?.symbol === "UAH") {
+          acc.UAH += priceItem?.value;
+        }
+      });
+      return acc;
+    },
+    { USD: 0, UAH: 0 },
+  );
 };

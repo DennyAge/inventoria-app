@@ -31,8 +31,12 @@ interface Product {
   title: string;
   type: string;
   specification: string;
-  guarantee: Guarantee[];
-  price: Price[];
+  guarantee: Guarantee;
+  price: Array<{
+    value: number;
+    symbol: string;
+    isDefault: boolean;
+  } | null>;
   order: string;
   createdAt: string;
   updatedAt: string;
@@ -46,7 +50,7 @@ interface Order {
   updatedAt: string;
 }
 interface User {
-  _id?: string;
+  _id: string;
   fullName: string;
   email: string;
   createdAt?: string;
@@ -62,13 +66,19 @@ interface SignUpInput {
   password: string;
   fullName: string;
 }
-
+interface UpdateOrderInput {
+  title: string;
+  description: string;
+}
 interface UpdateProductInput {
   photo: string;
   title: string;
   type: string;
   specification: string;
-  guarantee: Guarantee[];
+  guarantee: Guarantee;
   price: Price[];
   updatedAt: string;
+}
+interface GetAllProductsResponse {
+  products: Product[];
 }

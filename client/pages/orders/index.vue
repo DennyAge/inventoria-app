@@ -10,6 +10,7 @@
       />
       <div class="orders-page__body">
         <div class="orders-page__list">
+          <Spinner v-if="isLoading" />
           <div v-for="order in orders" :key="order?._id || order.title">
             <OrderCard :order="order" />
           </div>
@@ -30,7 +31,23 @@ useHead({
     },
   ],
 });
-const { orders } = await GqlGetAllOrders();
+import { useOrdersStore } from "~/store/order.store";
+import { useProductsStore } from "~/store/products.store";
+const ordersStore = useOrdersStore();
+const productsStore = useProductsStore();
+
+const isLoading = ref(true);
+
+onMounted(async () => {
+  try {
+    await productsStore.getProducts();
+    await ordersStore.getOrders();
+  } finally {
+    isLoading.value = false;
+  }
+});
+
+const orders = computed(() => ordersStore.orders);
 
 const addNewOrder = () => {
   alert("Add new order!");

@@ -20,9 +20,9 @@ export const productTypeDef = gql`
     title: String!
     type: String!
     specification: String!
-    guarantee: [Guarantee]!
+    guarantee: Guarantee!
     price: [Price]!
-    order: String!
+    order: ID!
     createdAt: String!
     updatedAt: String!
   }
@@ -30,7 +30,6 @@ export const productTypeDef = gql`
   type Query {
     products: [Product!]
     product(productId: ID!): Product
-    productsByOrderId(orderId: ID!): [Product!]
   }
 
   type Mutation {
@@ -51,27 +50,24 @@ export const productTypeDef = gql`
   }
 
   input CreateProductInput {
-    serialNumber: String!
-    isUsed: Boolean!
+    serialNumber: String
+    isUsed: Boolean
     photo: String
     title: String!
     type: String!
-    specification: String!
-    guarantee: [GuaranteeInput]!
-    price: [PriceInput]!
-    order: String!
-    createdAt: String!
-    updatedAt: String!
+    specification: String
+    guarantee: GuaranteeInput
+    price: [PriceInput]
+    order: ID
   }
 
   input UpdateProductInput {
-    photo: String!
-    title: String!
-    type: String!
-    specification: String!
-    guarantee: [GuaranteeInput]!
-    price: [PriceInput]!
-    updatedAt: String!
+    photo: String
+    title: String
+    type: String
+    specification: String
+    guarantee: GuaranteeInput
+    price: [PriceInput]
   }
   type DeleteProductResponse {
     message: String!

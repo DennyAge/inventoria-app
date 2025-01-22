@@ -19,31 +19,28 @@ export const productResolver = {
         throw new Error(error.message || "Error getting product");
       }
     },
-    productsByOrderId: async (_, { orderId }) => {
-      try {
-        return await Product.find({ order: orderId });
-      } catch (error) {
-        console.log("Error getting product", error);
-        throw new Error(error.message || "Error getting product");
-      }
-    },
   },
   Mutation: {
     createProduct: async (_, { input }) => {
       try {
         const { title, type, specification, price, order } = input;
+
+        const startDate = new Date();
+        const endDate = new Date(startDate);
+        endDate.setMonth(endDate.getMonth() + 6);
+
         const newProduct = new Product({
           serialNumber: generateSerialNumber(),
           isUsed: false,
           //TODO: later add AWS for upload img and add photo input
-          photo: "",
+          photo: "devices.svg",
           title,
           type,
           specification,
-          //TODO: later add guarantee input
+          //TODO: add another method for guarantee
           guarantee: {
-            start: new Date().toISOString(),
-            end: new Date().toISOString(),
+            start: startDate.toISOString(),
+            end: endDate.toISOString(),
           },
           price,
           order,
@@ -78,7 +75,6 @@ export const productResolver = {
             guarantee,
             price,
             order,
-            updatedAt: new Date().toISOString(),
           },
           { new: true },
         );

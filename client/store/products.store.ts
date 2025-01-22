@@ -2,7 +2,7 @@ import type { Product, UpdateProductInput } from "~/types";
 
 const defaultValues: {
   products: Product[];
-  selectedProducts: Product[];
+  selectedProducts: Product[] | Product;
   product: Product | null;
 } = {
   products: [],
@@ -12,17 +12,25 @@ const defaultValues: {
 
 export const useProductsStore = defineStore("products", {
   state: () => defaultValues,
-  getters: {},
+  getters: {
+    getProductsByOrderId: (state) => (orderId: string) => {
+      const products = state.products.find(
+        (product) => product.order === orderId,
+      );
+      return products || [];
+    },
+  },
   actions: {
     async getProducts() {
       try {
         const { products } = await GqlGetAllProducts();
-        this.$patch({ products });
+        this.$patch({ products: products || [] });
       } catch (error) {
         console.error("Get products failed:", error);
         this.$patch({ products: [] });
       }
     },
+
     async getProduct(productId: string) {
       const { product } = await GqlGetProductById({ productId });
       if (product) {
@@ -32,9 +40,11 @@ export const useProductsStore = defineStore("products", {
         this.$patch({ product: null });
       }
     },
-    setSelectedProducts(data: Product[]) {
+
+    setSelectedProducts(data: Product[] | Product) {
       this.$patch({ selectedProducts: data });
     },
+
     async updateProduct(productId: string, input: UpdateProductInput) {
       try {
         const { updateProduct } = await GqlUpdateProduct({
@@ -43,7 +53,7 @@ export const useProductsStore = defineStore("products", {
         });
 
         const index = this.products.findIndex(
-          (p) => p._id === updateProduct._id,
+          (product) => product._id === updateProduct._id,
         );
         if (index !== -1) {
           this.products.splice(index, 1, updateProduct);
@@ -55,27 +65,26 @@ export const useProductsStore = defineStore("products", {
         console.error("Update product failed:", error);
       }
     },
+
     async deleteProduct(productId: string) {
       try {
         const { deleteProduct } = await GqlDeleteProduct({ productId });
 
         if (deleteProduct?.message) {
-          this.products = this.products.filter((p) => p._id !== productId);
+          this.products = this.products.filter(
+            (product) => product._id !== productId,
+          );
 
           if (this.product?._id === productId) {
             this.$patch({ product: null });
           }
-
-          this.selectedProducts = this.selectedProducts.filter(
-            (p) => p._id !== productId,
-          );
-
           return deleteProduct?.message;
         }
       } catch (error) {
         console.error("Delete product failed:", error);
       }
     },
+
     clearProductsStore() {
       this.$patch(defaultValues);
     },

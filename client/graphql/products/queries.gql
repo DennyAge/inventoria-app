@@ -46,28 +46,4 @@ query getProductById($productId: ID!) {
   }
 }
 
-query getProductsByOrderId($orderId: ID!) {
-  productsByOrderId(orderId: $orderId) {
-    _id
-    title
-    serialNumber
-    isUsed
-    order
-    photo
-    guarantee {
-      end
-      start
-    }
-    price {
-      isDefault
-      symbol
-      value
-    }
-    specification
-    type
-    createdAt
-    updatedAt
-  }
-}
-
 

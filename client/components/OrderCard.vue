@@ -15,7 +15,7 @@
       <button class="product-btn" @click="handleOpenOrderProducts">
         <Icon name="ri:list-unordered" class="icon" />
       </button>
-      {{ productsByOrderId?.length }}
+      {{ products?.length }}
     </div>
     <div class="data">
       <span>{{ totalPrice.USD }} $</span>
@@ -34,26 +34,26 @@ import {
   sumPricesByProduct,
 } from "~/lib/utils";
 import { useProductsStore } from "~/store/products.store";
+import { useOrdersStore } from "~/store/order.store";
 const { locale } = useI18n();
 
 interface Props {
   order: Order;
 }
 const props = defineProps<Props>();
-
-const { productsByOrderId } = await GqlGetProductsByOrderId({
-  orderId: props.order._id,
-});
-
-const totalPrice = sumPricesByProduct(productsByOrderId);
-
 const productsStore = useProductsStore();
+const ordersStore = useOrdersStore();
+const products = productsStore.getProductsByOrderId(props.order._id);
 
-const handleDeleteOrder = (orderId: string) => {
-  console.log(orderId);
+console.log(products);
+
+const totalPrice = sumPricesByProduct(products);
+
+const handleDeleteOrder = async (orderId: string) => {
+  await ordersStore.deleteOrder(orderId);
 };
 const handleOpenOrderProducts = () => {
-  productsStore.setSelectedProducts(productsByOrderId);
+  productsStore.setSelectedProducts(products);
 };
 </script>
 

@@ -51,11 +51,20 @@ const ProductSchema = new mongoose.Schema(
       required: true,
     },
     guarantee: {
-      type: Array,
+      type: {
+        start: String,
+        end: String,
+      },
       required: true,
     },
     price: {
-      type: Array,
+      type: [
+        {
+          value: Number,
+          symbol: String,
+          isDefault: Boolean,
+        },
+      ],
       required: true,
     },
     order: {

@@ -33,6 +33,7 @@ import { useProductsStore } from "~/store/products.store";
 
 const productsStore = useProductsStore();
 const isLoading = ref(true);
+const products = computed(() => productsStore.products);
 
 onMounted(async () => {
   try {
@@ -41,8 +42,6 @@ onMounted(async () => {
     isLoading.value = false;
   }
 });
-
-const products = computed(() => productsStore.products);
 </script>
 
 <style scoped>

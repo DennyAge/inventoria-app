@@ -39,7 +39,7 @@ export const orderResolver = {
     },
     updateOrder: async (_, { orderId, input }) => {
       try {
-        const { title, description, products } = input;
+        const { title, description } = input;
 
         const order = await Order.findById(orderId);
         if (!order) {
@@ -51,8 +51,6 @@ export const orderResolver = {
           {
             title,
             description,
-            products,
-            updatedAt: new Date().toISOString(),
           },
           { new: true },
         );
