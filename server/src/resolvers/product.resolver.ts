@@ -21,8 +21,7 @@ export const productResolver = {
     },
     productsByOrderId: async (_, { orderId }) => {
       try {
-        const res = await Product.find({ order: orderId });
-        return res;
+        return await Product.find({ order: orderId });
       } catch (error) {
         console.log("Error getting product", error);
         throw new Error(error.message || "Error getting product");
@@ -93,7 +92,7 @@ export const productResolver = {
     },
     deleteProduct: async (_, { productId }) => {
       try {
-        const deletedProduct = await Product.findByIdAndDelete(productId);
+        await Product.findByIdAndDelete(productId);
         return { message: "Delete successfully" };
       } catch (error) {
         console.error("Error on delete:", error);

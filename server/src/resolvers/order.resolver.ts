@@ -66,7 +66,7 @@ export const orderResolver = {
     },
     deleteOrder: async (_, { orderId }) => {
       try {
-        const deletedOrder = await Order.findByIdAndDelete(orderId);
+        await Order.findByIdAndDelete(orderId);
         return { message: "Delete successfully" };
       } catch (error) {
         console.error("Error on delete:", error);
