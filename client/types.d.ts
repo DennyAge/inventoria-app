@@ -31,7 +31,7 @@ interface Product {
   title: string;
   type: string;
   specification: string;
-  guarantee: Guarantee;
+  guarantee: Guarantee[];
   price: Price[];
   order: string;
   createdAt: string;
@@ -49,8 +49,8 @@ interface User {
   _id?: string;
   fullName: string;
   email: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 interface LoginInput {
   email: string;
@@ -68,7 +68,7 @@ interface UpdateProductInput {
   title: string;
   type: string;
   specification: string;
-  guarantee: Guarantee;
-  price: Price;
+  guarantee: Guarantee[];
+  price: Price[];
   updatedAt: string;
 }

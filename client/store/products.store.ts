@@ -59,7 +59,7 @@ export const useProductsStore = defineStore("products", {
       try {
         const { deleteProduct } = await GqlDeleteProduct({ productId });
 
-        if (deleteProduct.message) {
+        if (deleteProduct?.message) {
           this.products = this.products.filter((p) => p._id !== productId);
 
           if (this.product?._id === productId) {
@@ -70,7 +70,7 @@ export const useProductsStore = defineStore("products", {
             (p) => p._id !== productId,
           );
 
-          return deleteProduct.message;
+          return deleteProduct?.message;
         }
       } catch (error) {
         console.error("Delete product failed:", error);

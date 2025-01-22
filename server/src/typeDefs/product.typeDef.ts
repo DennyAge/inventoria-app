@@ -58,7 +58,7 @@ export const productTypeDef = gql`
     type: String!
     specification: String!
     guarantee: [GuaranteeInput]!
-    price: [PriceInput]
+    price: [PriceInput]!
     order: String!
     createdAt: String!
     updatedAt: String!
