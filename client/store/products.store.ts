@@ -14,7 +14,7 @@ export const useProductsStore = defineStore("products", {
   state: () => defaultValues,
   getters: {
     getProductsByOrderId: (state) => (orderId: string) => {
-      const products = state.products.find(
+      const products = state.products.filter(
         (product) => product.order === orderId,
       );
       return products || [];

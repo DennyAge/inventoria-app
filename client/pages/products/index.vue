@@ -37,7 +37,9 @@ const products = computed(() => productsStore.products);
 
 onMounted(async () => {
   try {
-    await productsStore.getProducts();
+    if (products.value.length === 0) {
+      await productsStore.getProducts();
+    }
   } finally {
     isLoading.value = false;
   }

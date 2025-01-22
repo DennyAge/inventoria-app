@@ -45,8 +45,6 @@ const productsStore = useProductsStore();
 const ordersStore = useOrdersStore();
 const products = productsStore.getProductsByOrderId(props.order._id);
 
-console.log(products);
-
 const totalPrice = sumPricesByProduct(products);
 
 const handleDeleteOrder = async (orderId: string) => {

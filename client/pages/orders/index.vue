@@ -37,17 +37,18 @@ const ordersStore = useOrdersStore();
 const productsStore = useProductsStore();
 
 const isLoading = ref(true);
+const orders = computed(() => ordersStore.orders);
 
 onMounted(async () => {
   try {
-    await productsStore.getProducts();
-    await ordersStore.getOrders();
+    if (orders.value.length === 0) {
+      await productsStore.getProducts();
+      await ordersStore.getOrders();
+    }
   } finally {
     isLoading.value = false;
   }
 });
-
-const orders = computed(() => ordersStore.orders);
 
 const addNewOrder = () => {
   alert("Add new order!");
