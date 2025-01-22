@@ -16,14 +16,12 @@
 
 <script lang="ts" setup>
 import { formatDate, formatTime, getDayOfWeek } from "~/lib/utils";
-import { useNuxtApp } from "#app";
-const { $socket } = useNuxtApp();
 const { locale } = useI18n();
 
 const date = ref<string>("");
 const time = ref<string>("");
 const day = ref<string>("");
-const activeSessions = ref<number>(1);
+const activeSessions = useState<number>("activeSessions");
 
 const updateDateTime = (): void => {
   date.value = formatDate(new Date(), locale.value);
@@ -34,20 +32,12 @@ const updateDateTime = (): void => {
 let timer: ReturnType<typeof setInterval>;
 
 onMounted(() => {
-  $socket.on("connection", (count: number) => {
-    console.log(count);
-  });
-  $socket.on("activeSessions", (count: number) => {
-    activeSessions.value = count;
-  });
-
   updateDateTime();
   timer = setInterval(updateDateTime, 1000);
 });
 
 onBeforeUnmount(() => {
   clearInterval(timer);
-  $socket.off("activeSessions");
 });
 
 watch(locale, () => {
