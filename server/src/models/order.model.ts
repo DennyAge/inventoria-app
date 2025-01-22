@@ -1,9 +1,4 @@
 import mongoose, { Document } from "mongoose";
-import { IProduct } from "./product.model";
-
-interface IProductIds extends Document {
-  id: string;
-}
 
 interface IOrder extends Document {
   title: string;
