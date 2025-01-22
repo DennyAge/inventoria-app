@@ -5,6 +5,7 @@
       <PageHeader :title="$t('coming')" :count="products?.length" add-btn />
       <div class="products-page__body">
         <div class="products-page__list">
+          <Spinner v-if="isLoading" />
           <div v-for="product in products" :key="product?._id || product.title">
             <ProductCard :product="product" />
           </div>
@@ -15,8 +16,6 @@
 </template>
 
 <script setup lang="ts">
-import ProductCard from "~/components/ProductCard.vue";
-
 useHead({
   title: "Products",
   link: [
@@ -27,10 +26,23 @@ useHead({
     },
   ],
 });
+import Spinner from "~/components/Spinner.vue";
 import Header from "~/components/Header.vue";
 import PageHeader from "~/components/PageHeader.vue";
+import { useProductsStore } from "~/store/products.store";
 
-const { products } = await GqlGetAllProducts();
+const productsStore = useProductsStore();
+const isLoading = ref(true);
+
+onMounted(async () => {
+  try {
+    await productsStore.getProducts();
+  } finally {
+    isLoading.value = false;
+  }
+});
+
+const products = computed(() => productsStore.products);
 </script>
 
 <style scoped>
