@@ -12,7 +12,6 @@
 
 <script setup lang="ts">
 import { getInitials } from "~/lib/utils";
-import { useRouter } from "#vue-router";
 import type { User } from "~/types";
 const router = useRouter();
 

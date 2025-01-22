@@ -31,7 +31,7 @@ const ProductSchema = new mongoose.Schema(
       required: true,
     },
     isUsed: {
-      type: Number,
+      type: Boolean,
       required: true,
     },
     photo: {
@@ -55,7 +55,7 @@ const ProductSchema = new mongoose.Schema(
       required: true,
     },
     price: {
-      type: Object,
+      type: Array,
       required: true,
     },
     order: {

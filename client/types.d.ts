@@ -15,7 +15,7 @@ declare module "vue" {
 interface Price {
   value: number;
   symbol: string;
-  isDefault: number;
+  isDefault: boolean;
 }
 
 interface Guarantee {
@@ -33,9 +33,9 @@ interface Product {
   specification: string;
   guarantee: Guarantee;
   price: Price[];
-  order: number;
-  createdAt: Date;
-  updatedAt: Date;
+  order: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface Order {
@@ -49,8 +49,8 @@ interface User {
   _id?: string;
   fullName: string;
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 interface LoginInput {
   email: string;
@@ -61,4 +61,14 @@ interface SignUpInput {
   email: string;
   password: string;
   fullName: string;
+}
+
+interface UpdateProductInput {
+  photo: string;
+  title: string;
+  type: string;
+  specification: string;
+  guarantee: Guarantee;
+  price: Price;
+  updatedAt: string;
 }

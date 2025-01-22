@@ -20,8 +20,6 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   showInput: false,
 });
-
-import DateTime from "~/components/DateTime.vue";
 const { locale } = useI18n();
 </script>
 

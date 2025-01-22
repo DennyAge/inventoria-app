@@ -15,7 +15,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onBeforeUnmount, watch } from "vue";
 import { formatDate, formatTime, getDayOfWeek } from "~/lib/utils";
 import { useNuxtApp } from "#app";
 const { $socket } = useNuxtApp();

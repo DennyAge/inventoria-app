@@ -14,15 +14,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from "vue-router";
-import { onMounted } from "vue";
-
-import Loader from "~/components/Loader.vue";
-
 import type { User } from "~/types";
-
 const user = ref<User | null>(null);
-
 const router = useRouter();
 
 onMounted(async () => {

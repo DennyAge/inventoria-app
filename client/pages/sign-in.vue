@@ -47,7 +47,6 @@ useHead({
     },
   ],
 });
-import { useRouter } from "vue-router";
 
 const email = ref<string>("");
 const password = ref<string>("");

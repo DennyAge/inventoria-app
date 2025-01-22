@@ -10,8 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from "#vue-router";
-
 useHead({
   title: "Profile",
   link: [
@@ -22,7 +20,6 @@ useHead({
     },
   ],
 });
-import Header from "~/components/Header.vue";
 const router = useRouter();
 const logout = async () => {
   await GqlLogout();

@@ -19,7 +19,7 @@
       </nav>
     </div>
     <div class="sidebar__footer">
-      <UserCard v-if="user"  :user="user" />
+      <UserCard v-if="user" :user="user" />
       <LanguageSelect />
     </div>
   </div>
@@ -27,8 +27,6 @@
 
 <script setup lang="ts">
 import { navigationLinks } from "~/constants/index.js";
-import LanguageSelect from "~/components/LanguageSelect.vue";
-import UserCard from "~/components/UserCard.vue";
 import type { User } from "~/types";
 
 interface Props {

@@ -30,10 +30,6 @@ useHead({
     },
   ],
 });
-import Header from "~/components/Header.vue";
-import PageHeader from "~/components/PageHeader.vue";
-import OrderCard from "~/components/OrderCard.vue";
-
 const { orders } = await GqlGetAllOrders();
 
 const addNewOrder = () => {

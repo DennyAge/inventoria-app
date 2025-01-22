@@ -9,11 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import Sidebar from "~/components/Sidebar.vue";
-import Loader from "~/components/Loader.vue";
-
-import { useRouter } from "vue-router";
-import { onMounted } from "vue";
 import type { User } from "~/types";
 const user = ref<User | null>(null);
 const router = useRouter();

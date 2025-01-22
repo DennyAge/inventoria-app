@@ -1,5 +1,6 @@
 mutation createProduct($input: CreateProductInput!) {
     createProduct(input: $input) {
+        _id
         guarantee {
             end
             start
@@ -25,7 +26,23 @@ mutation createProduct($input: CreateProductInput!) {
 mutation updateProduct($productId: ID!, $input: UpdateProductInput!) {
     updateProduct(productId: $productId, input: $input) {
         _id
+        guarantee {
+            end
+            start
+        }
+        isUsed
+        order
+        photo
+        price {
+            isDefault
+            symbol
+            value
+        }
+        serialNumber
+        specification
         title
+        type
+        createdAt
         updatedAt
     }
 }

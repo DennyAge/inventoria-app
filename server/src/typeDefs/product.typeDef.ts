@@ -2,25 +2,25 @@ import gql from "graphql-tag";
 
 export const productTypeDef = gql`
   type Price {
-    value: Float
-    symbol: String
-    isDefault: Boolean
+    value: Float!
+    symbol: String!
+    isDefault: Boolean!
   }
 
   type Guarantee {
-    start: String
-    end: String
+    start: String!
+    end: String!
   }
 
   type Product {
     _id: ID!
     serialNumber: String!
-    isUsed: Boolean
-    photo: String
+    isUsed: Boolean!
+    photo: String!
     title: String!
     type: String!
     specification: String!
-    guarantee: Guarantee!
+    guarantee: [Guarantee]!
     price: [Price]!
     order: String!
     createdAt: String!
@@ -55,11 +55,11 @@ export const productTypeDef = gql`
     isUsed: Boolean!
     photo: String
     title: String!
-    type: String
+    type: String!
     specification: String!
-    guarantee: GuaranteeInput!
+    guarantee: [GuaranteeInput]!
     price: [PriceInput]
-    order: String
+    order: String!
     createdAt: String!
     updatedAt: String!
   }
@@ -69,7 +69,7 @@ export const productTypeDef = gql`
     title: String!
     type: String!
     specification: String!
-    guarantee: GuaranteeInput!
+    guarantee: [GuaranteeInput]!
     price: [PriceInput]!
     updatedAt: String!
   }
