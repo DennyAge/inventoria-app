@@ -13,11 +13,11 @@ const defaultValues: {
 export const useProductsStore = defineStore("products", {
   state: () => defaultValues,
   getters: {
-    getProductsByOrderId: (state) => (orderId: string) => {
-      const products = state.products.filter(
-        (product) => product.order === orderId,
+    getProductsByIds: (state) => (productIds: string[] | undefined) => {
+      if (!state.products || !productIds) return [];
+      return state.products.filter((product) =>
+        productIds.includes(product._id),
       );
-      return products || [];
     },
   },
   actions: {

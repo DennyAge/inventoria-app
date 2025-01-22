@@ -43,7 +43,7 @@ interface Props {
 const props = defineProps<Props>();
 const productsStore = useProductsStore();
 const ordersStore = useOrdersStore();
-const products = productsStore.getProductsByOrderId(props.order._id);
+const products = productsStore.getProductsByIds(props.order.products);
 
 const totalPrice = sumPricesByProduct(products);
 

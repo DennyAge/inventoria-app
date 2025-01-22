@@ -8,7 +8,7 @@ interface IProductIds extends Document {
 interface IOrder extends Document {
   title: string;
   description: string;
-  products: IProductIds[];
+  products: string[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -23,11 +23,7 @@ const OrderSchema = new mongoose.Schema(
       required: true,
     },
     products: {
-      type: [
-        {
-          id: String,
-        },
-      ],
+      type: [String],
       required: true,
     },
   },

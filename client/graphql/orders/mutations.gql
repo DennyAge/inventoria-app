@@ -3,9 +3,7 @@ mutation createOrder($input: CreateOrderInput!) {
         _id
         title
         description
-        products {
-            id
-        }
+        products
         createdAt
         updatedAt
     }
@@ -15,9 +13,7 @@ mutation updateOrder($orderId: ID!, $input: UpdateOrderInput!) {
         _id
         title
         description
-        products {
-            id
-        }
+        products
         createdAt
         updatedAt
     }

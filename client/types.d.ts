@@ -50,7 +50,7 @@ interface Order {
   _id: string;
   title: string;
   description: string;
-  products?: { id: string }[] | null | undefined;
+  products?: string[] | undefined;
   createdAt: string;
   updatedAt: string;
 }
@@ -74,7 +74,7 @@ interface SignUpInput {
 interface UpdateOrderInput {
   title: string;
   description: string;
-  products: ProductIds[];
+  products: string[];
 }
 interface UpdateProductInput {
   photo: string;

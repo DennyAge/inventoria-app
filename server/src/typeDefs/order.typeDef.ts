@@ -5,12 +5,9 @@ export const orderTypeDef = gql`
     _id: ID!
     title: String!
     description: String!
-    products: [ProductIds]!
+    products: [String]!
     createdAt: String!
     updatedAt: String!
-  }
-  type ProductIds {
-    id: ID!
   }
 
   type Query {
@@ -27,16 +24,13 @@ export const orderTypeDef = gql`
   input CreateOrderInput {
     title: String!
     description: String!
-    products: [ProductIdsInput]!
+    products: [String]!
   }
 
   input UpdateOrderInput {
     title: String
     description: String
-    products: [ProductIdsInput]
-  }
-  input ProductIdsInput {
-    id: ID!
+    products: [String]!
   }
   type DeleteOrderResponse {
     message: String!
