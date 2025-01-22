@@ -9,23 +9,25 @@
 </template>
 
 <script setup lang="ts">
-import type { User } from "~/types";
-const user = ref<User | null>(null);
+import { useAuthStore } from "~/store/auth.store";
 const router = useRouter();
+const authStore = useAuthStore();
 
-onMounted(async () => {
+const user = computed(() => authStore.user);
+
+const checkAuth = async () => {
   try {
-    const { authUser } = await GqlGetAuthUser();
-    if (!authUser) {
+    await authStore.getAuthUser();
+    if (!authStore.isAuth) {
       await router.push("/sign-in");
-    } else {
-      user.value = authUser;
     }
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.error("Failed get user:", error);
     await router.push("/sign-in");
   }
-});
+};
+
+onMounted(checkAuth);
 </script>
 
 <style scoped>

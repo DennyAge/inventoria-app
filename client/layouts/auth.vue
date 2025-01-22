@@ -14,19 +14,20 @@
 </template>
 
 <script lang="ts" setup>
-import type { User } from "~/types";
-const user = ref<User | null>(null);
+import { useAuthStore } from "~/store/auth.store";
 const router = useRouter();
+const authStore = useAuthStore();
+
+const user = computed(() => authStore.user);
 
 onMounted(async () => {
   try {
-    const { authUser } = await GqlGetAuthUser();
-    if (authUser) {
-      user.value = authUser;
+    await authStore.getAuthUser();
+    if (authStore.isAuth) {
       await router.push("/");
     }
-  } catch (erorr) {
-    console.log(erorr);
+  } catch (error) {
+    console.error("Failed get user:", error);
   }
 });
 </script>
