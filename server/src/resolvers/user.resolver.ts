@@ -1,21 +1,21 @@
 import { User } from "../models/user.model";
-import { authentication, generateToken, random } from "../lib";
+import { authentication, generateToken, random, verifyToken } from "../lib";
+import { isAuthUser } from "../middleware";
 
 export const userResolver = {
   Query: {
     authUser: async (_, __, context) => {
       try {
-        const userId = context?.req?.user?.id;
-        const user = await User.findById(userId);
-        return user;
+        const user = await isAuthUser(context.req, context.res);
+        const userId = user.id;
+        return await User.findById(userId);
       } catch (err) {
         throw new Error("Internal server error");
       }
     },
     user: async (_, { userId }) => {
       try {
-        const user = await User.findById(userId);
-        return user;
+        return await User.findById(userId);
       } catch (err) {
         console.error("Error in user queries:", err);
         throw new Error(err.message || "Error getting user");
@@ -23,8 +23,7 @@ export const userResolver = {
     },
     users: async () => {
       try {
-        const users = await User.find();
-        return users;
+        return await User.find();
       } catch (err) {
         console.error("Error in user queries:", err);
         throw new Error(err.message || "Error getting user");
@@ -89,8 +88,7 @@ export const userResolver = {
           sameSite: "none",
           expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
         });
-        return context.res.status(200).json(user).end();
-        // return user;
+        // return context.res.status(200).json(user).end();
       } catch (err) {
         console.error("Error in login:", err);
         throw new Error(err.message || "Internal server error");
