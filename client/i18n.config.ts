@@ -5,7 +5,9 @@ export default defineI18nConfig(() => ({
     en: {
       dashboard: "Dashboard",
       orders: "Orders",
-      product: "Product",
+      ordersEmpty: "The orders list is empty",
+      product: "Products",
+      productEmpty: "The products list is empty",
       search: "Search...",
       coming: "Coming",
       deleteModalTitleProduct: "Are you sure delete this product?",
@@ -15,7 +17,9 @@ export default defineI18nConfig(() => ({
     },
     ru: {
       dashboard: "Главная",
-      orders: "Заказ",
+      orders: "Заказы",
+      ordersEmpty: "Список заказов пуст",
+      productEmpty: "Список продуктов пуст",
       product: "Продукты",
       search: "Поиск...",
       coming: "Приход",
@@ -27,6 +31,8 @@ export default defineI18nConfig(() => ({
     ua: {
       dashboard: "Головна",
       orders: "Замовлення",
+      ordersEmpty: "Список замовлень порожній",
+      productEmpty: "Список продукції порожній",
       product: "Продукція",
       search: "Пошук...",
       coming: "Прихід",

@@ -2,8 +2,9 @@
   <section>
     <Header show-input />
     <div class="products-page">
-      <PageHeader :title="$t('coming')" :count="products?.length" />
-      <div class="products-page__body">
+      <PageHeader :title="$t('product')" :count="products?.length" />
+      <EmptyContent v-if="products.length <= 0" :title="$t('productEmpty')" />
+      <div v-else class="products-page__body">
         <div class="products-page__list">
           <Spinner v-if="isLoading" />
           <div v-for="product in products" :key="product?._id || product.title">
@@ -37,6 +38,7 @@ useHead({
 });
 import { useOrdersStore } from "~/store/order.store";
 import { useProductsStore } from "~/store/products.store";
+import EmptyContent from "~/components/EmptyContent.vue";
 const ordersStore = useOrdersStore();
 const productsStore = useProductsStore();
 

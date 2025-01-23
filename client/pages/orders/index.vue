@@ -3,12 +3,14 @@
     <Header show-input />
     <div class="orders-page">
       <PageHeader
-        :title="$t('coming')"
+        :title="$t('orders')"
         :count="orders?.length"
         add-btn
         :on-click="addNewOrder"
       />
+      <EmptyContent v-if="orders.length <= 0" :title="$t('ordersEmpty')" />
       <div
+        v-else
         class="orders-page__body"
         :class="clsx({ 'body-flex': selectedOrder })"
       >
@@ -46,6 +48,8 @@
 </template>
 
 <script setup lang="ts">
+import EmptyContent from "~/components/EmptyContent.vue";
+
 useHead({
   title: "Orders",
   link: [
