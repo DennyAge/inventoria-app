@@ -58,9 +58,10 @@
   padding: 0;
   box-sizing: border-box;
 }
+html,
 body {
   width: 100%;
   height: 100vh;
-  background-color: var(--color-neutral-white);
+  background-color: var(--color-neutral-grey-25);
 }
 </style>

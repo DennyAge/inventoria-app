@@ -27,7 +27,18 @@ export const useOrdersStore = defineStore("orders", {
         this.$patch({ orders: [] });
       }
     },
-    setSelectedOrder(data: Order) {
+    setSelectedOrder(data: Order | null) {
+      if (data) {
+        const index = this.orders.findIndex((order) => order._id === data._id);
+        if (index !== -1) {
+          const selectedOrder = this.orders.splice(index, 1)[0];
+          this.orders.unshift(selectedOrder);
+        } else {
+          this.orders.unshift(data);
+        }
+      }
+
+      // Обновляем selectedOrder
       this.$patch({ selectedOrder: data });
     },
     async getOrder(orderId: string) {

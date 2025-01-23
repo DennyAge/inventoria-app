@@ -1,5 +1,27 @@
 <template>
-  <div class="order-card">
+  <div class="small-order-card" v-if="selectedOrder">
+    <div class="flex">
+      <button class="product-btn" @click="handleOpenOrderProducts">
+        <Icon name="ri:list-unordered" class="icon" />
+      </button>
+      <div>
+        <span>{{ products?.length }}</span>
+        <span>products</span>
+      </div>
+    </div>
+    <div class="data">
+      <span>
+        {{ formatTimestampShort(order?.createdAt) }}
+      </span>
+      <span>
+        {{ formatTimestampLong(order?.createdAt, locale) }}
+      </span>
+    </div>
+    <div v-if="selectedOrder._id === order._id">
+      <Icon name="ri:arrow-right-wide-line" class="icon" />
+    </div>
+  </div>
+  <div class="order-card" v-else>
     <div>
       {{ order.title }}
     </div>
@@ -13,7 +35,7 @@
     </div>
     <div class="flex">
       <button class="product-btn" @click="handleOpenOrderProducts">
-        <Icon name="ri:list-unordered" class="icon" />
+        <Icon name="ri:list-unordered" />
       </button>
       {{ products?.length }}
     </div>
@@ -44,14 +66,16 @@ const props = defineProps<Props>();
 const productsStore = useProductsStore();
 const ordersStore = useOrdersStore();
 const products = productsStore.getProductsByIds(props.order.products);
+const selectedOrder = computed(() => ordersStore.selectedOrder);
 const emit = defineEmits(["delete-order"]);
 
 const totalPrice = sumPricesByProduct(products);
 
 const handleDeleteOrder = (order: Order) => {
-  return emit("delete-order", order);
+  return emit("delete-order", order, "order");
 };
 const handleOpenOrderProducts = () => {
+  if (products.length <= 0) return;
   ordersStore.setSelectedOrder(props.order);
   productsStore.setSelectedProducts(products);
 };
@@ -59,12 +83,14 @@ const handleOpenOrderProducts = () => {
 
 <style scoped>
 .order-card {
+  width: 100%;
   display: grid;
   align-items: center;
   grid-template-columns: 40% 25% 10% 20% 5%;
   padding: 20px;
-  border: 1px solid var(--color-neutral-grey-25);
-  border-radius: 4px;
+  border: 1px solid var(--color-neutral-grey-75);
+  border-radius: 8px;
+  background-color: var(--color-neutral-white);
 }
 .flex {
   display: flex;
@@ -85,11 +111,29 @@ const handleOpenOrderProducts = () => {
   padding: 0.5rem;
   background: transparent;
 }
+.product-btn:hover {
+  background-color: var(--color-accent-blue-25);
+}
 .remove-btn {
   width: max-content;
   border: none;
   padding: 0;
   margin: 0;
   background: transparent;
+}
+
+.small-order-card {
+  width: 100%;
+  max-width: 500px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 4fr 5fr 1fr;
+  padding: 20px;
+  border: 1px solid var(--color-neutral-grey-75);
+  border-radius: 8px;
+  background-color: var(--color-neutral-white);
+}
+.icon {
+  font-size: 2rem;
 }
 </style>

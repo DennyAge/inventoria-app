@@ -2,11 +2,11 @@ import type { Product, UpdateProductInput } from "~/types";
 
 const defaultValues: {
   products: Product[];
-  selectedProducts: Product[] | Product;
+  selectedProducts: Product[] | Product | null;
   product: Product | null;
 } = {
   products: [],
-  selectedProducts: [],
+  selectedProducts: null,
   product: null,
 };
 
@@ -41,7 +41,7 @@ export const useProductsStore = defineStore("products", {
       }
     },
 
-    setSelectedProducts(data: Product[] | Product) {
+    setSelectedProducts(data: Product[] | Product | null) {
       this.$patch({ selectedProducts: data });
     },
 
@@ -77,6 +77,14 @@ export const useProductsStore = defineStore("products", {
 
           if (this.product?._id === productId) {
             this.$patch({ product: null });
+          }
+          if (
+            this.selectedProducts !== null &&
+            Array.isArray(this.selectedProducts)
+          ) {
+            this.selectedProducts = this.selectedProducts.filter(
+              (product) => product._id !== productId,
+            );
           }
           return deleteProduct?.message;
         }

@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import type { Product } from "~/types";
 import { useOrdersStore } from "~/store/order.store";
-import { formatTimestampLong, formatTimestampShort } from "~/lib/utils";
+import { formatTimestampLong } from "~/lib/utils";
 
 interface Props {
   product: Product;
@@ -43,13 +43,15 @@ const handleDeleteProduct = (product: Product) => {
 
 <style scoped>
 .product-card {
+  width: 100%;
   display: grid;
   align-items: center;
   grid-template-columns: 2fr 1fr 1fr 1fr 2fr auto;
   gap: 10px;
   padding: 20px;
-  border: 1px solid var(--color-neutral-grey-25);
-  border-radius: 4px;
+  border: 1px solid var(--color-neutral-grey-75);
+  border-radius: 8px;
+  background-color: var(--color-neutral-white);
 }
 .data {
   display: flex;
