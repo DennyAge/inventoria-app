@@ -1,4 +1,5 @@
 import { Order } from "../models/order.model";
+import { Product } from "../models/product.model";
 
 export const orderResolver = {
   Query: {
@@ -38,7 +39,7 @@ export const orderResolver = {
     },
     updateOrder: async (_, { orderId, input }) => {
       try {
-        const { title, description, products } = input;
+        const { title, description } = input;
 
         const order = await Order.findById(orderId);
         if (!order) {
@@ -50,7 +51,6 @@ export const orderResolver = {
           {
             title,
             description,
-            products,
           },
           { new: true },
         );
@@ -64,7 +64,14 @@ export const orderResolver = {
     },
     deleteOrder: async (_, { orderId }) => {
       try {
+        const order = await Order.findById(orderId);
+
+        if (!order) {
+          throw new Error("Order not found");
+        }
+        const productIds = order.products;
         await Order.findByIdAndDelete(orderId);
+        await Product.deleteMany({ _id: { $in: productIds } });
         return { message: "Delete successfully" };
       } catch (error) {
         console.error("Error on delete:", error);

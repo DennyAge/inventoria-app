@@ -30,7 +30,6 @@ export const orderTypeDef = gql`
   input UpdateOrderInput {
     title: String
     description: String
-    products: [String]!
   }
   type DeleteOrderResponse {
     message: String!

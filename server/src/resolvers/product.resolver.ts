@@ -1,5 +1,6 @@
 import { Product } from "../models/product.model";
 import { generateSerialNumber } from "../lib";
+import { Order } from "../models/order.model";
 
 export const productResolver = {
   Query: {
@@ -47,6 +48,10 @@ export const productResolver = {
         });
         await newProduct.save();
 
+        await Order.findByIdAndUpdate(order, {
+          $push: { products: newProduct._id },
+        });
+
         return newProduct;
       } catch (error) {
         console.log("Create product failed", error);
@@ -87,6 +92,10 @@ export const productResolver = {
     deleteProduct: async (_, { productId }) => {
       try {
         await Product.findByIdAndDelete(productId);
+        await Order.updateMany(
+          { products: productId },
+          { $pull: { products: productId } },
+        );
         return { message: "Delete successfully" };
       } catch (error) {
         console.error("Error on delete:", error);

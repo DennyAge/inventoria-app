@@ -13,7 +13,7 @@ const defaultValues: {
 export const useProductsStore = defineStore("products", {
   state: () => defaultValues,
   getters: {
-    getProductsByIds: (state) => (productIds: string[] | undefined) => {
+    getProductsByIds: (state) => (productIds: (string | null)[]) => {
       if (!state.products || !productIds) return [];
       return state.products.filter((product) =>
         productIds.includes(product._id),
