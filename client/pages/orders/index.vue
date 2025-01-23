@@ -12,11 +12,18 @@
         <div class="orders-page__list">
           <Spinner v-if="isLoading" />
           <div v-for="order in orders" :key="order?._id || order.title">
-            <OrderCard :order="order" />
+            <OrderCard :order="order" @delete-order="openDeleteModal" />
           </div>
         </div>
       </div>
     </div>
+    <DeleteModal
+      v-if="showDeleteModal"
+      :title="$t('deleteModalTitleOrder')"
+      :data="modalData"
+      @close="showDeleteModal = false"
+      @submit="deleteOrder"
+    />
   </section>
 </template>
 
@@ -31,6 +38,8 @@ useHead({
     },
   ],
 });
+
+import type { Order } from "~/types";
 import { useOrdersStore } from "~/store/order.store";
 import { useProductsStore } from "~/store/products.store";
 const ordersStore = useOrdersStore();
@@ -38,6 +47,8 @@ const productsStore = useProductsStore();
 
 const isLoading = ref(true);
 const orders = computed(() => ordersStore.orders);
+const showDeleteModal = ref(false);
+const modalData = ref();
 
 onMounted(async () => {
   try {
@@ -50,6 +61,16 @@ onMounted(async () => {
   }
 });
 
+const openDeleteModal = (order: Order) => {
+  showDeleteModal.value = true;
+  modalData.value = order;
+};
+const deleteOrder = async (ordersId: string) => {
+  isLoading.value = true;
+  await ordersStore.deleteOrder(ordersId);
+  showDeleteModal.value = false;
+  isLoading.value = false;
+};
 const addNewOrder = () => {
   alert("Add new order!");
 };

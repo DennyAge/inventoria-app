@@ -3,14 +3,20 @@ import type { Order, UpdateOrderInput } from "~/types";
 const defaultValues: {
   orders: Order[];
   order: Order | null;
+  selectedOrder: Order | null;
 } = {
   orders: [],
   order: null,
+  selectedOrder: null,
 };
 
 export const useOrdersStore = defineStore("orders", {
   state: () => defaultValues,
-  getters: {},
+  getters: {
+    getOrderById: (state) => (orderId: string) => {
+      return state.orders.find((order) => order._id === orderId);
+    },
+  },
   actions: {
     async getOrders() {
       try {
@@ -21,7 +27,9 @@ export const useOrdersStore = defineStore("orders", {
         this.$patch({ orders: [] });
       }
     },
-
+    setSelectedOrder(data: Order) {
+      this.$patch({ selectedOrder: data });
+    },
     async getOrder(orderId: string) {
       const { order } = await GqlGetOrderById({ orderId });
       if (order) {

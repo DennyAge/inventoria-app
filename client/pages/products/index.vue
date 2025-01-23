@@ -2,20 +2,29 @@
   <section>
     <Header show-input />
     <div class="products-page">
-      <PageHeader :title="$t('coming')" :count="products?.length" add-btn />
+      <PageHeader :title="$t('coming')" :count="products?.length" />
       <div class="products-page__body">
         <div class="products-page__list">
           <Spinner v-if="isLoading" />
           <div v-for="product in products" :key="product?._id || product.title">
-            <ProductCard :product="product" />
+            <ProductCard :product="product" @delete-product="openDeleteModal" />
           </div>
         </div>
       </div>
     </div>
+    <DeleteModal
+      v-if="showDeleteModal"
+      :title="$t('deleteModalTitleProduct')"
+      :data="modalData"
+      @close="showDeleteModal = false"
+      @submit="deleteProduct"
+    />
   </section>
 </template>
 
 <script setup lang="ts">
+import type { Product } from "~/types";
+
 useHead({
   title: "Products",
   link: [
@@ -26,24 +35,36 @@ useHead({
     },
   ],
 });
-import Spinner from "~/components/Spinner.vue";
-import Header from "~/components/Header.vue";
-import PageHeader from "~/components/PageHeader.vue";
+import { useOrdersStore } from "~/store/order.store";
 import { useProductsStore } from "~/store/products.store";
-
+const ordersStore = useOrdersStore();
 const productsStore = useProductsStore();
+
 const isLoading = ref(true);
+const showDeleteModal = ref(false);
+const modalData = ref();
 const products = computed(() => productsStore.products);
 
 onMounted(async () => {
   try {
     if (products.value.length === 0) {
+      await ordersStore.getOrders();
       await productsStore.getProducts();
     }
   } finally {
     isLoading.value = false;
   }
 });
+const openDeleteModal = (product: Product) => {
+  showDeleteModal.value = true;
+  modalData.value = product;
+};
+const deleteProduct = async (productId: string) => {
+  isLoading.value = true;
+  await productsStore.deleteProduct(productId);
+  showDeleteModal.value = false;
+  isLoading.value = false;
+};
 </script>
 
 <style scoped>

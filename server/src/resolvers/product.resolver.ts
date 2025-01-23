@@ -39,8 +39,8 @@ export const productResolver = {
           specification,
           //TODO: add another method for guarantee
           guarantee: {
-            start: startDate.toISOString(),
-            end: endDate.toISOString(),
+            start: startDate.getTime(),
+            end: endDate.getTime(),
           },
           price,
           order,
@@ -55,8 +55,7 @@ export const productResolver = {
     },
     updateProduct: async (_, { productId, input }) => {
       try {
-        const { photo, title, type, specification, guarantee, price, order } =
-          input;
+        const { title, type, specification, guarantee, price, order } = input;
 
         const product = await Product.findById(productId);
 
@@ -68,7 +67,6 @@ export const productResolver = {
           productId,
           {
             isUsed: false,
-            photo,
             title,
             type,
             specification,

@@ -8,6 +8,10 @@ export default defineI18nConfig(() => ({
       product: "Product",
       search: "Search...",
       coming: "Coming",
+      deleteModalTitleProduct: "Are you sure delete this product?",
+      deleteModalTitleOrder: "Are you sure delete this order?",
+      no: "No",
+      yes: "Yes",
     },
     ru: {
       dashboard: "Главная",
@@ -15,6 +19,10 @@ export default defineI18nConfig(() => ({
       product: "Продукты",
       search: "Поиск...",
       coming: "Приход",
+      deleteModalTitleProduct: "Вы уверены, что хотите удалить этот продукт?",
+      deleteModalTitleOrder: "Вы уверены, что хотите удалить этот заказ?",
+      no: "Нет",
+      yes: "Да",
     },
     ua: {
       dashboard: "Головна",
@@ -22,6 +30,10 @@ export default defineI18nConfig(() => ({
       product: "Продукція",
       search: "Пошук...",
       coming: "Прихід",
+      deleteModalTitleProduct: "Ви впевнені, що хочете видалили цей продукт?",
+      deleteModalTitleOrder: "Ви впевнені, що хочете видалили це замовлення?",
+      no: "Ні",
+      yes: "Так",
     },
   },
 }));

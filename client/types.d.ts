@@ -1,4 +1,5 @@
 import { Socket } from "socket.io-client";
+import { TranslateResult } from "vue-i18n";
 
 declare module "#app" {
   interface NuxtApp {
@@ -9,6 +10,11 @@ declare module "#app" {
 declare module "vue" {
   interface ComponentCustomProperties {
     $socket: Socket;
+  }
+}
+declare module "vue/types/vue" {
+  interface Vue {
+    $t(key: string, values?: Record<string, unknown>): TranslateResult;
   }
 }
 

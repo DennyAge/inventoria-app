@@ -21,7 +21,7 @@
       <span>{{ totalPrice.USD }} $</span>
       <span>{{ totalPrice.UAH }} UAH</span>
     </div>
-    <button @click="handleDeleteOrder(order._id)" class="remove-btn">
+    <button @click="handleDeleteOrder(order)" class="remove-btn">
       <Icon name="ri:delete-bin-6-line" class="icon" />
     </button>
   </div>
@@ -44,13 +44,15 @@ const props = defineProps<Props>();
 const productsStore = useProductsStore();
 const ordersStore = useOrdersStore();
 const products = productsStore.getProductsByIds(props.order.products);
+const emit = defineEmits(["delete-order"]);
 
 const totalPrice = sumPricesByProduct(products);
 
-const handleDeleteOrder = async (orderId: string) => {
-  await ordersStore.deleteOrder(orderId);
+const handleDeleteOrder = (order: Order) => {
+  return emit("delete-order", order);
 };
 const handleOpenOrderProducts = () => {
+  ordersStore.setSelectedOrder(props.order);
   productsStore.setSelectedProducts(products);
 };
 </script>
@@ -59,9 +61,8 @@ const handleOpenOrderProducts = () => {
 .order-card {
   display: grid;
   align-items: center;
-  grid-template-columns: 40% 25% 5% 20% 5%;
-  gap: 1rem;
-  padding: 20px 40px;
+  grid-template-columns: 40% 25% 10% 20% 5%;
+  padding: 20px;
   border: 1px solid var(--color-neutral-grey-25);
   border-radius: 4px;
 }

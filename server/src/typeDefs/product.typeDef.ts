@@ -57,8 +57,8 @@ export const productTypeDef = gql`
     type: String!
     specification: String
     guarantee: GuaranteeInput
-    price: [PriceInput]
-    order: ID
+    price: [PriceInput]!
+    order: ID!
   }
 
   input UpdateProductInput {
