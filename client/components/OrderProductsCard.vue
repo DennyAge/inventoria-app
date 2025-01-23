@@ -1,5 +1,5 @@
 <template>
-  <div v-if="products?.length" class="order-product-card">
+  <div v-if="order" class="order-product-card">
     <div class="order-product-card__header">
       <div class="order-product-card__title">
         <h1>{{ order?.title }}</h1>
@@ -13,14 +13,14 @@
         + Add new Products
       </button>
     </div>
-    <div>
+    <div v-if="products?.length">
       <ul
         v-for="product in products"
         :key="product?._id || product.title"
         class="order-product-card__list"
       >
         <li>
-          <img
+          <Image
             :src="`/images/${product.photo}`"
             :alt="product.title"
             width="50px"
@@ -37,6 +37,9 @@
           </button>
         </li>
       </ul>
+    </div>
+    <div v-else class="order-product__empty-card">
+      <Image src="/images/empty.svg" alt="logo" width="200px" />
     </div>
   </div>
 </template>
@@ -103,5 +106,11 @@ const closeProductsCard = () => {
 }
 .btn {
   width: max-content;
+}
+.order-product__empty-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 </style>

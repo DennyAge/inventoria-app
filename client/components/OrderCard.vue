@@ -75,7 +75,6 @@ const handleDeleteOrder = (order: Order) => {
   return emit("delete-order", order, "order");
 };
 const handleOpenOrderProducts = () => {
-  if (products.length <= 0) return;
   ordersStore.setSelectedOrder(props.order);
   productsStore.setSelectedProducts(products);
 };

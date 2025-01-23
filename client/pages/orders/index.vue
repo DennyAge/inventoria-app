@@ -10,11 +10,11 @@
       />
       <div
         class="orders-page__body"
-        :class="clsx({ 'body-flex': selectedProducts })"
+        :class="clsx({ 'body-flex': selectedOrder })"
       >
         <div
           class="orders-page__list"
-          :class="clsx({ 'small-list': selectedProducts })"
+          :class="clsx({ 'small-list': selectedOrder })"
           ref="componentTop"
         >
           <Spinner v-if="isLoading" />
