@@ -44,30 +44,23 @@ export const productTypeDef = gql`
     isDefault: Boolean!
   }
 
-  input GuaranteeInput {
-    start: String!
-    end: String!
-  }
-
   input CreateProductInput {
-    serialNumber: String
-    isUsed: Boolean
-    photo: String
+    isUsed: Boolean!
     title: String!
     type: String!
-    specification: String
-    guarantee: GuaranteeInput
+    specification: String!
+    guarantee: Float!
     price: [PriceInput]!
     order: ID!
   }
 
   input UpdateProductInput {
-    photo: String
     title: String
     type: String
     specification: String
-    guarantee: GuaranteeInput
+    guarantee: String
     price: [PriceInput]
+    isUsed: Boolean
   }
   type DeleteProductResponse {
     message: String!

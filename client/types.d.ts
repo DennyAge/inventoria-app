@@ -82,11 +82,19 @@ interface OrderInput {
   description: string;
 }
 interface UpdateProductInput {
-  photo: string;
   title: string;
   type: string;
   specification: string;
-  guarantee: Guarantee;
+  guarantee: string;
   price: Price[];
-  updatedAt: string;
+  isUsed: boolean;
+}
+interface CreateProductInput {
+  isUsed: boolean;
+  title: string;
+  type: string;
+  specification: string;
+  guarantee: number;
+  price: Price[];
+  order: string;
 }

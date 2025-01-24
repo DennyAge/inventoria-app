@@ -24,21 +24,21 @@ export const productResolver = {
   Mutation: {
     createProduct: async (_, { input }) => {
       try {
-        const { title, type, specification, price, order } = input;
+        const { title, type, specification, guarantee, isUsed, price, order } =
+          input;
 
         const startDate = new Date();
         const endDate = new Date(startDate);
-        endDate.setMonth(endDate.getMonth() + 6);
+        endDate.setMonth(endDate.getMonth() + guarantee);
 
         const newProduct = new Product({
           serialNumber: generateSerialNumber(),
-          isUsed: false,
+          isUsed,
           //TODO: later add AWS for upload img and add photo input
           photo: "devices.svg",
           title,
           type,
           specification,
-          //TODO: add another method for guarantee
           guarantee: {
             start: startDate.getTime(),
             end: endDate.getTime(),

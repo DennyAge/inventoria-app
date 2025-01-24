@@ -13,13 +13,14 @@
         </div>
       </div>
     </div>
-    <DeleteModal
+    <Modal
       v-if="showDeleteModal"
       :title="$t('deleteModalTitleProduct')"
-      :data="modalData"
       @close="showDeleteModal = false"
       @submit="deleteProduct"
-    />
+    >
+      <span>{{ deleteData?.title }}</span>
+    </Modal>
   </section>
 </template>
 
@@ -44,7 +45,7 @@ const productsStore = useProductsStore();
 
 const isLoading = ref(true);
 const showDeleteModal = ref(false);
-const modalData = ref();
+const deleteData = ref();
 const products = computed(() => productsStore.products);
 
 onMounted(async () => {
@@ -59,11 +60,12 @@ onMounted(async () => {
 });
 const openDeleteModal = (product: Product) => {
   showDeleteModal.value = true;
-  modalData.value = product;
+  deleteData.value = product;
 };
-const deleteProduct = async (productId: string) => {
+const deleteProduct = async () => {
+  const { _id } = deleteData.value;
   isLoading.value = true;
-  await productsStore.deleteProduct(productId);
+  await productsStore.deleteProduct(_id);
   showDeleteModal.value = false;
   isLoading.value = false;
 };
@@ -71,6 +73,8 @@ const deleteProduct = async (productId: string) => {
 
 <style scoped>
 .products-page {
+  width: 100%;
+  height: 100%;
   padding: 2rem 3rem;
 }
 .products-page__body {

@@ -10,7 +10,7 @@
       type="button"
       class="btn btn-success"
     >
-      + Add New
+      + {{ $t("add") }}
     </button>
   </div>
 </template>

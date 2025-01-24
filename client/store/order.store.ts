@@ -46,8 +46,7 @@ export const useOrdersStore = defineStore("orders", {
           state.orders.push(createOrder);
         });
       } else {
-        console.error("Order not found");
-        this.$patch({ order: null });
+        console.error("Create order failed:");
       }
     },
     async getOrder(orderId: string) {

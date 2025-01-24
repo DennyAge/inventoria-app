@@ -6,7 +6,7 @@
         :title="$t('orders')"
         :count="orders?.length"
         add-btn
-        :on-click="addNewOrder"
+        :on-click="() => (showAddOrderModal = true)"
       />
       <EmptyContent v-if="orders.length <= 0" :title="$t('ordersEmpty')" />
       <div
@@ -29,7 +29,7 @@
           :products="selectedProducts"
           @delete-product="openDeleteModal"
           @close-product-card="closeOrderProductsCard"
-          @add-product="addNewProduct"
+          @add-product="showAddProductModal = true"
         />
       </div>
     </div>
@@ -60,10 +60,13 @@
       :title="$t('addModalTitleProduct')"
       :btn-text="$t('save')"
       @close="showAddProductModal = false"
-      @submit="handleAddProduct"
       hidden-footer
     >
-      <ProductForm />
+      <ProductForm
+        :orderId="selectedOrder?._id"
+        @close="showAddProductModal = false"
+        @submit="handleAddProduct"
+      />
     </Modal>
   </section>
 </template>
@@ -81,7 +84,7 @@ useHead({
     },
   ],
 });
-import type { Order, OrderInput, Product } from "~/types";
+import type { CreateProductInput, Order, OrderInput, Product } from "~/types";
 import { useOrdersStore } from "~/store/order.store";
 import { useProductsStore } from "~/store/products.store";
 const ordersStore = useOrdersStore();
@@ -128,33 +131,48 @@ const openDeleteModal = (data: Order | Product, type: string) => {
 };
 const handleDelete = async () => {
   const { _id } = deleteData.value;
-  isLoading.value = true;
-  if (deletedType.value === "order") {
-    await ordersStore.deleteOrder(_id);
+  try {
+    isLoading.value = true;
+    if (deletedType.value === "order") {
+      await ordersStore.deleteOrder(_id);
+    }
+    if (deletedType.value === "product") {
+      await productsStore.deleteProduct(_id);
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    showDeleteModal.value = false;
+    isLoading.value = false;
   }
-  if (deletedType.value === "product") {
-    await productsStore.deleteProduct(_id);
-  }
-  showDeleteModal.value = false;
-  isLoading.value = false;
 };
 const closeOrderProductsCard = () => {
   ordersStore.setSelectedOrder(null);
   productsStore.setSelectedProducts(null);
 };
-const addNewOrder = () => {
-  showAddOrderModal.value = true;
-};
-const addNewProduct = () => {
-  showAddProductModal.value = true;
-};
+
 const handleAddOrder = async (input: OrderInput) => {
-  isLoading.value = true;
-  await ordersStore.createOrder(input);
-  showAddOrderModal.value = false;
-  isLoading.value = false;
+  try {
+    isLoading.value = true;
+    await ordersStore.createOrder(input);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    showAddOrderModal.value = false;
+    isLoading.value = false;
+  }
 };
-const handleAddProduct = () => {};
+const handleAddProduct = async (input: CreateProductInput) => {
+  try {
+    isLoading.value = true;
+    await productsStore.createProduct(input);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    showAddProductModal.value = false;
+    isLoading.value = false;
+  }
+};
 </script>
 
 <style scoped>

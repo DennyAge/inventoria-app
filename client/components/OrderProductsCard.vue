@@ -52,7 +52,8 @@ interface Props {
   products: Product[] | null;
   order: Order | null;
 }
-const props = defineProps<Props>();
+
+defineProps<Props>();
 const emit = defineEmits([
   "delete-product",
   "add-product",

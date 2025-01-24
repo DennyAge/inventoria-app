@@ -1,4 +1,9 @@
-import type { Product, UpdateProductInput } from "~/types";
+import type {
+  CreateProductInput,
+  OrderInput,
+  Product,
+  UpdateProductInput,
+} from "~/types";
 
 const defaultValues: {
   products: Product[];
@@ -28,6 +33,24 @@ export const useProductsStore = defineStore("products", {
       } catch (error) {
         console.error("Get products failed:", error);
         this.$patch({ products: [] });
+      }
+    },
+    async createProduct(input: CreateProductInput) {
+      const { createProduct } = await GqlCreateProduct({ input });
+      if (createProduct) {
+        this.$patch((state) => {
+          state.products.push(createProduct);
+        });
+      } else {
+        console.error("Create product failed:");
+      }
+      if (
+        this.selectedProducts !== null &&
+        Array.isArray(this.selectedProducts)
+      ) {
+        this.selectedProducts.push(createProduct);
+      } else {
+        this.$patch({ selectedProducts: createProduct });
       }
     },
 
