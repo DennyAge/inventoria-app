@@ -1,26 +1,32 @@
 <template>
-  <div class="product-card">
-    <div>
+  <ul class="product-card">
+    <li class="text-break">
       {{ product.title }}
-    </div>
-    <div>
+    </li>
+    <li class="d-flex justify-content-center text-center">
       {{ product.type }}
-    </div>
-    <div class="data">
-      <span>
-        с {{ formatTimestampLong(product.guarantee.start, locale) }}
-      </span>
-      <span> по {{ formatTimestampLong(product.guarantee.end, locale) }} </span>
-    </div>
-    <div class="data">
-      <span>{{ product.price[0]?.value }} $</span>
+    </li>
+    <li class="d-flex align-items-center gap-2">
+      <div class="d-flex flex-column">
+        <div class="text-gray">{{ $t("from") }}</div>
+        <span class="text-gray">{{ $t("to") }}</span>
+      </div>
+      <div class="d-flex flex-column">
+        <span>{{ formatTimestampLong(product.guarantee.start, locale) }}</span>
+        <span>{{ formatTimestampLong(product.guarantee.end, locale) }}</span>
+      </div>
+    </li>
+    <li class="d-flex flex-column">
+      <span class="text-sm">{{ product.price[0]?.value }} $</span>
       <span>{{ product.price[1]?.value }} UAH</span>
-    </div>
-    <div>{{ order?.title }}</div>
-    <button @click="handleDeleteProduct(product)" class="remove-btn">
-      <Icon name="ri:delete-bin-6-line" class="icon" />
-    </button>
-  </div>
+    </li>
+    <li class="text-break">{{ order?.title }}</li>
+    <li>
+      <button @click="handleDeleteProduct(product)" class="remove-btn">
+        <Icon name="ri:delete-bin-6-line" size="20" class="text-gray" />
+      </button>
+    </li>
+  </ul>
 </template>
 <script setup lang="ts">
 import type { Product } from "~/types";
@@ -46,17 +52,13 @@ const handleDeleteProduct = (product: Product) => {
   width: 100%;
   display: grid;
   align-items: center;
-  grid-template-columns: 2fr 1fr 1fr 1fr 2fr auto;
-  gap: 10px;
-  padding: 20px;
-  border: 1px solid var(--color-neutral-grey-75);
-  border-radius: 8px;
+  grid-template-columns: 2fr 1.2fr 1fr 0.7fr 2fr auto;
+  gap: 0.625rem;
+  padding: 1.25rem;
+  border: 0.063rem solid var(--color-neutral-grey-75);
+  border-radius: 0.5rem;
   background-color: var(--color-neutral-white);
-}
-.data {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  list-style: none;
 }
 .remove-btn {
   width: max-content;

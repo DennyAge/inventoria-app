@@ -3,10 +3,12 @@
     <div class="header__input">
       <input
         v-if="showInput"
+        v-model="inputValue"
         id="search"
         class="form-control"
         :placeholder="$t('search')"
         :key="locale"
+        @input="onChange"
       />
     </div>
     <DateTime />
@@ -21,6 +23,13 @@ const props = withDefaults(defineProps<Props>(), {
   showInput: false,
 });
 const { locale } = useI18n();
+
+const emit = defineEmits(["filter"]);
+const inputValue = ref<string>("");
+
+const onChange = () => {
+  emit("filter", inputValue.value);
+};
 </script>
 
 <style scoped>

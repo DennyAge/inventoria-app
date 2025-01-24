@@ -13,7 +13,7 @@
           class="nav-link"
           active-class="active"
         >
-          <Icon :name="link.icon" class="img" />
+          <Icon :name="link.icon" class="nav-link__icon" />
           <span class="nav-link__text">{{ $t(link.name) }}</span>
         </NuxtLink>
       </nav>
@@ -32,7 +32,7 @@ import type { User } from "~/types";
 interface Props {
   user: User;
 }
-const props = defineProps<Props>();
+defineProps<Props>();
 </script>
 
 <style scoped>
@@ -68,25 +68,25 @@ const props = defineProps<Props>();
   align-items: center;
   gap: 1rem;
   text-transform: uppercase;
-  color: black;
+  color: var(--color-neutral-black);
+  border-radius: 0.5rem;
 }
 .nav-link:hover {
   background: var(--color-accent-blue-100);
-  border-radius: 8px;
-  color: white;
+  color: var(--color-neutral-white);
 }
-.img {
-  color: black;
+.nav-link__icon {
+  color: var(--color-neutral-black);
 }
-.nav-link:hover .img {
+.nav-link:hover .nav-link__icon {
   filter: invert(100%);
 }
 .active {
   background: var(--color-accent-blue-100);
   border-radius: 8px;
-  color: white;
+  color: var(--color-neutral-white);
 }
-.active .img {
+.active .nav-link__icon {
   filter: invert(100%);
 }
 .sidebar__footer {
@@ -95,7 +95,7 @@ const props = defineProps<Props>();
   align-items: center;
   gap: 1.5rem;
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1366px) {
   .sidebar {
     width: 6.5rem;
   }
@@ -103,7 +103,7 @@ const props = defineProps<Props>();
   .sidebar__logo__title {
     display: none;
   }
-  .img {
+  .nav-link__icon {
     font-size: 1.2rem;
   }
 }

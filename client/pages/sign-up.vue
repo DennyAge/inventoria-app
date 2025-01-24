@@ -7,7 +7,7 @@
       <div class="form-group">
         <label for="fullName">Full Name</label>
         <input
-          v-model="fullName"
+          v-model="form.fullName"
           type="text"
           class="form-control"
           id="fullName"
@@ -18,7 +18,7 @@
       <div class="form-group">
         <label for="email">Email</label>
         <input
-          v-model="email"
+          v-model="form.email"
           type="email"
           class="form-control"
           id="email"
@@ -29,7 +29,7 @@
       <div class="form-group">
         <label for="password">Password</label>
         <input
-          v-model="password"
+          v-model="form.password"
           type="password"
           class="form-control"
           id="password"
@@ -46,6 +46,8 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from "~/store/auth.store";
+
 definePageMeta({
   layout: "auth",
 });
@@ -60,32 +62,25 @@ useHead({
   ],
 });
 
-const fullName = ref<string>("");
-const email = ref<string>("");
-const password = ref<string>("");
-const errorMessage = ref<string>("");
-
-const router = useRouter();
-
-watch([fullName, email, password], () => {
-  errorMessage.value = "";
+const authStore = useAuthStore();
+const form = reactive({
+  fullName: "",
+  email: "",
+  password: "",
 });
+
+const errorMessage = ref<string>("");
+const router = useRouter();
 
 const register = async () => {
   try {
-    const res = await GqlRegister({
-      input: {
-        fullName: fullName.value,
-        email: email.value,
-        password: password.value,
-      },
-    });
-    if (res?.signUp) {
-      await GqlLogin({
-        input: { email: email.value, password: password.value },
-      });
-      router.push("/");
-    }
+    await authStore
+      .register(form)
+      .then(
+        async () =>
+          await authStore.login({ email: form.email, password: form.password }),
+      );
+    router.push("/");
   } catch (error: any) {
     errorMessage.value = error.gqlErrors[0].message;
   }
@@ -105,7 +100,7 @@ const register = async () => {
 }
 .sign-un-page__form {
   width: 100%;
-  max-width: 300px;
+  max-width: 18.75rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;

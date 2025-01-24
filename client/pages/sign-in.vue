@@ -7,7 +7,7 @@
       <div class="form-group">
         <label for="email">Email</label>
         <input
-          v-model="email"
+          v-model="form.email"
           type="email"
           class="form-control"
           id="email"
@@ -18,7 +18,7 @@
       <div class="form-group">
         <label for="password">Password</label>
         <input
-          v-model="password"
+          v-model="form.password"
           type="password"
           class="form-control"
           id="password"
@@ -34,6 +34,8 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from "~/store/auth.store";
+
 definePageMeta({
   layout: "auth",
 });
@@ -47,19 +49,19 @@ useHead({
     },
   ],
 });
-
-const email = ref<string>("");
-const password = ref<string>("");
+const authStore = useAuthStore();
+const form = reactive({
+  email: "",
+  password: "",
+});
 const errorMessage = ref<string>("");
-
 const router = useRouter();
 
 const login = async () => {
   try {
-    await GqlLogin({
-      input: { email: email.value, password: password.value },
+    await authStore.login(form).then(() => {
+      router.push("/");
     });
-    router.push("/");
   } catch (error: any) {
     errorMessage.value = error.gqlErrors[0].message;
   }
@@ -79,7 +81,7 @@ const login = async () => {
 }
 .sign-in-page__form {
   width: 100%;
-  max-width: 300px;
+  max-width: 18.75rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;

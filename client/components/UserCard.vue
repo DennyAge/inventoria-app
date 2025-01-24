@@ -58,7 +58,7 @@ const props = defineProps<Props>();
   font-size: 0.8rem;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1366px) {
   .user {
     padding: 0.3rem;
   }

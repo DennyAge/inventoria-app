@@ -10,6 +10,8 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from "~/store/auth.store";
+
 useHead({
   title: "Profile",
   link: [
@@ -21,9 +23,15 @@ useHead({
   ],
 });
 const router = useRouter();
+const authStore = useAuthStore();
 const logout = async () => {
-  await GqlLogout();
-  router.push("/sign-in");
+  try {
+    await authStore.logout().then(() => {
+      router.push("/sign-in");
+    });
+  } catch (error: any) {
+    console.error(error);
+  }
 };
 </script>
 

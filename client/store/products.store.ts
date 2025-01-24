@@ -1,9 +1,4 @@
-import type {
-  CreateProductInput,
-  OrderInput,
-  Product,
-  UpdateProductInput,
-} from "~/types";
+import type { CreateProductInput, Product, UpdateProductInput } from "~/types";
 
 const defaultValues: {
   products: Product[];

@@ -1,52 +1,58 @@
 <template>
-  <div class="small-order-card" v-if="selectedOrder">
-    <div class="flex">
+  <ul class="small-order-card" v-if="selectedOrder">
+    <li class="d-flex gap-3">
       <button class="product-btn" @click="handleOpenOrderProducts">
         <Icon name="ri:list-unordered" class="icon" size="25" />
       </button>
-      <div>
+      <div class="d-flex flex-column">
         <span>{{ products?.length }}</span>
-        <span>products</span>
+        <span>{{ $t("product") }}</span>
       </div>
-    </div>
-    <div class="data">
-      <span>
+    </li>
+    <li class="d-flex flex-column align-items-center">
+      <span class="text-sm text-gray">
         {{ formatTimestampShort(order?.createdAt) }}
       </span>
       <span>
         {{ formatTimestampLong(order?.createdAt, locale) }}
       </span>
-    </div>
-    <div v-if="selectedOrder._id === order._id">
+    </li>
+    <li v-if="selectedOrder._id === order._id">
       <Icon name="ri:arrow-right-wide-line" size="30" />
-    </div>
-  </div>
-  <div class="order-card" v-else>
-    <div class="text-break">
+    </li>
+  </ul>
+
+  <ul class="order-card" v-else>
+    <li class="text-break">
       {{ order.title }}
-    </div>
-    <div class="data">
-      <span>
+    </li>
+    <li class="d-flex align-items-center justify-content-center gap-3">
+      <button class="product-btn" @click="handleOpenOrderProducts">
+        <Icon name="ri:list-unordered" size="25" />
+      </button>
+      <div class="d-flex flex-column">
+        <span class="fs-5">{{ products?.length }}</span>
+        <span class="text-gray">{{ $t("product") }}</span>
+      </div>
+    </li>
+    <li class="d-flex flex-column align-items-center">
+      <span class="text-gray text-sm">
         {{ formatTimestampShort(order?.createdAt) }}
       </span>
       <span>
         {{ formatTimestampLong(order?.createdAt, locale) }}
       </span>
-    </div>
-    <div class="flex">
-      <button class="product-btn" @click="handleOpenOrderProducts">
-        <Icon name="ri:list-unordered" />
-      </button>
-      {{ products?.length }}
-    </div>
-    <div class="data">
-      <span>{{ totalPrice.USD }} $</span>
+    </li>
+    <li class="d-flex flex-column align-items-center">
+      <span class="text-gray text-sm">{{ totalPrice.USD }} $</span>
       <span>{{ totalPrice.UAH }} UAH</span>
-    </div>
-    <button @click="handleDeleteOrder(order)" class="remove-btn">
-      <Icon name="ri:delete-bin-6-line" size="20" />
-    </button>
-  </div>
+    </li>
+    <li class="d-flex flex-column align-items-center">
+      <button @click="handleDeleteOrder(order)" class="remove-btn">
+        <Icon name="ri:delete-bin-6-line" size="20" class="text-gray" />
+      </button>
+    </li>
+  </ul>
 </template>
 <script setup lang="ts">
 import type { Order } from "~/types";
@@ -85,27 +91,19 @@ const handleOpenOrderProducts = () => {
   width: 100%;
   display: grid;
   align-items: center;
-  grid-template-columns: 40% 25% 10% 20% 5%;
-  padding: 20px;
-  border: 1px solid var(--color-neutral-grey-75);
-  border-radius: 8px;
+  grid-template-columns: 3fr 1fr 1fr 1fr auto;
+  gap: 0.625rem;
+  padding: 1.25rem;
+  border: 0.063rem solid var(--color-neutral-grey-75);
+  border-radius: 0.5rem;
   background-color: var(--color-neutral-white);
-}
-.flex {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.data {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  list-style: none;
 }
 .product-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--color-neutral-grey-25);
+  border: 0.063rem solid var(--color-neutral-grey-25);
   border-radius: 50%;
   padding: 0.5rem;
   background: transparent;
@@ -120,16 +118,16 @@ const handleOpenOrderProducts = () => {
   margin: 0;
   background: transparent;
 }
-
 .small-order-card {
   width: 100%;
-  max-width: 500px;
+  max-width: 31.25rem;
   display: grid;
   align-items: center;
-  grid-template-columns: 4fr 5fr 1fr;
-  padding: 20px;
-  border: 1px solid var(--color-neutral-grey-75);
-  border-radius: 8px;
+  grid-template-columns: 4fr 4fr 1fr;
+  padding: 1.25rem 0 1.25rem 1.25rem;
+  border: 0.063rem solid var(--color-neutral-grey-75);
+  border-radius: 0.5rem;
   background-color: var(--color-neutral-white);
+  list-style: none;
 }
 </style>

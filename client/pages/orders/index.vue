@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Header show-input />
+    <Header show-input @filter="filteredByInput" />
     <div class="orders-page">
       <PageHeader
         :title="$t('orders')"
@@ -8,7 +8,10 @@
         add-btn
         :on-click="() => (showAddOrderModal = true)"
       />
-      <EmptyContent v-if="orders.length <= 0" :title="$t('ordersEmpty')" />
+      <EmptyContent
+        v-if="filteredOrders.length <= 0"
+        :title="$t('ordersEmpty')"
+      />
       <div
         v-else
         class="orders-page__body"
@@ -20,7 +23,7 @@
           ref="componentTop"
         >
           <Spinner v-if="isLoading" />
-          <div v-for="order in orders" :key="order?._id || order.title">
+          <div v-for="order in filteredOrders" :key="order?._id || order.title">
             <OrderCard :order="order" @delete-order="openDeleteModal" />
           </div>
         </div>
@@ -44,7 +47,9 @@
       @close="showDeleteModal = false"
       @submit="handleDelete"
     >
-      <span>{{ deleteData?.title }}</span>
+      <div>
+        <span class="text-break">{{ deleteData?.title }}</span>
+      </div>
     </Modal>
     <Modal
       v-if="showAddOrderModal"
@@ -102,12 +107,15 @@ const deleteData = ref();
 const deletedType = ref<string | null>(null);
 const componentTop = ref<HTMLElement | null>(null);
 
+const filteredOrders = ref<Order[]>([]);
+
 onMounted(async () => {
   try {
     if (orders.value.length === 0) {
       await productsStore.getProducts();
       await ordersStore.getOrders();
     }
+    filteredOrders.value = orders.value;
   } finally {
     isLoading.value = false;
   }
@@ -144,6 +152,7 @@ const handleDelete = async () => {
   } finally {
     showDeleteModal.value = false;
     isLoading.value = false;
+    filteredOrders.value = orders.value;
   }
 };
 const closeOrderProductsCard = () => {
@@ -160,6 +169,7 @@ const handleAddOrder = async (input: OrderInput) => {
   } finally {
     showAddOrderModal.value = false;
     isLoading.value = false;
+    filteredOrders.value = orders.value;
   }
 };
 const handleAddProduct = async (input: CreateProductInput) => {
@@ -173,11 +183,16 @@ const handleAddProduct = async (input: CreateProductInput) => {
     isLoading.value = false;
   }
 };
+const filteredByInput = (value: string) => {
+  filteredOrders.value = orders.value.filter((order) =>
+    order.title.toLocaleLowerCase().includes(value.toLocaleLowerCase()),
+  );
+};
 </script>
 
 <style scoped>
 .orders-page {
-  padding: 2rem 3rem;
+  padding: 2rem;
 }
 .orders-page__body {
   height: calc(100vh - 14rem);
@@ -192,7 +207,6 @@ const handleAddProduct = async (input: CreateProductInput) => {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 }
 .small-list {
   width: 50%;

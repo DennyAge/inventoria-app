@@ -64,4 +64,10 @@ body {
   height: 100vh;
   background-color: var(--color-neutral-grey-25);
 }
+.text-sm {
+  font-size: 0.7rem;
+}
+.text-gray {
+  color: var(--color-neutral-grey-100);
+}
 </style>

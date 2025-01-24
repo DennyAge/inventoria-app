@@ -9,7 +9,7 @@
         id="title"
         aria-describedby="title"
         required
-        maxlength="120"
+        maxlength="75"
         :class="{ 'is-invalid': !form.title.trim() && showFormError }"
       />
       <span v-if="!form.title.trim() && showFormError" class="text-danger">
@@ -233,7 +233,7 @@ const onSubmit = () => {
 };
 </script>
 
-<style>
+<style scoped>
 .product-form {
   display: flex;
   flex-direction: column;

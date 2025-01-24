@@ -1,5 +1,3 @@
-import type { Guarantee } from "~/types";
-
 export const navigationLinks = [
   {
     path: "/",

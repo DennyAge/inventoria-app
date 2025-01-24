@@ -1,7 +1,7 @@
 <template>
   <div v-if="order" class="order-product-card">
     <div class="order-product-card__header">
-      <div class="order-product-card__title">
+      <div class="d-flex justify-content-between gap-5">
         <h6 class="text-break">{{ order?.title }}</h6>
         <CloseButton @click="closeProductsCard" />
       </div>
@@ -10,7 +10,7 @@
         type="button"
         class="btn btn-success btn-sm"
       >
-        + Add new Products
+        + {{ $t("addNewProduct") }}
       </button>
     </div>
     <div v-if="products?.length">
@@ -26,16 +26,16 @@
             width="50px"
           />
         </li>
-        <li class="flex">
+        <li class="d-flex flex-column">
           <span class="text-break">
             {{ product.title }}
           </span>
-          <span>{{ product.serialNumber }}</span>
+          <span class="text-sm text-gray">{{ product.serialNumber }}</span>
         </li>
         <li>{{ product.type }}</li>
         <li>
           <button @click="handleDeleteProduct(product)" class="remove-btn">
-            <Icon name="ri:delete-bin-6-line" class="icon" />
+            <Icon name="ri:delete-bin-6-line" size="20" class="text-gray" />
           </button>
         </li>
       </ul>
@@ -75,28 +75,24 @@ const closeProductsCard = () => {
 .order-product-card {
   width: 100%;
   height: max-content;
-  border: 1px solid var(--color-neutral-grey-75);
-  border-radius: 8px;
+  border: 0.063rem solid var(--color-neutral-grey-75);
+  border-radius: 0.5rem;
   background-color: var(--color-neutral-white);
 }
 .order-product-card__header {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 10px 30px;
+  padding: 1.25rem 1.875rem;
 }
-.order-product-card__title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+
 .order-product-card__list {
-  display: flex;
+  display: grid;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  border-top: 1px solid var(--color-neutral-grey-75);
-  padding: 10px 30px;
+  grid-template-columns: 0.5fr 3fr 2fr auto;
+  gap: 0.625rem;
+  border-top: 0.063rem solid var(--color-neutral-grey-75);
+  padding: 0.625rem 1.875rem;
   list-style: none;
   margin: 0;
 }

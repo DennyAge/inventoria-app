@@ -1,13 +1,24 @@
 <template>
   <section>
-    <Header show-input />
+    <Header show-input @filter="filteredByInput" />
     <div class="products-page">
-      <PageHeader :title="$t('product')" :count="products?.length" />
-      <EmptyContent v-if="products.length <= 0" :title="$t('productEmpty')" />
+      <PageHeader
+        :title="$t('product')"
+        :count="products?.length"
+        filter
+        @filter="filterProducts"
+      />
+      <EmptyContent
+        v-if="filteredProducts.length <= 0"
+        :title="$t('productEmpty')"
+      />
       <div v-else class="products-page__body">
         <div class="products-page__list">
           <Spinner v-if="isLoading" />
-          <div v-for="product in products" :key="product?._id || product.title">
+          <div
+            v-for="product in filteredProducts"
+            :key="product?._id || product.title"
+          >
             <ProductCard :product="product" @delete-product="openDeleteModal" />
           </div>
         </div>
@@ -16,10 +27,13 @@
     <Modal
       v-if="showDeleteModal"
       :title="$t('deleteModalTitleProduct')"
+      :btn-text="$t('delete')"
       @close="showDeleteModal = false"
       @submit="deleteProduct"
     >
-      <span>{{ deleteData?.title }}</span>
+      <div>
+        <span class="text-break">{{ deleteData?.title }}</span>
+      </div>
     </Modal>
   </section>
 </template>
@@ -48,12 +62,15 @@ const showDeleteModal = ref(false);
 const deleteData = ref();
 const products = computed(() => productsStore.products);
 
+const filteredProducts = ref<Product[]>([]);
+
 onMounted(async () => {
   try {
     if (products.value.length === 0) {
       await ordersStore.getOrders();
       await productsStore.getProducts();
     }
+    filteredProducts.value = products.value;
   } finally {
     isLoading.value = false;
   }
@@ -64,10 +81,31 @@ const openDeleteModal = (product: Product) => {
 };
 const deleteProduct = async () => {
   const { _id } = deleteData.value;
-  isLoading.value = true;
-  await productsStore.deleteProduct(_id);
-  showDeleteModal.value = false;
-  isLoading.value = false;
+  try {
+    isLoading.value = true;
+    await productsStore.deleteProduct(_id);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    showDeleteModal.value = false;
+    isLoading.value = false;
+    filteredProducts.value = products.value;
+  }
+};
+const filterProducts = (type: string) => {
+  console.log(type);
+  if (type === "All") {
+    filteredProducts.value = products.value;
+  } else {
+    filteredProducts.value = products.value.filter(
+      (product) => product.type === type,
+    );
+  }
+};
+const filteredByInput = (value: string) => {
+  filteredProducts.value = products.value.filter((product) =>
+    product.title.toLocaleLowerCase().includes(value.toLocaleLowerCase()),
+  );
 };
 </script>
 
@@ -75,7 +113,7 @@ const deleteProduct = async () => {
 .products-page {
   width: 100%;
   height: 100%;
-  padding: 2rem 3rem;
+  padding: 2rem;
 }
 .products-page__body {
   height: calc(100vh - 14rem);
@@ -85,6 +123,5 @@ const deleteProduct = async () => {
 .products-page__list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 }
 </style>

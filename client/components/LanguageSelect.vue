@@ -23,7 +23,7 @@ const languages = ["en", "ua", "ru"];
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.625rem;
 }
 .language-select__bnt {
   border: none;

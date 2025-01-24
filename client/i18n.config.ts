@@ -20,6 +20,8 @@ export default defineI18nConfig(() => ({
       save: "Save",
       add: "Add",
       delete: "Delete",
+      addNewOrder: "Add Order",
+      addNewProduct: "Add Product",
 
       fullName: "Full Name",
       email: "Email",
@@ -33,6 +35,8 @@ export default defineI18nConfig(() => ({
       state: "State",
       new: "New",
       used: "Used",
+      from: "from",
+      to: "to",
     },
     ru: {
       dashboard: "Главная",
@@ -52,6 +56,8 @@ export default defineI18nConfig(() => ({
       save: "Сохранить",
       add: "Добавить",
       delete: "Удалить",
+      addNewOrder: "Добавить заказ",
+      addNewProduct: "Добавить продукт",
 
       fullName: "Полное имя",
       email: "Email",
@@ -65,6 +71,8 @@ export default defineI18nConfig(() => ({
       state: "Состояние",
       new: "Новый",
       used: "б/у",
+      from: "c",
+      to: "по",
     },
     ua: {
       dashboard: "Головна",
@@ -84,6 +92,8 @@ export default defineI18nConfig(() => ({
       save: "Зберегти",
       add: "Додати",
       delete: "Видалили",
+      addNewOrder: "Додати замовлення",
+      addNewProduct: "Додати продукт",
 
       fullName: "Повне ім'я",
       email: "Електронна пошта",
@@ -97,6 +107,8 @@ export default defineI18nConfig(() => ({
       state: "Стан",
       new: "Новий",
       used: "б/у",
+      from: "з",
+      to: "до",
     },
   },
 }));

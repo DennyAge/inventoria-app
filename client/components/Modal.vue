@@ -53,10 +53,9 @@ const onSubmit = () => {
 }
 .modal__content {
   background: var(--color-neutral-grey-10);
-  width: 100%;
-  max-width: 600px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 31.25rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -66,12 +65,12 @@ const onSubmit = () => {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  border-bottom: 1px solid var(--color-neutral-grey-75);
+  border-bottom: 0.063rem solid var(--color-neutral-grey-75);
   font-size: 1rem;
 }
 .modal__body {
   padding: 2rem;
-  border-bottom: 1px solid var(--color-neutral-grey-75);
+  border-bottom: 0.063rem solid var(--color-neutral-grey-75);
 }
 .modal__footer {
   display: flex;

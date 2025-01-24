@@ -19,7 +19,7 @@
   background-color: rgba(0, 0, 0, 0.2);
 }
 .three-body {
-  --uib-size: 35px;
+  --uib-size: 2.188rem;
   --uib-speed: 0.8s;
   --uib-color: #5d3fd3;
   position: relative;

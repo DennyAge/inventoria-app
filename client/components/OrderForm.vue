@@ -9,7 +9,7 @@
         id="title"
         aria-describedby="title"
         required
-        maxlength="120"
+        maxlength="75"
         :class="{ 'is-invalid': !form.title.trim() && showFormError }"
       />
       <span v-if="!form.title.trim() && showFormError" class="text-danger">
@@ -62,11 +62,11 @@ const onSubmit = () => {
     showFormError.value = true;
     return;
   }
-  emit("submit", { title: form.title, description: form.description });
+  emit("submit", form);
 };
 </script>
 
-<style>
+<style scoped>
 .order-form {
   display: flex;
   flex-direction: column;

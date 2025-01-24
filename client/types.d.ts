@@ -29,10 +29,6 @@ interface Guarantee {
   end: string;
 }
 
-interface ProductIds {
-  id: string;
-}
-
 interface Product {
   _id: string;
   serialNumber: string;
@@ -61,7 +57,6 @@ interface Order {
   updatedAt: string;
 }
 interface User {
-  _id: string;
   fullName: string;
   email: string;
   createdAt?: string;
