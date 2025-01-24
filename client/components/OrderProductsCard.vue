@@ -2,7 +2,7 @@
   <div v-if="order" class="order-product-card">
     <div class="order-product-card__header">
       <div class="order-product-card__title">
-        <h1>{{ order?.title }}</h1>
+        <h6 class="text-break">{{ order?.title }}</h6>
         <CloseButton @click="closeProductsCard" />
       </div>
       <button
@@ -27,7 +27,9 @@
           />
         </li>
         <li class="flex">
-          <span>{{ product.title }}</span>
+          <span class="text-break">
+            {{ product.title }}
+          </span>
           <span>{{ product.serialNumber }}</span>
         </li>
         <li>{{ product.type }}</li>

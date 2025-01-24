@@ -2,7 +2,7 @@
   <div class="small-order-card" v-if="selectedOrder">
     <div class="flex">
       <button class="product-btn" @click="handleOpenOrderProducts">
-        <Icon name="ri:list-unordered" class="icon" />
+        <Icon name="ri:list-unordered" class="icon" size="25" />
       </button>
       <div>
         <span>{{ products?.length }}</span>
@@ -18,11 +18,11 @@
       </span>
     </div>
     <div v-if="selectedOrder._id === order._id">
-      <Icon name="ri:arrow-right-wide-line" class="icon" />
+      <Icon name="ri:arrow-right-wide-line" size="30" />
     </div>
   </div>
   <div class="order-card" v-else>
-    <div>
+    <div class="text-break">
       {{ order.title }}
     </div>
     <div class="data">
@@ -44,7 +44,7 @@
       <span>{{ totalPrice.UAH }} UAH</span>
     </div>
     <button @click="handleDeleteOrder(order)" class="remove-btn">
-      <Icon name="ri:delete-bin-6-line" class="icon" />
+      <Icon name="ri:delete-bin-6-line" size="20" />
     </button>
   </div>
 </template>
@@ -131,8 +131,5 @@ const handleOpenOrderProducts = () => {
   border: 1px solid var(--color-neutral-grey-75);
   border-radius: 8px;
   background-color: var(--color-neutral-white);
-}
-.icon {
-  font-size: 2rem;
 }
 </style>

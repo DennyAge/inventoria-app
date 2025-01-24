@@ -23,11 +23,11 @@ export const orderResolver = {
   Mutation: {
     createOrder: async (_, { input }) => {
       try {
-        const { title, description, products } = input;
+        const { title, description } = input;
         const newOrder = new Order({
           title,
           description,
-          products,
+          products: [],
         });
         await newOrder.save();
 

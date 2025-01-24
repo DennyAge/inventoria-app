@@ -1,19 +1,19 @@
 <template>
-  <div class="delete-modal">
-    <div class="delete-modal__content">
-      <div class="delete-modal__header">
+  <div class="modal">
+    <div class="modal__content">
+      <div class="modal__header">
         <h5>{{ title }}</h5>
         <CloseButton @click="onClose" />
       </div>
-      <div class="delete-modal__body">
-        <span>{{ data?.title }}</span>
+      <div class="modal__body">
+        <slot />
       </div>
-      <div class="delete-modal__footer">
+      <div class="modal__footer" v-if="!hiddenFooter">
         <button @click="onClose" type="button" class="btn btn-danger">
-          {{ $t("no") }}
+          {{ $t("cancel") }}
         </button>
         <button @click="onSubmit" type="button" class="btn btn-success">
-          {{ $t("yes") }}
+          {{ btnText }}
         </button>
       </div>
     </div>
@@ -21,25 +21,24 @@
 </template>
 
 <script setup lang="ts">
-import type { Product, Order } from "~/types";
-
-interface Props {
+defineProps<{
   title?: string;
-  data: Product | Order;
-}
-const props = defineProps<Props>();
+  btnText?: string;
+  hiddenFooter?: boolean;
+}>();
+
 const emit = defineEmits(["close", "submit"]);
 
 const onClose = () => {
-  emit("close", false);
+  emit("close");
 };
 const onSubmit = () => {
-  emit("submit", props.data._id);
+  emit("submit");
 };
 </script>
 
 <style scoped>
-.delete-modal {
+.modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -52,7 +51,7 @@ const onSubmit = () => {
   z-index: 1000;
   box-sizing: border-box;
 }
-.delete-modal__content {
+.modal__content {
   background: var(--color-neutral-grey-10);
   width: 100%;
   max-width: 600px;
@@ -62,7 +61,7 @@ const onSubmit = () => {
   flex-direction: column;
   overflow: hidden;
 }
-.delete-modal__header {
+.modal__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -70,11 +69,11 @@ const onSubmit = () => {
   border-bottom: 1px solid var(--color-neutral-grey-75);
   font-size: 1rem;
 }
-.delete-modal__body {
+.modal__body {
   padding: 2rem;
   border-bottom: 1px solid var(--color-neutral-grey-75);
 }
-.delete-modal__footer {
+.modal__footer {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;

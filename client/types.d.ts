@@ -77,7 +77,7 @@ interface SignUpInput {
   password: string;
   fullName: string;
 }
-interface UpdateOrderInput {
+interface OrderInput {
   title: string;
   description: string;
 }

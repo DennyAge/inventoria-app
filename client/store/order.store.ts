@@ -1,4 +1,4 @@
-import type { Order, UpdateOrderInput } from "~/types";
+import type { Order, OrderInput } from "~/types";
 
 const defaultValues: {
   orders: Order[];
@@ -37,9 +37,18 @@ export const useOrdersStore = defineStore("orders", {
           this.orders.unshift(data);
         }
       }
-
-      // Обновляем selectedOrder
       this.$patch({ selectedOrder: data });
+    },
+    async createOrder(input: OrderInput) {
+      const { createOrder } = await GqlCreateOrder({ input });
+      if (createOrder) {
+        this.$patch((state) => {
+          state.orders.push(createOrder);
+        });
+      } else {
+        console.error("Order not found");
+        this.$patch({ order: null });
+      }
     },
     async getOrder(orderId: string) {
       const { order } = await GqlGetOrderById({ orderId });
@@ -50,8 +59,7 @@ export const useOrdersStore = defineStore("orders", {
         this.$patch({ order: null });
       }
     },
-
-    async updateOrder(orderId: string, input: UpdateOrderInput) {
+    async updateOrder(orderId: string, input: OrderInput) {
       try {
         const { updateOrder } = await GqlUpdateOrder({
           orderId,

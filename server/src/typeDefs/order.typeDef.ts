@@ -24,7 +24,6 @@ export const orderTypeDef = gql`
   input CreateOrderInput {
     title: String!
     description: String!
-    products: [String]!
   }
 
   input UpdateOrderInput {
