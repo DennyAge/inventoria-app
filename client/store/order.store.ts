@@ -89,6 +89,8 @@ export const useOrdersStore = defineStore("orders", {
           if (this.order?._id === orderId) {
             this.$patch({ order: null });
           }
+          const productsStore = useProductsStore();
+          await productsStore.getProducts();
 
           return deleteOrder?.message;
         }
