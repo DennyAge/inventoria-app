@@ -1,4 +1,5 @@
 import type { Product } from "~/types";
+import { Chart } from "chart.js/auto";
 
 export const getInitials = (name: string): string =>
   name
@@ -71,4 +72,73 @@ export const sumPricesByProduct = (
     },
     { USD: 0, UAH: 0 },
   );
+};
+
+export const formatCurrency = (value: number) => {
+  if (value === 0) return value.toString();
+  if (value >= 10000) {
+    return new Intl.NumberFormat("en-US", {
+      notation: "compact",
+      compactDisplay: "short",
+      currencyDisplay: "narrowSymbol",
+      currency: "USD",
+      style: "currency",
+    }).format(value);
+  }
+  return formattedBudgetCurrency(value);
+};
+
+export const formattedBudgetCurrency = (value: number) => {
+  return new Intl.NumberFormat("en-US", {
+    currencyDisplay: "narrowSymbol",
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  })
+    .format(value)
+    .replace(/^(\D+)/, "$1 ")
+    .replace(/\s+/, "");
+};
+
+export const crossLine = (chart: Chart, mousemove: MouseEvent) => {
+  chart.update("none");
+  const y = mousemove.offsetY;
+  const x = mousemove.offsetX;
+
+  const {
+    ctx,
+    chartArea: { top, bottom, left, right },
+  } = chart;
+
+  if (x < left || x > right || y < top || y > bottom) return;
+
+  ctx.save();
+  ctx.setLineDash([6, 6]);
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = "#282828";
+
+  if (y >= top && y <= bottom) {
+    ctx.beginPath();
+    ctx.moveTo(left, y);
+    ctx.lineTo(right, y);
+    ctx.stroke();
+    ctx.closePath();
+
+    const yValue = chart.scales.y.getValueForPixel(y);
+    ctx.beginPath();
+    ctx.fillStyle = "#FFFFFF";
+    ctx.shadowColor = "rgba(20, 20, 20, 0.08)";
+    ctx.shadowBlur = 8;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.roundRect(left, y - 25, 80, 20, 8);
+    ctx.fill();
+
+    ctx.fillStyle = "#282828";
+    ctx.font = "12px Arial";
+    ctx.fillText(`$ ${Math.round(yValue)} avg.`, left + 10, y - 10);
+  }
+
+  ctx.setLineDash([]);
+  ctx.restore();
 };
