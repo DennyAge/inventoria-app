@@ -45,6 +45,10 @@ const props = defineProps<Props>();
   height: 3.125rem;
   border-radius: 100%;
 }
+.user__int:hover {
+  background: var(--color-semantic-blue-75);
+  color: var(--color-neutral-grey-10);
+}
 .user__info {
   display: flex;
   flex-direction: column;

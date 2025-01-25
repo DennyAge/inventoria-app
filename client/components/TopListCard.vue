@@ -12,7 +12,7 @@
         <li>
           <Image src="/images/order.svg" alt="order" width="50px" />
         </li>
-        <li class="text-break">
+        <li class="text-break" :title="item.title">
           {{ item.title }}
         </li>
         <li>Products : {{ item.products.length }}</li>
@@ -31,7 +31,7 @@
             width="50px"
           />
         </li>
-        <li class="text-break">
+        <li class="text-break" :title="item.title">
           {{ item.title }}
         </li>
         <li>{{ item.type }}</li>
@@ -93,5 +93,12 @@ const randomData = computed(() => {
 
 .top-list-card__body {
   animation: slideDown 0.5s ease;
+}
+.text-break {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

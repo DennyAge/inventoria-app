@@ -30,6 +30,7 @@ const goToDashboard = () => clearError({ redirect: "/" });
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--color-neutral-white);
 }
 .error_page__content {
   display: flex;

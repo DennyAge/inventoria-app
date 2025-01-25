@@ -2,10 +2,9 @@
   <section>
     <Header />
     <div class="dashboard-page">
-      <PageHeader :title="$t('dashboard')" />
       <div class="dashboard-content">
         <div class="d-flex gap-4">
-          <div class="content-block">
+          <div class="content-block d-flex align-items-center">
             <PieChart :items="typesStatistics" :index="1" />
           </div>
           <div class="content-block">
@@ -71,10 +70,11 @@ onMounted(async () => {
   padding: 2rem;
 }
 .dashboard-content {
-  height: calc(100vh - 14rem);
+  height: calc(100vh - 7rem);
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  overflow-x: auto;
 }
 .line-chart-section {
   display: flex;

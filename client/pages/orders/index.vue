@@ -15,11 +15,11 @@
       <div
         v-else
         class="orders-page__body"
-        :class="clsx({ 'body-flex': selectedOrder })"
+        :class="{ 'body-flex': selectedOrder }"
       >
         <div
           class="orders-page__list"
-          :class="clsx({ 'small-list': selectedOrder })"
+          :class="{ 'small-list': selectedOrder }"
           ref="componentTop"
         >
           <Spinner v-if="isLoading" />
@@ -94,7 +94,6 @@ import { useOrdersStore } from "~/store/order.store";
 import { useProductsStore } from "~/store/products.store";
 const ordersStore = useOrdersStore();
 const productsStore = useProductsStore();
-import clsx from "clsx";
 
 const isLoading = ref(true);
 const orders = computed(() => ordersStore.orders);
@@ -110,6 +109,8 @@ const componentTop = ref<HTMLElement | null>(null);
 const filteredOrders = ref<Order[]>([]);
 
 onMounted(async () => {
+  ordersStore.setSelectedOrder(null);
+  productsStore.setSelectedProducts(null);
   try {
     if (orders.value.length === 0) {
       await productsStore.getProducts();

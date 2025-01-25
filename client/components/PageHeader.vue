@@ -64,7 +64,7 @@ const onChange = () => {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 .page-header__title {
   font-size: 1.7rem;

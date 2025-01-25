@@ -55,7 +55,8 @@ const handleDeleteProduct = (product: Product) => {
   grid-template-columns: 2fr 1.2fr 1fr 0.7fr 2fr auto;
   gap: 0.625rem;
   padding: 1.25rem;
-  border: 0.063rem solid var(--color-neutral-grey-75);
+  border: 0.063rem solid var(--color-neutral-grey-25);
+  box-shadow: var(--main-shadow);
   border-radius: 0.5rem;
   background-color: var(--color-neutral-white);
   list-style: none;

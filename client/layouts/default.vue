@@ -42,6 +42,7 @@ onMounted(checkAuth);
   width: calc(100% - 16.5rem);
   flex: 1;
   flex-direction: column;
+  overflow: hidden;
 }
 @media screen and (max-width: 900px) {
   .page-content {

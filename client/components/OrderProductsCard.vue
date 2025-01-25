@@ -1,5 +1,5 @@
 <template>
-  <div v-if="order" class="order-product-card">
+  <div v-if="products" class="order-product-card" :key="order._id">
     <div class="order-product-card__header">
       <div class="d-flex justify-content-between gap-5">
         <h6 class="text-break">{{ order?.title }}</h6>
@@ -75,9 +75,12 @@ const closeProductsCard = () => {
 .order-product-card {
   width: 100%;
   height: max-content;
-  border: 0.063rem solid var(--color-neutral-grey-75);
+  border: 0.063rem solid var(--color-neutral-grey-25);
+  box-shadow: var(--main-shadow);
   border-radius: 0.5rem;
   background-color: var(--color-neutral-white);
+
+  animation: slideLeft 0.7s ease;
 }
 .order-product-card__header {
   display: flex;
@@ -111,5 +114,16 @@ const closeProductsCard = () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
