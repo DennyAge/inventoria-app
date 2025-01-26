@@ -12,7 +12,7 @@ import mergedResolvers from "./resolvers";
 import mergedTypeDefs from "./typeDefs";
 import { connectDB } from "./db/connection";
 import { socketIO } from "./lib/socket";
-import * as process from "node:process";
+import uploadRoutes from "./routes/uploadImageRoute";
 
 dotenv.config();
 
@@ -63,6 +63,9 @@ const startServer = async () => {
   await connectDB();
   console.log(`Server start on http://localhost:${process.env.PORT}`);
 };
+
 startServer().catch((error) => {
   console.error("Failed to start server:", error);
 });
+
+app.use("/api", uploadRoutes);
