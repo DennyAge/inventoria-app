@@ -1,6 +1,6 @@
 <template>
   <div class="user" @click="">
-    <button class="user__int" @click="router.push('/profile')">
+    <button class="user__int" @click="goToProfile">
       {{ getInitials(user.fullName) || "IN" }}
     </button>
     <div class="user__info">
@@ -14,11 +14,16 @@
 import { getInitials } from "~/lib/utils";
 import type { User } from "~/types";
 const router = useRouter();
+const localePath = useLocalePath();
+
+const goToProfile = () => {
+  router.push(localePath("/profile"));
+};
 
 interface Props {
   user: User;
 }
-const props = defineProps<Props>();
+defineProps<Props>();
 </script>
 
 <style scoped>

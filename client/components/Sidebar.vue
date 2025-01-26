@@ -9,7 +9,7 @@
         <NuxtLink
           v-for="link in navigationLinks"
           :key="link.name"
-          :to="link.path"
+          :to="localePath(link.path)"
           class="nav-link"
           active-class="active"
         >
@@ -33,6 +33,7 @@ interface Props {
   user: User;
 }
 defineProps<Props>();
+const localePath = useLocalePath();
 </script>
 
 <style scoped>

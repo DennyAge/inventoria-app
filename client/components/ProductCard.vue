@@ -1,7 +1,7 @@
 <template>
   <ul class="product-card">
     <li class="text-break">
-      <NuxtLink :to="`/products/${product._id}`" class="nav-link">{{
+      <NuxtLink :to="localePath(`/products/${product._id}`)" class="nav-link">{{
         product.title
       }}</NuxtLink>
     </li>
@@ -45,7 +45,7 @@ const emit = defineEmits(["delete-product"]);
 
 const ordersStore = useOrdersStore();
 const order = ordersStore.getOrderById(props.product.order);
-
+const localePath = useLocalePath();
 const handleDeleteProduct = (product: Product) => {
   emit("delete-product", product);
 };

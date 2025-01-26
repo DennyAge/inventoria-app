@@ -1,21 +1,19 @@
 <template>
   <div class="language-select">
     <button
-      v-for="language in languages"
-      :key="language"
+      v-for="loc in locales"
+      :key="loc.code"
       class="language-select__bnt"
-      :class="language === locale && 'active'"
-      @click="setLocale(language)"
+      :class="loc.code === locale && 'active'"
+      @click="setLocale(loc.code)"
     >
-      {{ language.toUpperCase() }}
+      {{ loc.code.toUpperCase() }}
     </button>
   </div>
 </template>
 
 <script lang="ts" setup>
-const { locale, setLocale } = useI18n();
-
-const languages = ["en", "ua", "ru"];
+const { locale, locales, setLocale } = useI18n();
 </script>
 
 <style scoped>

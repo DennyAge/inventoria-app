@@ -17,8 +17,15 @@ export default defineNuxtConfig({
     locales: [
       {
         code: "en",
-        iso: "en-US",
         name: "English",
+      },
+      {
+        code: "ua",
+        name: "Ukrainian",
+      },
+      {
+        code: "ru",
+        name: "Russian",
       },
     ],
     defaultLocale: "en",

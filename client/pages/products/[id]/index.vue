@@ -167,7 +167,7 @@ const productId = route.params.id.toString();
 const product = computed(() => productsStore.product);
 const order = computed(() => ordersStore.order);
 const selectedImage = ref<string | null>(null);
-
+const localePath = useLocalePath();
 const showDeleteModal = ref(false);
 const showEditProductModal = ref(false);
 
@@ -181,7 +181,7 @@ onMounted(async () => {
     }
   } catch (error) {
     console.error(error);
-    router.push("/products");
+    router.push(localePath("/products"));
   } finally {
     isLoading.value = false;
   }
@@ -190,7 +190,7 @@ const handleDelete = async () => {
   try {
     isLoading.value = true;
     await productsStore.deleteProduct(productId).then(() => {
-      router.push("/products");
+      router.push(localePath("/products"));
     });
   } catch (error) {
     console.error(error);
