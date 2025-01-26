@@ -55,7 +55,7 @@
         Specification is required
       </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" v-if="!editMode">
       <label for="guarantee">{{ $t("guarantee") }}:</label>
       <select
         class="form-control"
@@ -151,7 +151,7 @@
         {{ $t("cancel") }}
       </button>
       <button @click="onSubmit" type="button" class="btn btn-success">
-        {{ $t("add") }}
+        {{ editMode ? $t("save") : $t("add") }}
       </button>
     </div>
   </form>
@@ -163,8 +163,17 @@ import {
   productSpecification,
   productTypes,
 } from "~/constants";
+import { Product } from "~/types";
 const emit = defineEmits(["close", "submit"]);
-const props = defineProps(["orderId"]);
+
+interface Props {
+  orderId?: string;
+  product?: Product | null;
+  editMode?: boolean;
+}
+const props = withDefaults(defineProps<Props>(), {
+  editMode: false,
+});
 
 interface Form {
   title: string;
@@ -177,13 +186,13 @@ interface Form {
 }
 
 const form = reactive<Form>({
-  title: "",
-  type: "",
-  specification: "",
-  guarantee: "",
-  state: false,
-  priceUSD: 0,
-  priceUAH: 0,
+  title: props?.product?.title || "",
+  type: props?.product?.type || "",
+  specification: props?.product?.specification || "",
+  guarantee: props?.product?.guarantee || "",
+  state: props?.product?.isUsed || false,
+  priceUSD: props?.product?.price[0]?.value || 0,
+  priceUAH: props?.product?.price[1]?.value || 0,
 });
 
 const showFormError = ref<boolean>(false);
@@ -199,6 +208,7 @@ const onClose = () => {
   emit("close");
 };
 const onSubmit = () => {
+  console.log(form);
   if (
     !form.title.trim() ||
     !form.type.trim() ||

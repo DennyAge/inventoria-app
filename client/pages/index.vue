@@ -31,7 +31,6 @@
 import BarChart from "~/components/charts/BarChart.vue";
 import Header from "~/components/Header.vue";
 import PieChart from "~/components/charts/PieChart.vue";
-import PageHeader from "~/components/PageHeader.vue";
 import TwoSideBarChart from "~/components/charts/TwoSideBarChart.vue";
 import TopListCard from "~/components/TopListCard.vue";
 import { typesStatistics, cityStatistics, sellStatistics } from "~/constants";

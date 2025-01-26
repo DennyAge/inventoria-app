@@ -1,5 +1,5 @@
 <template>
-  <div v-if="products" class="order-product-card" :key="order._id">
+  <div v-if="products" class="order-product-card" :key="order?._id">
     <div class="order-product-card__header">
       <div class="d-flex justify-content-between gap-5">
         <h6 class="text-break">{{ order?.title }}</h6>

@@ -1,7 +1,9 @@
 <template>
   <ul class="product-card">
     <li class="text-break">
-      {{ product.title }}
+      <NuxtLink :to="`/products/${product._id}`" class="nav-link">{{
+        product.title
+      }}</NuxtLink>
     </li>
     <li class="d-flex justify-content-center text-center">
       {{ product.type }}
@@ -32,15 +34,17 @@
 import type { Product } from "~/types";
 import { useOrdersStore } from "~/store/order.store";
 import { formatTimestampLong } from "~/lib/utils";
+const { locale } = useI18n();
 
 interface Props {
   product: Product;
 }
+
 const props = defineProps<Props>();
-const { locale } = useI18n();
+const emit = defineEmits(["delete-product"]);
+
 const ordersStore = useOrdersStore();
 const order = ordersStore.getOrderById(props.product.order);
-const emit = defineEmits(["delete-product"]);
 
 const handleDeleteProduct = (product: Product) => {
   emit("delete-product", product);
@@ -60,6 +64,7 @@ const handleDeleteProduct = (product: Product) => {
   border-radius: 0.5rem;
   background-color: var(--color-neutral-white);
   list-style: none;
+  margin-bottom: 1rem;
 }
 .remove-btn {
   width: max-content;
@@ -67,5 +72,8 @@ const handleDeleteProduct = (product: Product) => {
   padding: 0;
   margin: 0;
   background: transparent;
+}
+.nav-link {
+  text-decoration: underline;
 }
 </style>

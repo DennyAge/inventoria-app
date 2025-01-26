@@ -1364,6 +1364,45 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "GuaranteeInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "start",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "end",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "CreateProductInput",
         "description": null,
         "fields": null,
@@ -1515,8 +1554,8 @@
             "name": "guarantee",
             "description": null,
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
+              "kind": "INPUT_OBJECT",
+              "name": "GuaranteeInput",
               "ofType": null
             },
             "defaultValue": null

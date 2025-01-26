@@ -23,8 +23,8 @@ const props = withDefaults(defineProps<Props>(), {
   showInput: false,
 });
 const { locale } = useI18n();
-
 const emit = defineEmits(["filter"]);
+
 const inputValue = ref<string>("");
 
 const onChange = () => {

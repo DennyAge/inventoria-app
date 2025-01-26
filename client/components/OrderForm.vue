@@ -24,6 +24,7 @@
         :class="{ 'is-invalid': !form.description.trim() && showFormError }"
         id="description"
         rows="5"
+        maxlength="250"
         aria-describedby="description"
         required
         style="resize: none"
@@ -48,6 +49,7 @@
 
 <script setup lang="ts">
 const emit = defineEmits(["close", "submit"]);
+
 const form = reactive({
   title: "",
   description: "",

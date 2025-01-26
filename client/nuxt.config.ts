@@ -10,6 +10,9 @@ export default defineNuxtConfig({
     "usebootstrap",
     "nuxt-graphql-client",
   ],
+  imports: {
+    autoImport: true,
+  },
   i18n: {
     locales: [
       {
@@ -39,12 +42,6 @@ export default defineNuxtConfig({
   },
 
   "graphql-client": {
-    tokenStorage: {
-      mode: "localStorage",
-    },
-    codegen: {
-      disableOnBuild: true,
-    },
     clients: {
       default: {
         host: process.env.GQL_HOST!,

@@ -43,6 +43,10 @@ export const productTypeDef = gql`
     symbol: String!
     isDefault: Boolean!
   }
+  input GuaranteeInput {
+    start: String!
+    end: String!
+  }
 
   input CreateProductInput {
     isUsed: Boolean!
@@ -58,7 +62,7 @@ export const productTypeDef = gql`
     title: String
     type: String
     specification: String
-    guarantee: String
+    guarantee: GuaranteeInput
     price: [PriceInput]
     isUsed: Boolean
   }

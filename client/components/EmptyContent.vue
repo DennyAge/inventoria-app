@@ -5,10 +5,9 @@
   </div>
 </template>
 <script lang="ts" setup>
-interface Props {
+defineProps<{
   title?: string;
-}
-const props = defineProps<Props>();
+}>();
 </script>
 <style scoped>
 .empty-content {

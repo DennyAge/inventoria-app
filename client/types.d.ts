@@ -80,7 +80,7 @@ interface UpdateProductInput {
   title: string;
   type: string;
   specification: string;
-  guarantee: string;
+  guarantee: Guarantee;
   price: Price[];
   isUsed: boolean;
 }

@@ -64,6 +64,12 @@ body {
   height: 100vh;
   background-color: var(--color-neutral-grey-25);
 }
+li,
+ul,
+p {
+  padding: 0;
+  margin: 0;
+}
 .text-sm {
   font-size: 0.7rem;
 }

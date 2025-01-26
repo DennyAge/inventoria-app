@@ -32,7 +32,10 @@ export const getDayOfWeek = (date: Date, locale: string): string => {
   return formatter.format(date);
 };
 
-export const formatTimestampLong = (timestampStr: string, locale: string) => {
+export const formatTimestampLong = (
+  timestampStr: string | undefined,
+  locale: string,
+) => {
   const timestamp = Number(timestampStr);
 
   const date = new Date(timestamp);

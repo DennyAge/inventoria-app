@@ -71,17 +71,19 @@ interface Props {
   order: Order;
 }
 const props = defineProps<Props>();
+const emit = defineEmits(["delete-order"]);
+
 const productsStore = useProductsStore();
 const ordersStore = useOrdersStore();
 const products = productsStore.getProductsByIds(props.order.products);
-const selectedOrder = computed(() => ordersStore.selectedOrder);
-const emit = defineEmits(["delete-order"]);
 
-const totalPrice = sumPricesByProduct(products);
+const selectedOrder = computed(() => ordersStore.selectedOrder);
+const totalPrice = computed(() => sumPricesByProduct(products));
 
 const handleDeleteOrder = (order: Order) => {
   return emit("delete-order", order, "order");
 };
+
 const handleOpenOrderProducts = () => {
   ordersStore.setSelectedOrder(props.order);
   productsStore.setSelectedProducts(products);
@@ -101,6 +103,7 @@ const handleOpenOrderProducts = () => {
   border-radius: 0.5rem;
   background-color: var(--color-neutral-white);
   list-style: none;
+  margin-bottom: 1rem;
 }
 .product-btn {
   display: flex;
@@ -133,12 +136,12 @@ const handleOpenOrderProducts = () => {
   border-radius: 0.5rem;
   background-color: var(--color-neutral-white);
   list-style: none;
+  margin-bottom: 1rem;
 }
 
 .slide-fade-leave-active {
   animation: slideFadeOut 0.3s ease;
 }
-
 .slide-fade-enter-active {
   animation: slideFadeIn 0.3s ease;
   animation-fill-mode: backwards;

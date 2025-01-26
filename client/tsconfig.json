@@ -13,17 +13,10 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "verbatimModuleSyntax": false,
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"]
-    },
     "types": [
       "nuxt",
       "vite/client",
       "unplugin-vue2-script-setup/types",
-      "jest",
-      "@testing-library/jest-dom"
     ]
   },
   "include": [

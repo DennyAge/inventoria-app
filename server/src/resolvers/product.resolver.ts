@@ -39,6 +39,7 @@ export const productResolver = {
           title,
           type,
           specification,
+          //TODO: later change logic for guarantee on BE and FE
           guarantee: {
             start: startDate.getTime(),
             end: endDate.getTime(),
@@ -60,7 +61,7 @@ export const productResolver = {
     },
     updateProduct: async (_, { productId, input }) => {
       try {
-        const { title, type, specification, guarantee, price, order } = input;
+        const { title, type, specification, guarantee, price, isUsed } = input;
 
         const product = await Product.findById(productId);
 
@@ -71,19 +72,20 @@ export const productResolver = {
         const updatedProduct = await Product.findByIdAndUpdate(
           productId,
           {
-            isUsed: false,
+            isUsed,
             title,
             type,
             specification,
+            //TODO: later change logic for guarantee on BE and FE
             guarantee,
             price,
-            order,
           },
           { new: true },
         );
         if (!updatedProduct) {
           throw new Error("Product not found");
         }
+        return updatedProduct;
       } catch (error) {
         console.log("Error updating product", error);
         throw new Error(error.message || "Error updating product");

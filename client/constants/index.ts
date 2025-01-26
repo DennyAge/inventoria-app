@@ -72,3 +72,16 @@ export const cityStatistics = [
   { id: 4, label: "Dnipro", allocated: 150, booked: 300, rate: 15 },
   { id: 5, label: "Kharkiv", allocated: 580, booked: 650, rate: 58 },
 ];
+
+export const mockLocations = [
+  { lat: 50.4501, lng: 30.5234, name: "Citrus" },
+  { lat: 50.4547, lng: 30.5038, name: "Yabko" },
+  { lat: 50.4421, lng: 30.5169, name: "Touch" },
+];
+
+export const mockPhoto = [
+  "devices.svg",
+  "mock-img-1.webp",
+  "mock-img-2.webp",
+  "mock-img-3.webp",
+];
