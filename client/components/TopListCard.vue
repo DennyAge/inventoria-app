@@ -3,39 +3,51 @@
     <div class="top-list-card__header">
       <h3>{{ type === "order" ? "Top Orders:" : "Top Products:" }}</h3>
     </div>
-    <div v-if="type === 'order'" class="top-list-card__body">
-      <ul
-        v-for="item in randomData"
-        :key="item?._id || item.title"
-        class="top-list-card__list"
-      >
-        <li>
-          <Image src="/images/order.svg" alt="order" width="50px" />
-        </li>
-        <li class="text-break" :title="item.title">
-          {{ item.title }}
-        </li>
-        <li>Products : {{ item.products.length }}</li>
-      </ul>
+    <div v-if="data && data?.length > 0">
+      <div v-if="type === 'order'" class="top-list-card__body">
+        <ul
+          v-for="item in randomData"
+          :key="item?._id || item.title"
+          class="top-list-card__list"
+        >
+          <li>
+            <Image src="/images/order.svg" alt="order" width="50px" />
+          </li>
+          <li class="text-break" :title="item.title">
+            {{ item.title }}
+          </li>
+          <li>Products : {{ item.products.length }}</li>
+        </ul>
+      </div>
+      <div v-if="type === 'product'" class="top-list-card__body">
+        <ul
+          v-for="item in randomData"
+          :key="item?._id || item.title"
+          class="top-list-card__list"
+        >
+          <li>
+            <Image
+              :src="
+                item.photo?.length > 0
+                  ? `${item.photo[0]}`
+                  : '/images/devices.svg'
+              "
+              :alt="item.title"
+              width="50px"
+            />
+          </li>
+          <li class="text-break" :title="item.title">
+            {{ item.title }}
+          </li>
+          <li>{{ item.type }}</li>
+        </ul>
+      </div>
     </div>
-    <div v-if="type === 'product'" class="top-list-card__body">
-      <ul
-        v-for="item in randomData"
-        :key="item?._id || item.title"
-        class="top-list-card__list"
-      >
-        <li>
-          <Image
-            :src="`/images/${item.photo}`"
-            :alt="item.title"
-            width="50px"
-          />
-        </li>
-        <li class="text-break" :title="item.title">
-          {{ item.title }}
-        </li>
-        <li>{{ item.type }}</li>
-      </ul>
+    <div
+      v-else
+      class="d-flex align-items-center justify-content-center w-100 h-100"
+    >
+      <Image src="/images/empty.svg" alt="order" width="150px" />
     </div>
   </div>
 </template>
@@ -61,11 +73,11 @@ const randomData = computed(() => {
 
 <style scoped>
 .top-list-card {
+  width: 100%;
+  height: 100%;
 }
 .top-list-card__header {
   border-bottom: 0.063rem solid var(--color-neutral-grey-75);
-}
-.top-list-card__body {
 }
 .top-list-card__list {
   display: grid;

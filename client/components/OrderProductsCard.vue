@@ -21,7 +21,11 @@
       >
         <li>
           <Image
-            :src="`/images/${product.photo}`"
+            :src="
+              product.photo?.length > 0
+                ? `${product.photo[0]}`
+                : '/images/devices.svg'
+            "
             :alt="product.title"
             width="50px"
           />

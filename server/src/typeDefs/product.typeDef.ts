@@ -16,7 +16,7 @@ export const productTypeDef = gql`
     _id: ID!
     serialNumber: String!
     isUsed: Boolean!
-    photo: String!
+    photo: [String]!
     title: String!
     type: String!
     specification: String!
@@ -52,6 +52,7 @@ export const productTypeDef = gql`
     isUsed: Boolean!
     title: String!
     type: String!
+    photo: [String]!
     specification: String!
     guarantee: Float!
     price: [PriceInput]!
@@ -61,6 +62,7 @@ export const productTypeDef = gql`
   input UpdateProductInput {
     title: String
     type: String
+    photo: [String]
     specification: String
     guarantee: GuaranteeInput
     price: [PriceInput]

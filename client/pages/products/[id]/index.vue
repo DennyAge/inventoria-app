@@ -15,24 +15,16 @@
       <div v-else class="product-page__content">
         <div class="content__left-side">
           <div class="d-flex align-items-center justify-content-center">
-            <Image
-              :src="`/images/${selectedImage}`"
-              :alt="product?.title"
-              width="250px"
-            />
+            <Image :src="selectedImage" :alt="product?.title" width="250px" />
           </div>
           <div class="image-selector">
             <div
-              v-for="(image, index) in mockPhoto"
+              v-for="(image, index) in product?.photo"
               :key="index"
               class="image-selector__slide"
               @click="selectedImage = image"
             >
-              <Image
-                :src="`/images/${image}`"
-                :alt="product?.title"
-                width="50px"
-              />
+              <Image :src="`${image}`" :alt="product?.title" width="50px" />
             </div>
           </div>
           <div />
@@ -177,7 +169,7 @@ onMounted(async () => {
     const orderId = product.value?.order;
     if (orderId) {
       await ordersStore.getOrder(orderId);
-      selectedImage.value = product.value.photo;
+      selectedImage.value = product.value.photo[0];
     }
   } catch (error) {
     console.error(error);

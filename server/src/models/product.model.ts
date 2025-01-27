@@ -14,7 +14,7 @@ interface IGuarantee extends Document {
 export interface IProduct extends Document {
   serialNumber: string;
   isUsed: boolean;
-  photo: string;
+  photo: string[];
   title: string;
   type: string;
   specification: string;
@@ -35,7 +35,7 @@ const ProductSchema = new mongoose.Schema(
       required: true,
     },
     photo: {
-      type: String,
+      type: [String],
       required: true,
     },
     title: {

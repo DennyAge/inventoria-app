@@ -23,6 +23,7 @@ export default defineI18nConfig(() => ({
       delete: "Delete",
       addNewOrder: "Add Order",
       addNewProduct: "Add Product",
+      image: "Image",
 
       fullName: "Full Name",
       email: "Email",
@@ -79,6 +80,7 @@ export default defineI18nConfig(() => ({
       from: "c",
       to: "по",
       createdAt: "Дата создания",
+      image: "Изображение",
     },
     ua: {
       dashboard: "Головна",
@@ -117,6 +119,7 @@ export default defineI18nConfig(() => ({
       used: "б/у",
       from: "з",
       createdAt: "Дата створення",
+      image: "Зображення",
     },
   },
 }));

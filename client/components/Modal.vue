@@ -53,7 +53,7 @@ const onSubmit = () => {
 }
 .modal__content {
   background: var(--color-neutral-grey-10);
-  width: 31.25rem;
+  width: 37.25rem;
   border-radius: 0.5rem;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
   display: flex;

@@ -75,6 +75,11 @@
         Guarantee is required
       </span>
     </div>
+    <!--    TODO: refactor upload-input code to edit mode -->
+    <div v-if="!editMode">
+      <label class="sr-only mb-1"> {{ $t("image") }}:</label>
+      <ImageInput @upload-complete="uploadFile" ref="uploader" />
+    </div>
     <div>
       <label class="sr-only mb-1"> {{ $t("state") }}:</label>
       <div class="d-flex gap-5">
@@ -163,7 +168,7 @@ import {
   productSpecification,
   productTypes,
 } from "~/constants";
-import { Product } from "~/types";
+import { Guarantee, Product } from "~/types";
 const emit = defineEmits(["close", "submit"]);
 
 interface Props {
@@ -179,7 +184,8 @@ interface Form {
   title: string;
   type: string;
   specification: string;
-  guarantee: string;
+  photo: string[];
+  guarantee: string | Guarantee;
   state: boolean;
   priceUSD: number;
   priceUAH: number;
@@ -190,12 +196,15 @@ const form = reactive<Form>({
   type: props?.product?.type || "",
   specification: props?.product?.specification || "",
   guarantee: props?.product?.guarantee || "",
+  photo: props?.product?.photo || [],
   state: props?.product?.isUsed || false,
   priceUSD: props?.product?.price[0]?.value || 0,
   priceUAH: props?.product?.price[1]?.value || 0,
 });
 
 const showFormError = ref<boolean>(false);
+const uploader = ref(null);
+const imageUrls = ref<string[]>([]);
 
 const limitLength = (field: keyof Form, maxLength: number) => {
   const value = form[field];
@@ -207,8 +216,17 @@ const limitLength = (field: keyof Form, maxLength: number) => {
 const onClose = () => {
   emit("close");
 };
-const onSubmit = () => {
-  console.log(form);
+const uploadFile = (images: string[]) => {
+  form.photo = images;
+};
+const handleUpload = async () => {
+  if (uploader.value) {
+    await uploader.value.uploadFiles();
+  }
+};
+const onSubmit = async () => {
+  await handleUpload();
+
   if (
     !form.title.trim() ||
     !form.type.trim() ||
@@ -225,6 +243,7 @@ const onSubmit = () => {
     type: form.type,
     specification: form.specification,
     guarantee: form.guarantee,
+    photo: form.photo,
     price: [
       {
         value: form.priceUSD,

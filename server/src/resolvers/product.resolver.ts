@@ -24,8 +24,16 @@ export const productResolver = {
   Mutation: {
     createProduct: async (_, { input }) => {
       try {
-        const { title, type, specification, guarantee, isUsed, price, order } =
-          input;
+        const {
+          title,
+          type,
+          specification,
+          guarantee,
+          isUsed,
+          price,
+          order,
+          photo,
+        } = input;
 
         const startDate = new Date();
         const endDate = new Date(startDate);
@@ -34,8 +42,7 @@ export const productResolver = {
         const newProduct = new Product({
           serialNumber: generateSerialNumber(),
           isUsed,
-          //TODO: later add AWS for upload img and add photo input
-          photo: "devices.svg",
+          photo,
           title,
           type,
           specification,
@@ -61,7 +68,8 @@ export const productResolver = {
     },
     updateProduct: async (_, { productId, input }) => {
       try {
-        const { title, type, specification, guarantee, price, isUsed } = input;
+        const { title, type, specification, guarantee, price, isUsed, photo } =
+          input;
 
         const product = await Product.findById(productId);
 
@@ -74,6 +82,7 @@ export const productResolver = {
           {
             isUsed,
             title,
+            photo,
             type,
             specification,
             //TODO: later change logic for guarantee on BE and FE

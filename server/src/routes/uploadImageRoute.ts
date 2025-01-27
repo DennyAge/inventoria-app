@@ -17,43 +17,49 @@ const upload = multer({
     if (file.mimetype.startsWith("image/")) {
       cb(null, true);
     } else {
-      cb(new Error("Error file uploading type"));
+      throw Error("Only images type ");
     }
   },
 });
 
 interface MulterRequest extends Request {
-  file?: Express.Multer.File;
+  files?: Express.Multer.File[];
 }
 
 const uploadHandler: RequestHandler = async (
   req: MulterRequest,
   res: Response,
 ) => {
-  if (!req.file) {
-    res.status(400).json({ error: "Error File upload" });
+  if (!req.files || req.files.length === 0) {
+    res.status(400).json({ error: "No files uploaded" });
     return;
   }
-  const file = req.file;
-  const params = {
-    Bucket: process.env.AWS_BUCKET_NAME!,
-    Key: `uploads/${Date.now().toString()}-${file.originalname}`,
-    Body: file.buffer,
-    ContentType: file.mimetype,
-  };
 
   try {
-    await s3.send(new PutObjectCommand(params));
+    const fileUrls = await Promise.all(
+      req.files.map(async (file) => {
+        const params = {
+          Bucket: process.env.AWS_BUCKET_NAME!,
+          Key: `uploads/${Date.now().toString()}-${file.originalname}`,
+          Body: file.buffer,
+          ContentType: file.mimetype,
+        };
+
+        await s3.send(new PutObjectCommand(params));
+        return `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${params.Key}`;
+      }),
+    );
+
     res.status(200).json({
-      message: "Upload successfully",
-      fileUrl: `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${params.Key}`,
+      message: "Files uploaded successfully",
+      fileUrls,
     });
   } catch (error) {
-    console.error("Error File upload", error);
-    res.status(500).json({ error: "Error File upload" });
+    console.error("Error uploading files", error);
+    res.status(500).json({ error: "Error uploading files" });
   }
 };
 
-router.post("/upload", upload.single("image"), uploadHandler);
+router.post("/upload", upload.array("images", 4), uploadHandler);
 
 export default router;

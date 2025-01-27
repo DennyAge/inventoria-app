@@ -36,7 +36,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      GQL_HOST: process.env.GQL_HOST!,
+      apiBaseUrl: process.env.NUXT_PUBLIC_API_URL || "http://localhost:8080",
     },
   },
   nitro: {
