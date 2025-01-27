@@ -5,7 +5,7 @@
       <div class="dashboard-content">
         <div class="d-flex gap-4">
           <div class="content-block d-flex align-items-center">
-            <PieChart :items="typesStatistics" :index="1" />
+            <DoughnutChart :items="typesStatistics" :index="1" />
           </div>
           <div class="content-block">
             <TopListCard type="order" :data="orders" />
@@ -30,10 +30,12 @@
 <script setup lang="ts">
 import BarChart from "~/components/charts/BarChart.vue";
 import Header from "~/components/Header.vue";
-import PieChart from "~/components/charts/PieChart.vue";
+import DoughnutChart from "~/components/charts/DoughnutChart.vue";
 import TwoSideBarChart from "~/components/charts/TwoSideBarChart.vue";
 import TopListCard from "~/components/TopListCard.vue";
 import { typesStatistics, cityStatistics, sellStatistics } from "~/constants";
+import { useOrdersStore } from "~/store/order.store";
+import { useProductsStore } from "~/store/products.store";
 
 useHead({
   title: "Dashboard",
@@ -46,8 +48,6 @@ useHead({
   ],
 });
 
-import { useOrdersStore } from "~/store/order.store";
-import { useProductsStore } from "~/store/products.store";
 const ordersStore = useOrdersStore();
 const productsStore = useProductsStore();
 const orders = computed(() => ordersStore.orders);

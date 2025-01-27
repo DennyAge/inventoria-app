@@ -58,7 +58,7 @@ const startServer = async () => {
   );
 
   await new Promise<void>((resolve) =>
-    httpServer.listen({ port: process.env.PORT! }, resolve),
+    httpServer.listen({ port: process.env.PORT! || 8080 }, resolve),
   );
   await connectDB();
   console.log(`Server start on http://localhost:${process.env.PORT}`);
