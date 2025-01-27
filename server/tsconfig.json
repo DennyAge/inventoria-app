@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "rootDir": "./",
+    "rootDir": "./src",
     "baseUrl": "./",
     "sourceMap": true,
     "outDir": "./dist",
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*"

@@ -2,7 +2,10 @@ import { defineNuxtPlugin } from "#app";
 import { io, Socket } from "socket.io-client";
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const socket: Socket = io("http://localhost:8080");
+  const config = useRuntimeConfig();
+  const publicApi = config.public.apiBaseUrl;
+
+  const socket: Socket = io(publicApi);
   const activeSessions = useState<number>("activeSessions", () => 0);
   socket.on("activeSessions", (count: number) => {
     activeSessions.value = count;

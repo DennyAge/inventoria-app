@@ -81,13 +81,14 @@ export const userResolver = {
         const token = generateToken(user._id.toString(), user.email);
 
         context.res.cookie("session_token", token, {
-          domain: "localhost",
+          domain: process.env.CLIENT_DOMAINE,
           path: "/",
           httpOnly: true,
           secure: true,
           sameSite: "none",
           expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
         });
+        return user;
       } catch (err) {
         console.error("Error in login:", err);
         throw new Error(err.message || "Internal server error");

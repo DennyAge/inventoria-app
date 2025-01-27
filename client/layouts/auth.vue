@@ -22,7 +22,7 @@ const user = computed(() => authStore.user);
 
 onMounted(async () => {
   try {
-    await authStore.getAuthUser();
+    await authStore.loadUserFromLocalStorage();
     if (authStore.isAuth) {
       await router.push("/");
     }

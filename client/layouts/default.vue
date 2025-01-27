@@ -17,7 +17,7 @@ const user = computed(() => authStore.user);
 
 const checkAuth = async () => {
   try {
-    await authStore.getAuthUser();
+    await authStore.loadUserFromLocalStorage();
     if (!authStore.isAuth) {
       await router.push("/sign-in");
     }

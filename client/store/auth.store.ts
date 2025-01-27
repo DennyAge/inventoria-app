@@ -15,6 +15,17 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     setUser(user: User) {
       this.$patch({ user });
+      if (process.client) {
+        localStorage.setItem("user", JSON.stringify(user));
+      }
+    },
+    loadUserFromLocalStorage() {
+      if (process.client) {
+        const user = localStorage.getItem("user");
+        if (user) {
+          this.$patch({ user: JSON.parse(user) });
+        }
+      }
     },
     async getAuthUser() {
       try {
@@ -60,8 +71,11 @@ export const useAuthStore = defineStore("auth", {
         throw error;
       }
     },
-    clearAuthStore() {
+    clearAuthStore: function () {
       this.$patch(defaultValues);
+      if (process.client) {
+        localStorage.removeItem("user");
+      }
     },
   },
 });
