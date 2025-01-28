@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 import BarChart from "~/components/charts/BarChart.vue";
-import Header from "~/components/Header.vue";
+import Header from "~/components/TopMenu.vue";
 import DoughnutChart from "~/components/charts/DoughnutChart.vue";
 import TwoSideBarChart from "~/components/charts/TwoSideBarChart.vue";
 import TopListCard from "~/components/TopListCard.vue";

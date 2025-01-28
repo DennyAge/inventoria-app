@@ -35,6 +35,21 @@ export const useProductsStore = defineStore("products", {
       if (createProduct) {
         this.$patch((state) => {
           state.products.push(createProduct);
+
+          const ordersStore = useOrdersStore();
+          const order = ordersStore.orders.find(
+            (order) => order._id === createProduct.order,
+          );
+          if (order) {
+            if (!order.products) {
+              order.products = [];
+            }
+            order.products.push(createProduct._id);
+
+            if (ordersStore.selectedOrder?._id === createProduct.order) {
+              ordersStore.$patch({ selectedOrder: order });
+            }
+          }
         });
       } else {
         console.error("Create product failed:");

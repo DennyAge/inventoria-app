@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Header />
+    <TopMenu />
     <div class="orders-page">
       <button @click="logout" type="button" class="btn btn-success">
         Logout

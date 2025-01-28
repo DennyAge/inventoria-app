@@ -75,10 +75,12 @@ const emit = defineEmits(["delete-order"]);
 
 const productsStore = useProductsStore();
 const ordersStore = useOrdersStore();
-const products = productsStore.getProductsByIds(props.order.products);
+const products = computed(() => {
+  return productsStore.getProductsByIds(props.order.products);
+});
 
 const selectedOrder = computed(() => ordersStore.selectedOrder);
-const totalPrice = computed(() => sumPricesByProduct(products));
+const totalPrice = computed(() => sumPricesByProduct(products.value));
 
 const handleDeleteOrder = (order: Order) => {
   return emit("delete-order", order, "order");
@@ -86,7 +88,7 @@ const handleDeleteOrder = (order: Order) => {
 
 const handleOpenOrderProducts = () => {
   ordersStore.setSelectedOrder(props.order);
-  productsStore.setSelectedProducts(products);
+  productsStore.setSelectedProducts(products.value);
 };
 </script>
 

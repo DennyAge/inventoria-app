@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Header show-input @filter="filteredByInput" />
+    <TopMenu show-input @filter="filteredByInput" />
     <div class="products-page">
       <PageHeader
         :title="$t('product')"
@@ -54,6 +54,7 @@ useHead({
 import { useOrdersStore } from "~/store/order.store";
 import { useProductsStore } from "~/store/products.store";
 import EmptyContent from "~/components/EmptyContent.vue";
+import TopMenu from "~/components/TopMenu.vue";
 const ordersStore = useOrdersStore();
 const productsStore = useProductsStore();
 

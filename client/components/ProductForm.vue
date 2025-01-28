@@ -152,10 +152,28 @@
       </span>
     </div>
     <div class="form-footer">
-      <button @click="onClose" type="button" class="btn btn-danger">
+      <button
+        @click="onClose"
+        :disabled="isLoading"
+        type="button"
+        class="btn btn-danger"
+      >
         {{ $t("cancel") }}
       </button>
-      <button @click="onSubmit" type="button" class="btn btn-success">
+      <button
+        v-if="isLoading"
+        class="btn btn-success d-flex align-items-center gap-2"
+        type="button"
+        disabled
+      >
+        <span
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        <span class="sr-only">Loading...</span>
+      </button>
+      <button v-else @click="onSubmit" type="button" class="btn btn-success">
         {{ editMode ? $t("save") : $t("add") }}
       </button>
     </div>
@@ -175,6 +193,7 @@ interface Props {
   orderId?: string;
   product?: Product | null;
   editMode?: boolean;
+  isLoading?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   editMode: false,
@@ -204,7 +223,6 @@ const form = reactive<Form>({
 
 const showFormError = ref<boolean>(false);
 const uploader = ref(null);
-const imageUrls = ref<string[]>([]);
 
 const limitLength = (field: keyof Form, maxLength: number) => {
   const value = form[field];
@@ -225,8 +243,6 @@ const handleUpload = async () => {
   }
 };
 const onSubmit = async () => {
-  await handleUpload();
-
   if (
     !form.title.trim() ||
     !form.type.trim() ||
@@ -238,6 +254,7 @@ const onSubmit = async () => {
     showFormError.value = true;
     return;
   }
+  await handleUpload();
   emit("submit", {
     title: form.title,
     type: form.type,

@@ -53,6 +53,7 @@ const onSubmit = () => {
 }
 .modal__content {
   background: var(--color-neutral-grey-10);
+  max-height: 95%;
   width: 37.25rem;
   border-radius: 0.5rem;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
@@ -70,12 +71,13 @@ const onSubmit = () => {
 }
 .modal__body {
   padding: 2rem;
-  border-bottom: 0.063rem solid var(--color-neutral-grey-75);
+  overflow: scroll;
 }
 .modal__footer {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
   padding: 1rem 2rem;
+  border-top: 0.063rem solid var(--color-neutral-grey-75);
 }
 </style>

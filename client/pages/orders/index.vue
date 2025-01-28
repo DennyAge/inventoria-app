@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Header show-input @filter="filteredByInput" />
+    <TopMenu show-input @filter="filteredByInput" />
     <div class="orders-page">
       <PageHeader
         :title="$t('orders')"
@@ -71,6 +71,7 @@
         :orderId="selectedOrder?._id"
         @close="showAddProductModal = false"
         @submit="handleAddProduct"
+        :is-loading="isLoading"
       />
     </Modal>
   </section>
@@ -109,6 +110,7 @@ const componentTop = ref<HTMLElement | null>(null);
 const filteredOrders = ref<Order[]>([]);
 
 onMounted(async () => {
+  isLoading.value = true;
   ordersStore.setSelectedOrder(null);
   productsStore.setSelectedProducts(null);
   try {

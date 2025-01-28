@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Header />
+    <TopMenu />
     <div class="product-page">
       <div class="product-page__header">
         <NuxtLink
@@ -146,7 +146,7 @@ import { useProductsStore } from "~/store/products.store";
 import { useOrdersStore } from "~/store/order.store";
 import { formatTimestampLong } from "~/lib/utils";
 //TODO: change mock data to product data
-import { mockLocations, mockPhoto } from "~/constants";
+import { mockLocations } from "~/constants";
 const { locale } = useI18n();
 const productsStore = useProductsStore();
 const ordersStore = useOrdersStore();

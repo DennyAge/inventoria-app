@@ -17,6 +17,7 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 }
 .three-body {
   --uib-size: 2.188rem;
@@ -38,7 +39,7 @@
 .three-body__dot:after {
   content: "";
   position: absolute;
-  height: 0%;
+  height: 0;
   width: 100%;
   padding-bottom: 100%;
   background-color: var(--uib-color);
