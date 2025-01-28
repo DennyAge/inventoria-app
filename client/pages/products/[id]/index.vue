@@ -15,7 +15,7 @@
       <div v-else class="product-page__content">
         <div class="content__left-side">
           <div class="d-flex align-items-center justify-content-center">
-            <Image :src="selectedImage" :alt="product?.title" width="250px" />
+            <Image :src="selectedImage" :alt="product?.title" height="250px" />
           </div>
           <div class="image-selector">
             <div
@@ -24,7 +24,7 @@
               class="image-selector__slide"
               @click="selectedImage = image"
             >
-              <Image :src="`${image}`" :alt="product?.title" width="50px" />
+              <Image :src="`${image}`" :alt="product?.title" height="50px" />
             </div>
           </div>
           <div />
