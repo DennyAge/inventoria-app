@@ -27,7 +27,20 @@
       <div class="error-message">
         {{ errorMessage }}
       </div>
-      <button type="submit" class="btn btn-primary">Sign In</button>
+      <button
+        v-if="isLoading"
+        class="btn btn-primary d-flex align-items-center justify-content-center gap-2"
+        type="button"
+        disabled
+      >
+        <span
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        <span class="sr-only">Loading...</span>
+      </button>
+      <button v-else type="submit" class="btn btn-primary">Sign In</button>
     </form>
     <p>Don't have account? <a href="/sign-up">Sign Up</a></p>
   </div>
@@ -56,14 +69,18 @@ const form = reactive({
 });
 const errorMessage = ref<string>("");
 const router = useRouter();
+const isLoading = ref(false);
 
 const login = async () => {
   try {
+    isLoading.value = true;
     await authStore.login(form).then(() => {
       router.push("/");
     });
   } catch (error: any) {
     errorMessage.value = error.gqlErrors[0].message;
+  } finally {
+    isLoading.value = false;
   }
 };
 </script>
