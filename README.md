@@ -32,14 +32,47 @@ Node.js (version 16 or higher, if running without Docker)
 -
 
 **Clone the repository:**
+```bash
+git clone https://github.com/DennyAge/inventoria-app.git
+```
 
-`git clone https://github.com/DennyAge/inventoria-app.git`
+```bash
+cd inventoria-app
+```
 
-`cd inventoria-app`
+**Set up environment variables:**
+
+Create a .env file in the server folder with the following variables:
+
+```env
+PORT=8080
+NODE_ENV=development
+CLIENT_URL=http://localhost:3000
+CLIENT_DOMAINE=localhost
+
+
+DATABASE_URL=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret_key
+SESSION_SECRET=your_session_secret_key
+
+AWS_ACCESS_KEY_ID=your_aws_access_key
+AWS_SECRET_ACCESS_KEY=your_aws_secret_key
+AWS_REGION=your_aws_region
+AWS_BUCKET_NAME=your_s3_bucket_name
+```
+
+Create a .env file in the client folder with the following variables:
+
+```env
+NUXT_PUBLIC_API_URL=http://localhost:8080
+GQL_HOST=http://localhost:8080/graphql
+```
 
 **Run the application:**
 
-`docker-compose up --build`
+```bash
+docker-compose up --build
+```
 
 Frontend will be available at: http://localhost:3000.
 
@@ -47,8 +80,9 @@ Backend will be available at: http://localhost:8080.
 
 **Stop the application:**
 
-`docker-compose down`
-
+```bash
+docker-compose down
+```
 ---------
 Running without Docker
 -
@@ -57,15 +91,21 @@ Running without Docker
 
 Navigate to the client folder:
 
-`cd client`
+```bash
+cd client
+```
 
 **Install dependencies:**
 
-`npm install `
+```bash
+npm install
+```
 
 **Start the development server:**
 
-`npm run dev`
+```bash
+npm run dev
+```
 
 Frontend will be available at: http://localhost:3000.
 
@@ -73,14 +113,20 @@ Frontend will be available at: http://localhost:3000.
 
 **Navigate to the server folder:**
 
-`cd server`
+```bash
+cd server
+```
 
 **Install dependencies:**
 
-`npm install`
+```bash
+npm install
+```
 
 **Start the server:**
+```bash
+npm run start
+```
 
-`npm run start`
 
 Backend will be available at: http://localhost:8080.

@@ -19,7 +19,7 @@
 interface Props {
   showInput?: boolean;
 }
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   showInput: false,
 });
 const { locale } = useI18n();
