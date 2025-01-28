@@ -3,7 +3,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
     "strict": true,
     "jsx": "preserve",
     "sourceMap": true,
@@ -17,6 +17,7 @@
       "nuxt",
       "vite/client",
       "unplugin-vue2-script-setup/types",
+      "tailwindcss"
     ]
   },
   "include": [

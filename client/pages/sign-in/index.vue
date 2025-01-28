@@ -1,9 +1,10 @@
 <template>
-  <div class="sign-in-page">
-    <div class="sign-in-page__header">
-      <h1>Sign in to Inventoria</h1>
-    </div>
-    <form class="sign-in-page__form" @submit.prevent="login">
+  <div class="flex flex-col items-center justify-center gap-6">
+    <h1 class="text-center">Sign in to Inventoria</h1>
+    <form
+      class="flex flex-col gap-1 w-full max-w-[18.75rem] mb-1"
+      @submit.prevent="login"
+    >
       <div class="form-group">
         <label for="email">Email</label>
         <input
@@ -24,7 +25,7 @@
           id="password"
         />
       </div>
-      <div class="error-message">
+      <div class="text-center text-sm text-red-500">
         {{ errorMessage }}
       </div>
       <button
@@ -34,7 +35,7 @@
         disabled
       >
         <span
-          class="spinner-border spinner-border-sm"
+          class="spinner-border spinner-border-md"
           role="status"
           aria-hidden="true"
         ></span>
@@ -42,7 +43,7 @@
       </button>
       <button v-else type="submit" class="btn btn-primary">Sign In</button>
     </form>
-    <p>Don't have account? <a href="/sign-up">Sign Up</a></p>
+    <p>Don`t have account? <a href="/sign-up">Sign Up</a></p>
   </div>
 </template>
 
@@ -84,28 +85,3 @@ const login = async () => {
   }
 };
 </script>
-
-<style scoped>
-.sign-in-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-.sign-in-page__header {
-  text-align: center;
-}
-.sign-in-page__form {
-  width: 100%;
-  max-width: 18.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.error-message {
-  text-align: center;
-  font-size: 0.8rem;
-  color: var(--color-semantic-red-100);
-}
-</style>

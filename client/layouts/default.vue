@@ -1,6 +1,6 @@
 <template>
   <main v-if="user" class="page-container">
-    <NavigationMenu :user="user" />
+    <SideBar :user="user" />
     <div class="page-content">
       <slot />
     </div>

@@ -1,9 +1,10 @@
 <template>
-  <div class="sign-un-page">
-    <div class="sign-un-page__header">
-      <h1>Welcome to Inventoria</h1>
-    </div>
-    <form class="sign-un-page__form" @submit.prevent="register">
+  <div class="flex flex-col items-center justify-center gap-6">
+    <h1 class="text-center">Sign in to Inventoria</h1>
+    <form
+      class="flex flex-col gap-1 w-full max-w-[18.75rem] mb-1"
+      @submit.prevent="register"
+    >
       <div class="form-group">
         <label for="fullName">Full Name</label>
         <input
@@ -36,7 +37,7 @@
           required
         />
       </div>
-      <div class="error-message">
+      <div class="text-center text-sm text-red-500">
         {{ errorMessage }}
       </div>
       <button
@@ -103,28 +104,3 @@ const register = async () => {
   }
 };
 </script>
-
-<style scoped>
-.sign-un-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-.sign-un-page__header {
-  text-align: center;
-}
-.sign-un-page__form {
-  width: 100%;
-  max-width: 18.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.error-message {
-  text-align: center;
-  font-size: 0.8rem;
-  color: var(--color-semantic-red-100);
-}
-</style>

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <TopMenu />
+    <MainHeader />
     <div class="product-page">
       <div class="product-page__header">
         <NuxtLink

@@ -1,6 +1,6 @@
 <template>
-  <header class="header">
-    <div class="header__input">
+  <header class="main-header">
+    <div class="main-header__input">
       <input
         v-if="showInput"
         v-model="inputValue"
@@ -33,7 +33,7 @@ const onChange = () => {
 </script>
 
 <style scoped>
-.header {
+.main-header {
   height: 3.75rem;
   padding: 2rem;
   display: flex;
@@ -42,7 +42,7 @@ const onChange = () => {
   background-color: var(--color-neutral-white);
   box-shadow: var(--large-shadow);
 }
-.header__input {
+.main-header__input {
   width: 50%;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <TopMenu show-input @filter="filteredByInput" />
+    <MainHeader show-input @filter="filteredByInput" />
     <div class="orders-page">
       <PageHeader
         :title="$t('orders')"
@@ -93,6 +93,7 @@ useHead({
 import type { CreateProductInput, Order, OrderInput, Product } from "~/types";
 import { useOrdersStore } from "~/store/order.store";
 import { useProductsStore } from "~/store/products.store";
+import MainHeader from "~/components/MainHeader.vue";
 const ordersStore = useOrdersStore();
 const productsStore = useProductsStore();
 

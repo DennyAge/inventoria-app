@@ -1,12 +1,16 @@
 <template>
-  <main v-if="!user" class="auth-layout">
-    <div class="auth-layout__left-side">
-      <div class="logo">
+  <main v-if="!user" class="flex flex-col md:flex-row w-full h-dvh">
+    <div
+      class="h-[30%] md:flex-1 md:h-full bg-[url('/images/chris-lee-unsplash.jpg')] bg-no-repeat bg-center bg-cover"
+    >
+      <div
+        class="text-black flex items-center gap-2 text-2xl uppercase px-4 py-3 backdrop-blur-xs md:backdrop-blur-none"
+      >
         <Image src="/logo.png" alt="logo" width="35px" />
         <span>Inventoria</span>
       </div>
     </div>
-    <div class="auth-layout__right-side">
+    <div class="flex items-center justify-center flex-1">
       <slot />
     </div>
   </main>
@@ -20,40 +24,14 @@ const authStore = useAuthStore();
 
 const user = computed(() => authStore.user);
 
-onMounted(async () => {
+onMounted(() => {
   try {
-    await authStore.loadUserFromLocalStorage();
+    authStore.loadUserFromLocalStorage();
     if (authStore.isAuth) {
-      await router.push("/");
+      router.push("/");
     }
   } catch (error) {
     console.error("Failed get user:", error);
   }
 });
 </script>
-
-<style scoped>
-.auth-layout {
-  display: flex;
-  height: 100vh;
-  width: 100%;
-}
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  padding: 1.5rem 2rem;
-}
-.auth-layout__left-side {
-  flex: 1;
-  background: url("/images/chris-lee-unsplash.jpg") no-repeat center/cover;
-}
-.auth-layout__right-side {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>
