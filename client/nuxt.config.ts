@@ -1,5 +1,3 @@
-import tailwindcss from "@tailwindcss/vite";
-
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
@@ -11,11 +9,10 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "usebootstrap",
     "nuxt-graphql-client",
+    "@nuxtjs/tailwindcss",
   ],
-  css: ["~/assets/css/main.css"],
-  vite: {
-    plugins: [tailwindcss()],
-  },
+  css: ["~/assets/css/tailwind.css"],
+
   imports: {
     autoImport: true,
   },

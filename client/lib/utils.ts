@@ -1,6 +1,12 @@
 import type { Product } from "~/types";
 import { Chart } from "chart.js/auto";
 
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 export const getInitials = (name: string): string =>
   name
     .split(" ")
@@ -139,7 +145,9 @@ export const crossLine = (chart: Chart, mousemove: MouseEvent) => {
 
     ctx.fillStyle = "#282828";
     ctx.font = "12px Arial";
-    ctx.fillText(`$ ${Math.round(yValue)} avg.`, left + 10, y - 10);
+    if (typeof yValue === "number") {
+      ctx.fillText(`$ ${Math.round(yValue)} avg.`, left + 10, y - 10);
+    }
   }
 
   ctx.setLineDash([]);

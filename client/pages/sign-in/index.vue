@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center justify-center gap-6">
-    <h1 class="text-center">Sign in to Inventoria</h1>
+    <h1 class="text-center text-4xl">Sign in to Inventoria</h1>
     <form
       class="flex flex-col gap-1 w-full max-w-[18.75rem] mb-1"
       @submit.prevent="login"
@@ -41,7 +41,7 @@
         ></span>
         <span class="sr-only">Loading...</span>
       </button>
-      <button v-else type="submit" class="btn btn-primary">Sign In</button>
+      <Button v-else type="submit" size="full">Sign In</Button>
     </form>
     <p>Don`t have account? <a href="/sign-up">Sign Up</a></p>
   </div>
@@ -49,6 +49,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "~/store/auth.store";
+import Button from "~/components/ui/Button.vue";
 
 definePageMeta({
   layout: "auth",

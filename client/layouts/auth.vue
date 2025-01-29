@@ -1,10 +1,10 @@
 <template>
-  <main v-if="!user" class="flex flex-col md:flex-row w-full h-dvh">
+  <main v-if="!user" class="flex flex-col md:flex-row w-full h-dvh bg-gray-25">
     <div
-      class="h-[30%] md:flex-1 md:h-full bg-[url('/images/chris-lee-unsplash.jpg')] bg-no-repeat bg-center bg-cover"
+      class="h-[30%] md:flex-1 md:h-full bg-auth bg-no-repeat bg-center bg-cover"
     >
       <div
-        class="text-black flex items-center gap-2 text-2xl uppercase px-4 py-3 backdrop-blur-xs md:backdrop-blur-none"
+        class="text-black flex items-center gap-2 text-2xl uppercase px-4 py-3 backdrop-blur-sm md:backdrop-blur-none"
       >
         <Image src="/logo.png" alt="logo" width="35px" />
         <span>Inventoria</span>
