@@ -1,11 +1,3 @@
-<template>
-  <div>
-    <button :class="cn(buttonVariants({ variant, size }), $attrs.class ?? '')">
-      <slot />
-    </button>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { cva } from "class-variance-authority";
 import { cn } from "~/lib/utils.js";
@@ -44,4 +36,10 @@ interface Props {
 withDefaults(defineProps<Props>(), {});
 </script>
 
-<style scoped></style>
+<template>
+  <div>
+    <button :class="cn(buttonVariants({ variant, size }), $attrs.class ?? '')">
+      <slot />
+    </button>
+  </div>
+</template>

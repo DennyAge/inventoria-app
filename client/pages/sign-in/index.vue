@@ -2,46 +2,33 @@
   <div class="flex flex-col items-center justify-center gap-6">
     <h1 class="text-center text-4xl">Sign in to Inventoria</h1>
     <form
-      class="flex flex-col gap-1 w-full max-w-[18.75rem] mb-1"
+      class="flex flex-col gap-3 w-full max-w-[18.75rem] mb-1"
       @submit.prevent="login"
     >
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          v-model="form.email"
-          type="email"
-          class="form-control"
-          id="email"
-          aria-describedby="email"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          v-model="form.password"
-          type="password"
-          class="form-control"
-          id="password"
-        />
-      </div>
+      <CustomInput
+        v-model="form.email"
+        label="Email"
+        placeholder="Email"
+        type="email"
+        name="email"
+        id="email"
+        required
+      />
+
+      <CustomInput
+        v-model="form.password"
+        label="Password"
+        placeholder="Password"
+        type="password"
+        id="password"
+        name="password"
+        required
+      />
+
       <div class="text-center text-sm text-red-500">
         {{ errorMessage }}
       </div>
-      <button
-        v-if="isLoading"
-        class="btn btn-primary d-flex align-items-center justify-content-center gap-2"
-        type="button"
-        disabled
-      >
-        <span
-          class="spinner-border spinner-border-md"
-          role="status"
-          aria-hidden="true"
-        ></span>
-        <span class="sr-only">Loading...</span>
-      </button>
-      <Button v-else type="submit" size="full">Sign In</Button>
+      <Button type="submit" size="full">Sign In</Button>
     </form>
     <p>Don`t have account? <a href="/sign-up">Sign Up</a></p>
   </div>
@@ -50,6 +37,7 @@
 <script setup lang="ts">
 import { useAuthStore } from "~/store/auth.store";
 import Button from "~/components/ui/Button.vue";
+import CustomInput from "~/components/ui/CustomInput.vue";
 
 definePageMeta({
   layout: "auth",
