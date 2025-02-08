@@ -1,5 +1,8 @@
 <template>
-  <div ref="mapContainer" class="map-container"></div>
+  <div
+    ref="mapContainer"
+    class="w-full h-[15rem] md:h-[15rem] lg:h-[25rem] rounded-md"
+  ></div>
 </template>
 
 <script setup lang="ts">
@@ -58,22 +61,3 @@ onBeforeUnmount(() => {
   }
 });
 </script>
-
-<style scoped>
-.map-container {
-  width: 100%;
-  height: 25rem;
-  border-radius: 0.5rem;
-  overflow: hidden;
-}
-@media screen and (max-height: 1000px) {
-  .map-container {
-    height: 20rem;
-  }
-}
-@media screen and (max-height: 800px) {
-  .map-container {
-    height: 15rem;
-  }
-}
-</style>
