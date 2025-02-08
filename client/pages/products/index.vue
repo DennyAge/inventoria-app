@@ -93,6 +93,7 @@ const deleteProduct = async () => {
   }
 };
 const filterProducts = (type: string) => {
+  console.log(type);
   if (type === "All") {
     filteredProducts.value = products.value;
   } else {

@@ -24,29 +24,48 @@ export const productSpecification = [
   "Other Features",
 ];
 export const productTypes = [
-  "Smartphones",
-  "Laptops",
-  "Smart watches",
-  "Wireless headphones",
-  "Tablets",
+  {
+    label: "All",
+    value: "All",
+  },
+  {
+    label: "Smartphones",
+    value: "Smartphones",
+  },
+  {
+    label: "Laptops",
+    value: "Laptops",
+  },
+  {
+    label: "Smart watches",
+    value: "Smart watches",
+  },
+  {
+    label: "Wireless headphones",
+    value: "Wireless headphones",
+  },
+  {
+    label: "Tablets",
+    value: "Tablets",
+  },
 ];
 
 export const productGuarantee = [
   {
-    title: "1 month",
+    label: "1 month",
     value: 1,
   },
   {
-    title: "3 month",
+    label: "3 month",
     value: 3,
   },
   {
-    title: "6 month",
+    label: "6 month",
     value: 6,
   },
   {
     title: "1 year",
-    value: 12,
+    label: 12,
   },
 ];
 

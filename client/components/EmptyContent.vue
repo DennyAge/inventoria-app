@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full flex flex-col items-center justify-center">
-    <Image src="/images/empty.svg" alt="logo" width="500px" />
+    <nuxt-img src="/images/empty.svg" alt="logo" class="w-2/6" />
     <h5 class="text-1xl text-gray-500">
       {{ title ? title : "" }}
     </h5>
