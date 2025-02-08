@@ -47,5 +47,3 @@ const onSubmit = () => {
   emit("submit");
 };
 </script>
-
-<style scoped></style>

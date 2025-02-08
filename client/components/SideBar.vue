@@ -3,7 +3,7 @@
     class="w-sidebar-sm lg:w-sidebar-md px-3 py-4 bg-primary-25 flex flex-col items-center justify-between shadow-md"
   >
     <div>
-      <div class="flex items-center justify-center gap-2 mb-5">
+      <div class="flex items-center justify-center gap-2 mb-12">
         <nuxt-img src="/logo.png" alt="logo" width="35px" />
         <span class="text-2xl uppercase hidden lg:block">Inventoria</span>
       </div>

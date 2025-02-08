@@ -43,6 +43,15 @@ const config: Config = {
       backgroundImage: {
         auth: "url('/images/chris-lee-unsplash.jpg')",
       },
+      keyframes: {
+        "slide-left": {
+          from: { opacity: "0", transform: "translateX(-3rem)" },
+          to: { opacity: "1", transform: "translateX(0)" },
+        },
+      },
+      animation: {
+        "slide-left": "slide-left 0.7s ease",
+      },
     },
   },
   plugins: [animate],
