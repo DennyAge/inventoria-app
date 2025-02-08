@@ -1,11 +1,16 @@
 <template>
-  <div class="user" @click="">
-    <button class="user__int" @click="goToProfile">
+  <div
+    class="w-max flex items-center p-1 lg:p-3 rounded-full border border-primary"
+  >
+    <button
+      class="flex flex-row items-center justify-center border-none bg-primary-100 font-bold text-white w-[3.125rem] h-[3.125rem] rounded-full"
+      @click="goToProfile"
+    >
       {{ getInitials(user.fullName) || "IN" }}
     </button>
-    <div class="user__info">
-      <p>{{ user.fullName }}</p>
-      <span>{{ user.email }}</span>
+    <div class="hidden lg:flex flex-col px-2">
+      <span class="font-bold text-md m-0">{{ user.fullName }}</span>
+      <span class="text-sm">{{ user.email }}</span>
     </div>
   </div>
 </template>
@@ -25,54 +30,3 @@ interface Props {
 }
 defineProps<Props>();
 </script>
-
-<style scoped>
-.user {
-  width: max-content;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem;
-  border-radius: 3.75rem;
-  border: 0.063rem solid var(--color-accent-blue-100);
-}
-.user__int {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border: none;
-  justify-content: center;
-
-  background: var(--color-accent-blue-100);
-  color: var(--color-neutral-grey-10);
-  font-weight: 700;
-  width: 3.125rem;
-  height: 3.125rem;
-  border-radius: 100%;
-}
-.user__int:hover {
-  background: var(--color-semantic-blue-75);
-  color: var(--color-neutral-grey-10);
-}
-.user__info {
-  display: flex;
-  flex-direction: column;
-}
-.user__info p {
-  font-size: 1rem;
-  font-weight: bold;
-  margin: 0;
-}
-.user__info span {
-  font-size: 0.8rem;
-}
-
-@media screen and (max-width: 1366px) {
-  .user {
-    padding: 0.3rem;
-  }
-  .user__info {
-    display: none;
-  }
-}
-</style>

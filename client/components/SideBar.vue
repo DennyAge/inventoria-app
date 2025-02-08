@@ -1,11 +1,11 @@
 <template>
   <div
-    class="w-sidebar-sm md:w-sidebar-md px-3 py-4 bg-primary-25 flex flex-col items-center justify-between shadow-md"
+    class="w-sidebar-sm lg:w-sidebar-md px-3 py-4 bg-primary-25 flex flex-col items-center justify-between shadow-md"
   >
     <div>
       <div class="flex items-center justify-center gap-2 mb-5">
         <Image src="/logo.png" alt="logo" width="35px" />
-        <span class="text-2xl uppercase hidden md:block">Inventoria</span>
+        <span class="text-2xl uppercase hidden lg:block">Inventoria</span>
       </div>
       <nav class="flex flex-col gap-2">
         <NuxtLink
@@ -16,7 +16,7 @@
           active-class="text-white bg-primary-100"
         >
           <Icon :name="link.icon" />
-          <span class="hidden md:block">{{ $t(link.name) }}</span>
+          <span class="hidden lg:block">{{ $t(link.name) }}</span>
         </NuxtLink>
       </nav>
     </div>
