@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center justify-center gap-6">
     <h1 class="text-center text-4xl">Sign in to Inventoria</h1>
     <form
-      class="flex flex-col gap-3 w-full max-w-[18.75rem] mb-1"
+      class="flex flex-col gap-2 w-full max-w-[18.75rem] mb-1"
       @submit.prevent="login"
     >
       <CustomInput
@@ -30,7 +30,10 @@
       </div>
       <Button type="submit" size="full">Sign In</Button>
     </form>
-    <p>Don`t have account? <a href="/sign-up">Sign Up</a></p>
+    <p>
+      Don`t have account?
+      <NuxtLink class="text-blue-600" href="/sign-up">Sign Up</NuxtLink>
+    </p>
   </div>
 </template>
 

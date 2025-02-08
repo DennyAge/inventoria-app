@@ -76,6 +76,7 @@ const handleShowPassword = (e: Event) => {
             { 'pr-7 pl-2': name === 'password' },
             { 'pr-7 pl-7': leftIcon && removeBtn },
             { 'px-2': !rightIcon && !leftIcon && !removeBtn },
+            { 'border-red-500': error },
           )
         "
       />
