@@ -7,7 +7,6 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "@nuxt/image",
     "@nuxt/icon",
-    "usebootstrap",
     "nuxt-graphql-client",
     "@nuxtjs/tailwindcss",
   ],

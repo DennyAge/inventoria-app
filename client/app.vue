@@ -70,10 +70,4 @@ p {
   padding: 0;
   margin: 0;
 }
-.text-sm {
-  font-size: 0.7rem;
-}
-.text-gray {
-  color: var(--color-neutral-grey-100);
-}
 </style>

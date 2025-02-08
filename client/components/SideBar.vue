@@ -4,7 +4,7 @@
   >
     <div>
       <div class="flex items-center justify-center gap-2 mb-5">
-        <Image src="/logo.png" alt="logo" width="35px" />
+        <nuxt-img src="/logo.png" alt="logo" width="35px" />
         <span class="text-2xl uppercase hidden lg:block">Inventoria</span>
       </div>
       <nav class="flex flex-col gap-2">

@@ -69,7 +69,7 @@ const handleShowPassword = (e: Event) => {
         :min="min"
         :class="
           cn(
-            'flex h-10 py-2 w-full rounded-md border-1 border-gray-200 bg-white',
+            'flex h-10 py-2 w-full rounded-md border border-gray-200 bg-white',
             { 'pl-7 pr-2': leftIcon },
             { 'pl-7 pr-7': leftIcon && rightIcon },
             { 'pr-7 pl-2': rightIcon || removeBtn },

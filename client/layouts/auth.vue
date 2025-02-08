@@ -6,7 +6,7 @@
       <div
         class="text-black flex items-center gap-2 text-2xl uppercase px-4 py-3 backdrop-blur-sm md:backdrop-blur-none"
       >
-        <Image src="/logo.png" alt="logo" width="35px" />
+        <nuxt-img src="/logo.png" alt="logo" width="35px" />
         <span>Inventoria</span>
       </div>
     </div>
