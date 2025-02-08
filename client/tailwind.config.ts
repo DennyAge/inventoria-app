@@ -31,6 +31,10 @@ const config: Config = {
           100: "#6979f8",
         },
       },
+      width: {
+        "page-content-md": "calc(100% - 16.5rem)",
+        "page-content-sm": "calc(100% - 6.5rem)",
+      },
       screens: {
         xs: "480px",
       },
