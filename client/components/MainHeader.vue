@@ -1,13 +1,16 @@
 <template>
-  <header class="main-header">
-    <div class="main-header__input">
-      <input
+  <header
+    class="h-[3.75rem] p-8 flex items-center justify-between bg-white shadow-sm"
+  >
+    <div class="w-1/3">
+      <CustomInput
         v-if="showInput"
         v-model="inputValue"
-        id="search"
-        class="form-control"
         :placeholder="$t('search')"
         :key="locale"
+        type="email"
+        name="search"
+        id="search"
         @input="onChange"
       />
     </div>
@@ -16,6 +19,8 @@
 </template>
 
 <script setup lang="ts">
+import CustomInput from "~/components/ui/CustomInput.vue";
+
 interface Props {
   showInput?: boolean;
 }
@@ -31,18 +36,3 @@ const onChange = () => {
   emit("filter", inputValue.value);
 };
 </script>
-
-<style scoped>
-.main-header {
-  height: 3.75rem;
-  padding: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--color-neutral-white);
-  box-shadow: var(--large-shadow);
-}
-.main-header__input {
-  width: 50%;
-}
-</style>

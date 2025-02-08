@@ -51,8 +51,8 @@ const handleShowPassword = (e: Event) => {
 
 <template>
   <div>
-    <label class="text-[14px] mb-1" :for="name">{{ label }}</label>
-    <div class="relative mb-2">
+    <label v-if="label" class="text-[14px] mb-1" :for="name">{{ label }}</label>
+    <div class="relative">
       <div v-show="leftIcon" class="absolute top-3 left-2 flex items-center">
         <slot name="left-icon" />
       </div>
@@ -76,7 +76,7 @@ const handleShowPassword = (e: Event) => {
             { 'pr-7 pl-2': name === 'password' },
             { 'pr-7 pl-7': leftIcon && removeBtn },
             { 'px-2': !rightIcon && !leftIcon && !removeBtn },
-            { 'border-red-500': error },
+            { 'border-red-500 mb-1': error },
           )
         "
       />

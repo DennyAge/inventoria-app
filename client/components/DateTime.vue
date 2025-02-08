@@ -1,14 +1,17 @@
 <template>
-  <div class="date-time">
-    <div class="date-time__data">
+  <div class="flex items-end gap-8">
+    <div class="flex flex-col">
       <span>{{ day }}</span>
       <span>{{ date }}</span>
     </div>
-    <div class="date-time__time">
-      <Icon name="lucide:alarm-clock" class="icon" />
+    <div class="flex items-center gap-2">
+      <Icon name="lucide:alarm-clock" class="text-green-500" />
       <span> {{ time }}</span>
     </div>
-    <div v-if="activeSessions" class="date-time__session">
+    <div
+      v-if="activeSessions"
+      class="w-6 h-6 flex items-center justify-center rounded-full bg-green-300 p-2 mb-1"
+    >
       {{ activeSessions }}
     </div>
   </div>
@@ -44,34 +47,3 @@ watch(locale, () => {
   updateDateTime();
 });
 </script>
-
-<style scoped>
-.date-time {
-  display: flex;
-  align-items: flex-end;
-  gap: 2rem;
-}
-.date-time__data {
-  display: flex;
-  flex-direction: column;
-}
-.date-time__time {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.icon {
-  color: var(--color-semantic-green-100);
-}
-.date-time__session {
-  width: 1.5rem;
-  height: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100%;
-  background: var(--color-semantic-green-75);
-  padding: 0.5rem;
-  margin-bottom: 0.3rem;
-}
-</style>
