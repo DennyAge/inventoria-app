@@ -1,7 +1,7 @@
 <template>
-  <div class="empty-content">
+  <div class="w-full h-full flex flex-col items-center justify-center">
     <Image src="/images/empty.svg" alt="logo" width="500px" />
-    <h5 class="empty-content__title">{{ title }}</h5>
+    <h5 class="text-2xl text-gray-500">{{ title }}</h5>
   </div>
 </template>
 <script lang="ts" setup>
@@ -9,17 +9,3 @@ defineProps<{
   title?: string;
 }>();
 </script>
-<style scoped>
-.empty-content {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.empty-content__title {
-  font-size: 1.5rem;
-  color: var(--color-neutral-grey-100);
-}
-</style>
