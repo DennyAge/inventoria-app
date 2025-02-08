@@ -5,7 +5,7 @@
       v-if="!selectedOrder"
       key="full"
     >
-      <li class="break-words">
+      <li class="break-words text-sm lg:text-base">
         {{ order.title }}
       </li>
       <li class="flex items-center justify-center gap-3">
@@ -13,24 +13,26 @@
           class="flex items-center justify-center border border-neutral-200 rounded-full p-2 bg-transparent hover:bg-blue-100"
           @click="handleOpenOrderProducts"
         >
-          <Icon name="ri:list-unordered" size="25" />
+          <Icon name="ri:list-unordered" class="w-4 h-4 lg:w-6 lg:h-6" />
         </button>
         <div class="flex flex-col">
-          <span class="text-xl">{{ products?.length }}</span>
-          <span class="text-gray-400">{{ $t("product") }}</span>
+          <span class="text-base lg:text-xl">{{ products?.length }}</span>
+          <span class="text-gray-400 text-sm lg:text-base">
+            {{ $t("product") }}
+          </span>
         </div>
       </li>
       <li class="flex flex-col items-center">
         <span class="text-gray-400 text-xs">
           {{ formatTimestampShort(order?.createdAt) }}
         </span>
-        <span>
+        <span class="text-sm lg:text-base">
           {{ formatTimestampLong(order?.createdAt, locale) }}
         </span>
       </li>
       <li class="flex flex-col items-center">
         <span class="text-gray-400 text-xs">{{ totalPrice.USD }} $</span>
-        <span>{{ totalPrice.UAH }} UAH</span>
+        <span class="text-sm lg:text-base">{{ totalPrice.UAH }} UAH</span>
       </li>
       <li class="flex flex-col items-center">
         <Button variant="icon" size="icon" @click="handleDeleteOrder(order)">
@@ -50,7 +52,7 @@
         >
           <Icon name="ri:list-unordered" class="icon" size="25" />
         </button>
-        <div class="flex flex-col">
+        <div class="flex flex-col text-sm lg:text-base">
           <span>{{ products?.length }}</span>
           <span>{{ $t("product") }}</span>
         </div>
@@ -59,7 +61,7 @@
         <span class="text-xs text-gray-400">
           {{ formatTimestampShort(order?.createdAt) }}
         </span>
-        <span>
+        <span class="text-sm lg:text-base">
           {{ formatTimestampLong(order?.createdAt, locale) }}
         </span>
       </li>

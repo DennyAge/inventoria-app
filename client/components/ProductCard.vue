@@ -1,32 +1,40 @@
 <template>
-  <ul class="product-card">
-    <li class="text-break">
-      <NuxtLink :to="localePath(`/products/${product._id}`)" class="nav-link">{{
-        product.title
-      }}</NuxtLink>
+  <ul
+    class="w-full grid items-center grid-cols-[2fr_1.2fr_1fr_0.7fr_2fr_auto] gap-2.5 p-5 border border-neutral-200 shadow-sm rounded-lg bg-white mb-4"
+  >
+    <li class="truncate lg:overflow-visible lg:whitespace-normal break-words">
+      <NuxtLink
+        :to="localePath(`/products/${product._id}`)"
+        class="underline cursor-pointer text-sm lg:text-base"
+        >{{ product.title }}</NuxtLink
+      >
     </li>
-    <li class="d-flex justify-content-center text-center">
+    <li class="flex justify-between text-center text-sm lg:text-base">
       {{ product.type }}
     </li>
-    <li class="d-flex align-items-center gap-2">
-      <div class="d-flex flex-column">
-        <div class="text-gray">{{ $t("from") }}</div>
-        <span class="text-gray">{{ $t("to") }}</span>
+    <li class="flex items-center gap-2">
+      <div class="flex flex-col gap-2 mt-1 text-gray-400 text-xs lg:text-sm">
+        <div>{{ $t("from") }}</div>
+        <div>{{ $t("to") }}</div>
       </div>
-      <div class="d-flex flex-column">
+      <div class="flex flex-col text-nowrap text-sm lg:text-base">
         <span>{{ formatTimestampLong(product.guarantee.start, locale) }}</span>
         <span>{{ formatTimestampLong(product.guarantee.end, locale) }}</span>
       </div>
     </li>
-    <li class="d-flex flex-column">
-      <span class="text-sm">{{ product.price[0]?.value }} $</span>
-      <span>{{ product.price[1]?.value }} UAH</span>
+    <li class="flex flex-col text-nowrap">
+      <span class="text-xs">{{ product.price[0]?.value }} $</span>
+      <span class="text-sm lg:text-base"
+        >{{ product.price[1]?.value }} UAH</span
+      >
     </li>
-    <li class="text-break">{{ order?.title }}</li>
+    <li class="truncate md:break-words text-sm lg:text-base">
+      {{ order?.title }}
+    </li>
     <li>
-      <button @click="handleDeleteProduct(product)" class="remove-btn">
-        <Icon name="ri:delete-bin-6-line" size="20" class="text-gray" />
-      </button>
+      <Button @click="handleDeleteProduct(product)" variant="icon" size="icon">
+        <Icon name="ri:delete-bin-6-line" size="20" class="text-gray-400" />
+      </Button>
     </li>
   </ul>
 </template>
@@ -50,30 +58,3 @@ const handleDeleteProduct = (product: Product) => {
   emit("delete-product", product);
 };
 </script>
-
-<style scoped>
-.product-card {
-  width: 100%;
-  display: grid;
-  align-items: center;
-  grid-template-columns: 2fr 1.2fr 1fr 0.7fr 2fr auto;
-  gap: 0.625rem;
-  padding: 1.25rem;
-  border: 0.063rem solid var(--color-neutral-grey-25);
-  box-shadow: var(--main-shadow);
-  border-radius: 0.5rem;
-  background-color: var(--color-neutral-white);
-  list-style: none;
-  margin-bottom: 1rem;
-}
-.remove-btn {
-  width: max-content;
-  border: none;
-  padding: 0;
-  margin: 0;
-  background: transparent;
-}
-.nav-link {
-  text-decoration: underline;
-}
-</style>
