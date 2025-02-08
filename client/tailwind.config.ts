@@ -34,6 +34,8 @@ const config: Config = {
       width: {
         "page-content-md": "calc(100% - 16.5rem)",
         "page-content-sm": "calc(100% - 6.5rem)",
+        "sidebar-md": "16.5rem",
+        "sidebar-sm": "6.5rem",
       },
       screens: {
         xs: "480px",
