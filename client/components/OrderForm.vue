@@ -1,53 +1,48 @@
 <template>
-  <form class="order-form" @submit.prevent="onSubmit">
-    <div class="form-group">
-      <label for="title">{{ $t("title") }}:</label>
-      <input
-        v-model="form.title"
-        type="text"
-        class="form-control"
-        id="title"
-        aria-describedby="title"
-        required
-        maxlength="75"
-        :class="{ 'is-invalid': !form.title.trim() && showFormError }"
-      />
-      <span v-if="!form.title.trim() && showFormError" class="text-danger">
-        Title is required
-      </span>
-    </div>
-    <div class="form-group">
-      <label for="description">{{ $t("description") }}:</label>
-      <textarea
-        v-model="form.description"
-        class="form-control"
-        :class="{ 'is-invalid': !form.description.trim() && showFormError }"
-        id="description"
-        rows="5"
-        maxlength="250"
-        aria-describedby="description"
-        required
-        style="resize: none"
-      />
-      <span
-        v-if="!form.description.trim() && showFormError"
-        class="text-danger text-sm"
-      >
-        Description is required
-      </span>
-    </div>
-    <div class="form-footer">
-      <button @click="onClose" type="button" class="btn btn-danger">
+  <form class="flex flex-col gap-4" @submit.prevent="onSubmit">
+    <CustomInput
+      v-model="form.title"
+      :label="$t('title')"
+      placeholder="Title"
+      type="text"
+      name="title"
+      id="title"
+      maxlength="75"
+      required
+      :error="!form.title.trim() && showFormError ? 'Title is required' : ''"
+    />
+    <TextArea
+      v-model="form.description"
+      :label="$t('description')"
+      placeholder="Description"
+      name="description"
+      id="description"
+      rows="5"
+      maxlength="250"
+      required
+      :error="
+        !form.description.trim() && showFormError
+          ? 'Description is required'
+          : ''
+      "
+    />
+
+    <div class="flex justify-end gap-4">
+      <Button @click="onClose" type="button" variant="outline">
         {{ $t("cancel") }}
-      </button>
-      <button @click="onSubmit" type="button" class="btn btn-success">
+      </Button>
+      <Button @click="onSubmit" type="button">
         {{ $t("add") }}
-      </button>
+      </Button>
     </div>
   </form>
 </template>
 
 <script setup lang="ts">
+import CustomInput from "~/components/ui/CustomInput.vue";
+import TextArea from "~/components/ui/TextArea.vue";
+import Button from "~/components/ui/Button.vue";
+
 const emit = defineEmits(["close", "submit"]);
 
 const form = reactive({
@@ -68,18 +63,4 @@ const onSubmit = () => {
 };
 </script>
 
-<style scoped>
-.order-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.form-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-}
-.text-danger {
-  font-size: 0.8rem;
-}
-</style>
+<style scoped></style>

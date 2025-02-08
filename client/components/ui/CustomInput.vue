@@ -98,7 +98,7 @@ const handleShowPassword = (e: Event) => {
         <Icon v-if="showPassword" name="ri:eye-line" />
         <Icon v-else name="ri:eye-off-line" />
       </button>
-      <span v-if="error" class="text-red-500 text-sm absolute top-10">
+      <span v-if="error" class="text-red-500 text-xs absolute top-10">
         {{ error }}
       </span>
     </div>
