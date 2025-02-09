@@ -1,11 +1,18 @@
 <template>
-  <div class="pie-chart">
-    <div class="progress-container">
-      <canvas ref="pieChart"></canvas>
+  <div class="flex flex-col items-center gap-3">
+    <div class="relative w-60">
+      <canvas ref="pieChart" class="w-full h-full"></canvas>
     </div>
-    <div class="graph_type__info">
-      <div v-for="info in items" :key="info.label" class="graph_type__item">
-        <div class="graph_type_icon" :style="`background: ${info.color}`"></div>
+    <div class="flex flex-wrap items-start gap-y-2 gap-x-4">
+      <div
+        v-for="info in items"
+        :key="info.label"
+        class="flex items-center gap-2"
+      >
+        <div
+          class="w-2.5 h-2.5 rounded-full"
+          :style="`background: ${info.color}`"
+        />
         {{ info.label }}
       </div>
     </div>
@@ -54,6 +61,8 @@ onMounted(() => {
 
     const options: ChartOptions<"doughnut"> = {
       events: ["hover"],
+      responsive: true,
+      maintainAspectRatio: false,
       animation: {
         animateRotate: true,
         animateScale: true,
@@ -80,29 +89,3 @@ onBeforeUnmount(() => {
   }
 });
 </script>
-<style scoped>
-.pie-chart {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-}
-.progress-container {
-  position: relative;
-}
-.graph_type__info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.5rem;
-}
-.graph_type__item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.graph_type_icon {
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 100%;
-}
-</style>

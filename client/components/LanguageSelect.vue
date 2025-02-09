@@ -3,7 +3,7 @@
     <button
       v-for="loc in locales"
       :key="loc.code"
-      class="border-none bg-transparent"
+      class="border-none bg-transparent cursor-pointer"
       :class="loc.code === locale && 'font-bold'"
       @click="setLocale(loc.code)"
     >

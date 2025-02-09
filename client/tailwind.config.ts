@@ -48,9 +48,14 @@ const config: Config = {
           from: { opacity: "0", transform: "translateX(-3rem)" },
           to: { opacity: "1", transform: "translateX(0)" },
         },
+        "slide-down": {
+          from: { opacity: "0", transform: "translateY(-2.5rem)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "slide-left": "slide-left 0.7s ease",
+        "slide-down": "slide-down 0.5s ease",
       },
     },
   },

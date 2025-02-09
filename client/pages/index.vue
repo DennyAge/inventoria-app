@@ -1,24 +1,24 @@
 <template>
   <section>
     <Header />
-    <div class="dashboard-page">
-      <div class="dashboard-content">
-        <div class="d-flex gap-4">
-          <div class="content-block d-flex align-items-center">
+    <div class="p-8">
+      <div class="flex flex-col h-[calc(100vh - 7rem)] gap-8 overflow-x-auto">
+        <div class="flex gap-4">
+          <div class="w-full py-4 px-8 bg-white rounded-2xl flex items-center">
             <DoughnutChart :items="typesStatistics" :index="1" />
           </div>
-          <div class="content-block">
+          <div class="w-full py-4 px-8 bg-white rounded-2xl">
             <TopListCard type="order" :data="orders" />
           </div>
-          <div class="content-block">
+          <div class="w-full py-4 px-8 bg-white rounded-2xl">
             <TopListCard type="product" :data="products" />
           </div>
         </div>
-        <div class="line-chart-section">
-          <div class="content-block">
+        <div class="flex gap-8">
+          <div class="w-full py-4 px-8 bg-white rounded-2xl">
             <TwoSideBarChart :items="cityStatistics" />
           </div>
-          <div class="content-block">
+          <div class="w-full py-4 px-8 bg-white rounded-2xl">
             <BarChart :items="sellStatistics" />
           </div>
         </div>
@@ -63,27 +63,3 @@ onMounted(async () => {
   }
 });
 </script>
-
-<style scoped>
-.dashboard-page {
-  padding: 2rem;
-}
-.dashboard-content {
-  height: calc(100vh - 7rem);
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  overflow-x: auto;
-}
-.line-chart-section {
-  display: flex;
-  gap: 2rem;
-}
-
-.content-block {
-  width: 100%;
-  padding: 1rem 2rem;
-  background: var(--color-neutral-white);
-  border-radius: 1rem;
-}
-</style>

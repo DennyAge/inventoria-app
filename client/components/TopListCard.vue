@@ -1,53 +1,52 @@
 <template>
-  <div class="top-list-card">
-    <div class="top-list-card__header">
-      <h3>{{ type === "order" ? "Top Orders:" : "Top Products:" }}</h3>
+  <div class="w-full h-full">
+    <div class="border-b border-gray-200 pb-2">
+      <h3 class="text-xl font-bold">
+        {{ type === "order" ? "Top Orders:" : "Top Products:" }}
+      </h3>
     </div>
     <div v-if="data && data?.length > 0">
-      <div v-if="type === 'order'" class="top-list-card__body">
+      <div v-if="type === 'order'" class="animate-slide-down">
         <ul
           v-for="item in randomData"
           :key="item?._id || item.title"
-          class="top-list-card__list"
+          class="grid items-center grid-cols-[0.5fr_2fr_1.5fr] gap-4 list-none py-2.5 my-5 border-b border-neutral-200"
         >
           <li>
-            <Image src="/images/order.svg" alt="order" width="50px" />
+            <nuxt-img src="/images/order.svg" alt="order" class="w-12" />
           </li>
-          <li class="text-break" :title="item.title">
+          <li class="truncate" :title="item.title">
             {{ item.title }}
           </li>
           <li>Products : {{ item.products.length }}</li>
         </ul>
       </div>
-      <div v-if="type === 'product'" class="top-list-card__body">
+      <div v-if="type === 'product'" class="animate-slide-down">
         <ul
           v-for="item in randomData"
           :key="item?._id || item.title"
-          class="top-list-card__list"
+          class="grid items-center grid-cols-[0.5fr_2fr_1.5fr] gap-4 list-none py-2.5 my-5 border-b border-neutral-200"
         >
           <li>
-            <Image
+            <nuxt-img
               :src="
                 item.photo?.length > 0
                   ? `${item.photo[0]}`
                   : '/images/devices.svg'
               "
               :alt="item.title"
-              width="50px"
+              class="w-12"
             />
           </li>
-          <li class="text-break" :title="item.title">
+          <li class="truncate" :title="item.title">
             {{ item.title }}
           </li>
           <li>{{ item.type }}</li>
         </ul>
       </div>
     </div>
-    <div
-      v-else
-      class="d-flex align-items-center justify-content-center w-100 h-100"
-    >
-      <Image src="/images/empty.svg" alt="order" width="150px" />
+    <div v-else class="flex items-center justify-center">
+      <nuxt-img src="/images/empty.svg" alt="order" class="w-[150px]" />
     </div>
   </div>
 </template>
@@ -70,47 +69,3 @@ const randomData = computed(() => {
   return shuffled.slice(0, 3);
 });
 </script>
-
-<style scoped>
-.top-list-card {
-  width: 100%;
-  height: 100%;
-}
-.top-list-card__header {
-  border-bottom: 0.063rem solid var(--color-neutral-grey-75);
-}
-.top-list-card__list {
-  display: grid;
-  align-items: center;
-  grid-template-columns: 0.5fr 2fr 1.5fr;
-  gap: 1rem;
-  list-style: none;
-}
-.top-list-card__list {
-  padding: 0.625rem 0;
-  margin: 1.25rem 0;
-  border-bottom: 1px solid var(--color-neutral-grey-75);
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-2.5rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.top-list-card__body {
-  animation: slideDown 0.5s ease;
-}
-.text-break {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-</style>

@@ -5,9 +5,10 @@
     <li class="truncate lg:overflow-visible lg:whitespace-normal break-words">
       <NuxtLink
         :to="localePath(`/products/${product._id}`)"
-        class="underline cursor-pointer text-sm lg:text-base"
-        >{{ product.title }}</NuxtLink
+        class="underline text-sm lg:text-base cursor-pointer"
       >
+        {{ product.title }}
+      </NuxtLink>
     </li>
     <li class="flex justify-between text-center text-sm lg:text-base">
       {{ product.type }}

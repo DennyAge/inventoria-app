@@ -12,11 +12,13 @@
           v-for="link in navigationLinks"
           :key="link.name"
           :to="localePath(link.path)"
-          class="flex items-center gap-2 uppercase py-2 px-3 rounded-lg hover:bg-primary hover:text-white"
+          class="flex items-center gap-2 uppercase py-2 px-3 rounded-lg cursor-pointer hover:bg-primary hover:text-white"
           active-class="text-white bg-primary-100"
         >
           <Icon :name="link.icon" />
-          <span class="hidden lg:block">{{ $t(link.name) }}</span>
+          <span class="hidden lg:block cursor-pointer">
+            {{ $t(link.name) }}
+          </span>
         </NuxtLink>
       </nav>
     </div>
