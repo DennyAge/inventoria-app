@@ -54,7 +54,7 @@ export const productTypeDef = gql`
     type: String!
     photo: [String]!
     specification: String!
-    guarantee: Float!
+    guarantee: GuaranteeInput!
     price: [PriceInput]!
     order: ID!
   }

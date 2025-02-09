@@ -24,7 +24,6 @@
     "nuxt-site-config": "^3.0.6",
     "socket.io-client": "^4.8.1",
     "tailwind-merge": "^2.6.0",
-    "usebootstrap": "^3.5.100",
     "vue-router": "latest"
   },
   "devDependencies": {

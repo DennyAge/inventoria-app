@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from "~/store/auth.store";
+import { useAuthStore } from "~/stores/auth.store";
 import CustomInput from "~/components/ui/CustomInput.vue";
 import Button from "~/components/ui/Button.vue";
 

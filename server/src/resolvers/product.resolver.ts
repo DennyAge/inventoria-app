@@ -35,10 +35,6 @@ export const productResolver = {
           photo,
         } = input;
 
-        const startDate = new Date();
-        const endDate = new Date(startDate);
-        endDate.setMonth(endDate.getMonth() + guarantee);
-
         const newProduct = new Product({
           serialNumber: generateSerialNumber(),
           isUsed,
@@ -46,11 +42,7 @@ export const productResolver = {
           title,
           type,
           specification,
-          //TODO: later change logic for guarantee on BE and FE
-          guarantee: {
-            start: startDate.getTime(),
-            end: endDate.getTime(),
-          },
+          guarantee,
           price,
           order,
         });
@@ -85,7 +77,6 @@ export const productResolver = {
             photo,
             type,
             specification,
-            //TODO: later change logic for guarantee on BE and FE
             guarantee,
             price,
           },

@@ -41,7 +41,7 @@
 </template>
 <script setup lang="ts">
 import type { Product } from "~/types";
-import { useOrdersStore } from "~/store/order.store";
+import { useOrdersStore } from "~/stores/order.store";
 import { formatTimestampLong } from "~/lib/utils";
 const { locale } = useI18n();
 

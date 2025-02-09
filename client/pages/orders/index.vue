@@ -1,10 +1,10 @@
 <template>
   <section>
     <MainHeader show-input @filter="filteredByInput" />
-    <div class="orders-page">
+    <div class="p-8">
       <PageHeader
         :title="$t('orders')"
-        :count="orders?.length"
+        :count="filteredOrders?.length"
         add-btn
         :on-click="() => (showAddOrderModal = true)"
       />
@@ -14,12 +14,12 @@
       />
       <div
         v-else
-        class="orders-page__body"
-        :class="{ 'body-flex': selectedOrder }"
+        class="h-[calc(100vh-14rem)] overflow-scroll"
+        :class="{ 'flex gap-4': selectedOrder }"
       >
         <div
-          class="orders-page__list"
-          :class="{ 'small-list': selectedOrder }"
+          class="flex flex-col"
+          :class="{ 'w-1/2': selectedOrder }"
           ref="componentTop"
         >
           <Spinner v-if="isLoading" />
@@ -48,7 +48,7 @@
       @submit="handleDelete"
     >
       <div>
-        <span class="text-break">{{ deleteData?.title }}</span>
+        <span class="break-words">{{ deleteData?.title }}</span>
       </div>
     </Modal>
     <Modal
@@ -91,8 +91,8 @@ useHead({
   ],
 });
 import type { CreateProductInput, Order, OrderInput, Product } from "~/types";
-import { useOrdersStore } from "~/store/order.store";
-import { useProductsStore } from "~/store/products.store";
+import { useOrdersStore } from "~/stores/order.store";
+import { useProductsStore } from "~/stores/products.store";
 import MainHeader from "~/components/MainHeader.vue";
 const ordersStore = useOrdersStore();
 const productsStore = useProductsStore();
@@ -177,6 +177,7 @@ const handleAddOrder = async (input: OrderInput) => {
   }
 };
 const handleAddProduct = async (input: CreateProductInput) => {
+  console.log(input);
   try {
     isLoading.value = true;
     await productsStore.createProduct(input);
@@ -193,26 +194,3 @@ const filteredByInput = (value: string) => {
   );
 };
 </script>
-
-<style scoped>
-.orders-page {
-  padding: 2rem;
-}
-.orders-page__body {
-  height: calc(100vh - 14rem);
-  overflow: scroll;
-  padding: 0 1rem 0 0;
-}
-.body-flex {
-  display: flex;
-  gap: 1rem;
-}
-.orders-page__list {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-.small-list {
-  width: 50%;
-}
-</style>

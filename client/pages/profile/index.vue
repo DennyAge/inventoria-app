@@ -1,16 +1,15 @@
 <template>
   <section>
     <MainHeader />
-    <div class="orders-page">
-      <button @click="logout" type="button" class="btn btn-success">
-        Logout
-      </button>
+    <div class="py-8 px-12">
+      <Button @click="logout" type="button"> Logout </Button>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from "~/store/auth.store";
+import { useAuthStore } from "~/stores/auth.store";
+import Button from "~/components/ui/Button.vue";
 
 useHead({
   title: "Profile",
@@ -35,8 +34,4 @@ const logout = async () => {
 };
 </script>
 
-<style scoped>
-.orders-page {
-  padding: 2rem 3rem;
-}
-</style>
+<style scoped></style>

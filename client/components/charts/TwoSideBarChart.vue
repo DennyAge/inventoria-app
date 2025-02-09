@@ -1,22 +1,28 @@
 <template>
   <div>
-    <div class="chart-header">
-      <div class="label-container">
-        <div class="chart-label">
-          <div :style="`background: ${orderColor}`" class="label-icon" />
+    <div class="flex justify-between mb-6">
+      <div class="flex items-center gap-5">
+        <div class="flex items-center gap-2 text-sm">
+          <div
+            :style="`background: ${orderColor}`"
+            class="w-2.5 h-2.5 rounded-full"
+          />
           {{ orderLabel }}
         </div>
-        <div class="chart-label">
-          <div :style="`background: ${productColor}`" class="label-icon" />
+        <div class="flex items-center gap-2 text-sm">
+          <div
+            :style="`background: ${productColor}`"
+            class="w-2.5 h-2.5 rounded-full"
+          />
           {{ productLabel }}
         </div>
-        <div class="chart-label">
-          <div class="rate-icon" />
+        <div class="flex items-center gap-2 text-sm">
+          <div class="w-2.5 h-2.5 rounded-full bg-black" />
           Max sell
         </div>
       </div>
     </div>
-    <div class="line-chart__wrapper">
+    <div class="h-auto">
       <canvas id="lineChart" ref="barChart" />
     </div>
   </div>
@@ -192,36 +198,3 @@ onMounted(() => {
   renderChart();
 });
 </script>
-
-<style scoped>
-.line-chart__wrapper {
-  height: auto;
-}
-.chart-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-}
-.label-container {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-}
-.chart-label {
-  display: flex;
-  align-items: center;
-  gap: 0.125rem;
-  font-size: 0.875rem;
-}
-.label-icon {
-  width: 2.25rem;
-  height: 0.5rem;
-  border-radius: 0.5rem;
-}
-.rate-icon {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 100%;
-  background: var(--color-neutral-black);
-}
-</style>

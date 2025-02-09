@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { HTMLAttributes } from "vue";
 import { cn } from "@/lib/utils";
-import { useVModel } from "@vueuse/core";
 
 const props = defineProps<{
   defaultValue?: string;
@@ -18,12 +17,13 @@ const props = defineProps<{
   rows?: string;
 }>();
 
-const emits = defineEmits<{
+const emit = defineEmits<{
   (e: "update:modelValue", payload: string | number): void;
 }>();
 
-const modelValue = useVModel(props, "modelValue", emits, {
-  defaultValue: props.defaultValue,
+const modelValue = computed({
+  get: () => props.modelValue ?? props.defaultValue ?? "",
+  set: (value) => emit("update:modelValue", value),
 });
 </script>
 

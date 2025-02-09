@@ -1,10 +1,10 @@
 <template>
   <section>
     <MainHeader show-input @filter="filteredByInput" />
-    <div class="products-page">
+    <div class="w-full h-full p-8">
       <PageHeader
         :title="$t('product')"
-        :count="products?.length"
+        :count="filteredProducts?.length"
         filter
         @filter="filterProducts"
       />
@@ -12,8 +12,8 @@
         v-if="filteredProducts.length <= 0"
         :title="$t('productEmpty')"
       />
-      <div v-else class="products-page__body">
-        <div class="products-page__list">
+      <div v-else class="h-[calc(100vh-14rem)] overflow-scroll">
+        <div class="flex flex-col">
           <Spinner v-if="isLoading" />
           <div
             v-for="product in filteredProducts"
@@ -32,7 +32,7 @@
       @submit="deleteProduct"
     >
       <div>
-        <span class="text-break">{{ deleteData?.title }}</span>
+        <span class="break-words">{{ deleteData?.title }}</span>
       </div>
     </Modal>
   </section>
@@ -51,8 +51,8 @@ useHead({
     },
   ],
 });
-import { useOrdersStore } from "~/store/order.store";
-import { useProductsStore } from "~/store/products.store";
+import { useOrdersStore } from "~/stores/order.store";
+import { useProductsStore } from "~/stores/products.store";
 import EmptyContent from "~/components/EmptyContent.vue";
 const ordersStore = useOrdersStore();
 const productsStore = useProductsStore();
@@ -71,6 +71,8 @@ onMounted(async () => {
       await productsStore.getProducts();
     }
     filteredProducts.value = products.value;
+  } catch (error) {
+    console.error(error);
   } finally {
     isLoading.value = false;
   }
@@ -108,20 +110,3 @@ const filteredByInput = (value: string) => {
   );
 };
 </script>
-
-<style scoped>
-.products-page {
-  width: 100%;
-  height: 100%;
-  padding: 2rem;
-}
-.products-page__body {
-  height: calc(100vh - 14rem);
-  overflow: scroll;
-  padding: 0 1rem 0 0;
-}
-.products-page__list {
-  display: flex;
-  flex-direction: column;
-}
-</style>

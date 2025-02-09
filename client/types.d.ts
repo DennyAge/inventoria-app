@@ -89,7 +89,7 @@ interface CreateProductInput {
   title: string;
   type: string;
   specification: string;
-  guarantee: number;
+  guarantee: Guarantee;
   price: Price[];
   order: string;
 }

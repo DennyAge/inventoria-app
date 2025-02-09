@@ -11,7 +11,7 @@
         type="email"
         name="search"
         id="search"
-        @input="onChange"
+        remove-btn
       />
     </div>
     <DateTime />
@@ -32,7 +32,7 @@ const emit = defineEmits(["filter"]);
 
 const inputValue = ref<string>("");
 
-const onChange = () => {
-  emit("filter", inputValue.value);
-};
+watch(inputValue, (newValue) => {
+  emit("filter", newValue);
+});
 </script>

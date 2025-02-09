@@ -5,12 +5,13 @@
         <h6>{{ title }}</h6>
         <span v-if="count">/ {{ count }}</span>
       </div>
-      <div v-if="filter" class="flex items-center gap-2">
+      <div v-if="filter" class="flex items-center gap-2 w-64">
         <label for="type">{{ $t("type") }}:</label>
         <CustomSelect
           :options="productTypes"
           v-model="type"
           @input="onChange"
+          class="w-full"
         />
       </div>
     </div>
@@ -32,7 +33,7 @@ interface Props {
   filter?: boolean;
   onClick?: () => void;
 }
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   addBtn: false,
 });
 const emit = defineEmits(["filter"]);

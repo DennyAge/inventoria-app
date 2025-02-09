@@ -34,8 +34,8 @@ import { ref, computed, onMounted, onUnmounted } from "vue";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 
-defineProps<{
-  modelValue: Date | string | null;
+const props = defineProps<{
+  modelValue: number | string | null;
   placeholder?: string;
   error?: string;
 }>();
@@ -43,7 +43,9 @@ const emit = defineEmits(["update:modelValue"]);
 
 const isOpen = ref(false);
 const pickerRef = ref<HTMLElement | null>(null);
-const selectedDate = ref<number | null>(null);
+const selectedDate = ref<number | null>(
+  props.modelValue ? Number(props.modelValue) : null,
+);
 
 const formattedDate = computed(() =>
   selectedDate.value ? new Date(selectedDate.value).toLocaleDateString() : "",
@@ -56,7 +58,7 @@ const toggleCalendar = () => {
 const onDateSelect = (date: Date) => {
   const timestamp = date.getTime();
   selectedDate.value = timestamp;
-  emit("update:modelValue", timestamp);
+  emit("update:modelValue", timestamp.toString());
   isOpen.value = false;
 };
 

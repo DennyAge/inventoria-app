@@ -36,9 +36,9 @@ import TwoSideBarChart from "~/components/charts/TwoSideBarChart.vue";
 import TopListCard from "~/components/TopListCard.vue";
 //helpers
 import { typesStatistics, cityStatistics, sellStatistics } from "~/constants";
-//store
-import { useOrdersStore } from "~/store/order.store";
-import { useProductsStore } from "~/store/products.store";
+//stores
+import { useOrdersStore } from "~/stores/order.store";
+import { useProductsStore } from "~/stores/products.store";
 
 useHead({
   title: "Dashboard",

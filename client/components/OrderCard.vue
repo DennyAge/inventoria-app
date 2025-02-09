@@ -78,8 +78,8 @@ import {
   formatTimestampShort,
   sumPricesByProduct,
 } from "~/lib/utils";
-import { useProductsStore } from "~/store/products.store";
-import { useOrdersStore } from "~/store/order.store";
+import { useProductsStore } from "~/stores/products.store";
+import { useOrdersStore } from "~/stores/order.store";
 import Button from "~/components/ui/Button.vue";
 const { locale } = useI18n();
 

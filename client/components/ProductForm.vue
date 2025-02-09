@@ -31,7 +31,7 @@
           : ''
       "
     />
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-1">
       <label class="text-sm">{{ $t("guarantee") }}</label>
       <div class="flex gap-2 items-center">
         <DatePicker
@@ -53,122 +53,89 @@
         />
       </div>
     </div>
-
     <!--    TODO: refactor upload-input code to edit mode -->
-    <div v-if="!editMode">
-      <label class="sr-only mb-1"> {{ $t("image") }}:</label>
+    <div v-if="!editMode" class="flex flex-col gap-1">
+      <label class="text-sm"> {{ $t("image") }}</label>
       <ImageInput @upload-complete="uploadFile" ref="uploader" />
     </div>
-    <div>
-      <label class="sr-only mb-1"> {{ $t("state") }}:</label>
-      <div class="d-flex gap-5">
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            v-model="form.state"
-            type="radio"
-            name="state"
-            id="newState"
-            :value="true"
-          />
-          <label class="form-check-label" for="newState">
-            {{ $t("new") }}
-          </label>
-        </div>
-        <div class="form-check">
-          <input
-            v-model="form.state"
-            class="form-check-input"
-            type="radio"
-            name="state"
-            id="usedState"
-            :value="false"
-          />
-          <label class="form-check-label" for="usedState">
-            {{ $t("used") }}
-          </label>
-        </div>
+    <div class="flex flex-col gap-1">
+      <label class="text-sm"> {{ $t("state") }}</label>
+      <div class="flex gap-4">
+        <RadioInput
+          v-model="form.state"
+          id="newState"
+          :value="true"
+          :label="$t('new')"
+        />
+        <RadioInput
+          v-model="form.state"
+          id="usedState"
+          :value="false"
+          :label="$t('used')"
+        />
       </div>
     </div>
-    <div>
-      <label class="sr-only mb-1"> {{ $t("price") }}:</label>
-      <div class="d-flex gap-5">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text">UAH</div>
-          </div>
-          <input
-            v-model="form.priceUAH"
-            type="number"
-            class="form-control"
-            id="priceUAH"
-            min="0"
-            max="999999"
-            :class="{ 'is-invalid': !form.priceUAH && showFormError }"
-            @input="limitLength('priceUAH', 6)"
-          />
-        </div>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text">USD</div>
-          </div>
-          <input
-            v-model="form.priceUSD"
-            type="number"
-            class="form-control"
-            id="priceUSD"
-            min="0"
-            max="999999"
-            :class="{
-              'is-invalid': !form.priceUSD && showFormError,
-            }"
-            @input="limitLength('priceUSD', 6)"
-          />
-        </div>
+    <div class="flex flex-col gap-1 w-full">
+      <label class="text-sm"> {{ $t("price") }}:</label>
+      <div class="flex gap-4 w-full">
+        <CustomInput
+          v-model="form.priceUAH"
+          type="number"
+          name="priceUAH"
+          id="priceUAH"
+          min="0"
+          max="999999"
+          required
+          :error="!form.priceUAH && showFormError ? 'Price is required' : ''"
+          @input="limitLength('priceUAH', 6)"
+          right-icon
+        >
+          <template v-slot:right-icon>
+            <nuxt-img src="/icons/uah.png" class="w-6 h-6" />
+          </template>
+        </CustomInput>
+        <CustomInput
+          v-model="form.priceUSD"
+          type="number"
+          name="priceUSD"
+          id="priceUSD"
+          min="0"
+          max="999999"
+          required
+          :error="!form.priceUSD && showFormError ? 'Price is required' : ''"
+          @input="limitLength('priceUSD', 6)"
+          right-icon
+        >
+          <template v-slot:right-icon>
+            <nuxt-img src="/icons/usd.png" class="w-6 h-6" />
+          </template>
+        </CustomInput>
       </div>
-      <span v-if="!form.priceUAH && showFormError" class="text-danger">
-        Price is required
-      </span>
     </div>
     <div class="flex justify-end gap-4">
-      <button
-        @click="onClose"
-        :disabled="isLoading"
-        type="button"
-        class="btn btn-danger"
-      >
+      <Button @click="onClose" type="button" variant="outline">
         {{ $t("cancel") }}
-      </button>
-      <button
-        v-if="isLoading"
-        class="btn btn-success d-flex align-items-center gap-2"
-        type="button"
-        disabled
-      >
-        <span
-          class="spinner-border spinner-border-sm"
-          role="status"
-          aria-hidden="true"
-        ></span>
-        <span class="sr-only">Loading...</span>
-      </button>
-      <button v-else @click="onSubmit" type="button" class="btn btn-success">
+      </Button>
+
+      <Button @click="onSubmit" type="button">
         {{ editMode ? $t("save") : $t("add") }}
-      </button>
+      </Button>
     </div>
   </form>
 </template>
 
 <script setup lang="ts">
-import {
-  productGuarantee,
-  productSpecification,
-  productTypes,
-} from "~/constants";
+//helpers
+import { productSpecification, productTypes } from "~/constants";
+//types
 import { Product } from "~/types";
+//components
 import CustomInput from "~/components/ui/CustomInput.vue";
 import CustomSelect from "~/components/ui/CustomSelect.vue";
 import DatePicker from "~/components/ui/DatePicker.vue";
+import RadioInput from "~/components/ui/RadioInput.vue";
+import Button from "~/components/ui/Button.vue";
+
 const emit = defineEmits(["close", "submit"]);
 
 interface Props {
@@ -186,8 +153,8 @@ interface Form {
   type: string;
   specification: string;
   photo: string[];
-  guaranteeStart: string | Date | null;
-  guaranteeEnd: string | Date | null;
+  guaranteeStart: string | null;
+  guaranteeEnd: string | null;
   state: boolean;
   priceUSD: number;
   priceUAH: number;
@@ -197,7 +164,8 @@ const form = reactive<Form>({
   title: props?.product?.title || "",
   type: props?.product?.type || "",
   specification: props?.product?.specification || "",
-  guaranteeStart: props?.product?.guarantee?.start || null,
+  guaranteeStart:
+    props?.product?.guarantee?.start || new Date().getTime().toString(),
   guaranteeEnd: props?.product?.guarantee?.end || null,
   photo: props?.product?.photo || [],
   state: props?.product?.isUsed || false,

@@ -1,102 +1,116 @@
 <template>
   <section>
     <MainHeader />
-    <div class="product-page">
-      <div class="product-page__header">
+    <div class="h-[calc(100vh-10rem)] px-8">
+      <div class="flex items-center py-4">
         <NuxtLink
           to="/products"
-          class="btn btn-light d-flex align-items-center gap-1"
+          class="flex items-center justify-center gap-2 py-2 px-4 border rounded-lg border-gray-200 bg-white cursor-pointer hover:shadow-lg"
         >
-          <Icon name="ri:arrow-left-line" size="20" />
+          <Icon name="ri:arrow-left-line" />
           Back
         </NuxtLink>
       </div>
       <Spinner v-if="isLoading" />
-      <div v-else class="product-page__content">
-        <div class="content__left-side">
-          <div class="d-flex align-items-center justify-content-center">
-            <Image :src="selectedImage" :alt="product?.title" height="250px" />
+      <div
+        v-else
+        class="w-full h-full flex py-8 bg-white overflow-auto rounded-2xl gap-4"
+      >
+        <div
+          class="flex flex-col justify-between items-center flex-1 px-6 animate-slide-down border-r border-gray-200"
+        >
+          <div>
+            <nuxt-img
+              :src="selectedImage"
+              :alt="product?.title"
+              class="max-h-56"
+            />
           </div>
-          <div class="image-selector">
+          <div class="flex items-center gap-4">
             <div
               v-for="(image, index) in product?.photo"
               :key="index"
-              class="image-selector__slide"
+              class="cursor-pointer"
               @click="selectedImage = image"
             >
-              <Image :src="`${image}`" :alt="product?.title" height="50px" />
+              <nuxt-img
+                :src="`${image}`"
+                :alt="product?.title"
+                class="max-h-14"
+              />
             </div>
           </div>
-          <div />
-          <div>
-            <Map :locations="mockLocations" :zoom="12" />
-          </div>
+          <Map :locations="mockLocations" :zoom="12" />
         </div>
-        <div class="content__right-side">
-          <h3 class="text-break">{{ product?.title }}</h3>
-          <ul class="product-details">
-            <li>
-              <b>{{ $t("serialNumber") }}:</b>
+        <div
+          class="flex flex-col justify-between flex-1 px-6 animate-slide-down"
+        >
+          <h3 class="break-words text-2xl font-semibold">
+            {{ product?.title }}
+          </h3>
+          <ul class="list-none m-0 p-0 flex flex-col gap-4">
+            <li class="flex gap-4">
+              <b class="min-w-36">{{ $t("serialNumber") }}:</b>
               {{ product?.serialNumber }}
             </li>
-            <li>
-              <b>{{ $t("type") }}:</b>
+            <li class="flex gap-4">
+              <b class="min-w-36">{{ $t("type") }}:</b>
               {{ product?.type }}
             </li>
-            <li>
-              <b>{{ $t("state") }}:</b>
+            <li class="flex gap-4">
+              <b class="min-w-36">{{ $t("state") }}:</b>
               {{ product?.isUsed ? $t("new") : $t("used") }}
             </li>
-            <li>
-              <b>{{ $t("specification") }}:</b>
+            <li class="flex gap-4">
+              <b class="min-w-36">{{ $t("specification") }}:</b>
               {{ product?.specification }}
             </li>
-            <li>
-              <b>{{ $t("guarantee") }}:</b>
+            <li class="flex gap-4">
+              <b class="min-w-36">{{ $t("guarantee") }}:</b>
               <span>
                 {{ formatTimestampLong(product?.guarantee?.start, locale) }}
                 -
                 {{ formatTimestampLong(product?.guarantee?.end, locale) }}
               </span>
             </li>
-            <li>
-              <b>{{ $t("price") }}:</b>
+            <li class="flex gap-4">
+              <b class="min-w-36">{{ $t("price") }}:</b>
               <span
                 >{{ product?.price[1]?.value }} UAH /
                 {{ product?.price[0]?.value }} $</span
               >
             </li>
-            <li>
-              <b>{{ $t("createdAt") }}:</b>
+            <li class="flex gap-4">
+              <b class="min-w-36">{{ $t("createdAt") }}:</b>
               <span>{{ formatTimestampLong(product?.createdAt, locale) }}</span>
             </li>
           </ul>
 
           <div>
-            <h5 class="mb-3">Order:</h5>
-            <ul class="product-details">
-              <li>
-                <b>{{ $t("title") }}:</b>
-                <span class="text-break"> {{ order?.title }}</span>
+            <h5 class="mb-3 text-lg font-semibold">Order:</h5>
+            <ul class="list-none m-0 p-0 flex flex-col gap-4">
+              <li class="flex gap-4">
+                <b class="min-w-36">{{ $t("title") }}:</b>
+                <span class="break-words"> {{ order?.title }}</span>
               </li>
-              <li>
-                <b>{{ $t("description") }}:</b>
-                <span class="text-break">
+              <li class="flex gap-4">
+                <b class="min-w-36">{{ $t("description") }}:</b>
+                <span class="break-words">
                   {{ order?.description }}
                 </span>
               </li>
             </ul>
           </div>
-          <div class="right-side__footer">
-            <button class="btn btn-danger" @click="showDeleteModal = true">
+          <div class="flex items-center justify-end gap-4">
+            <Button @click="showDeleteModal = true" variant="outline">
               {{ $t("delete") }}
-            </button>
-            <button
+            </Button>
+            <Button
               class="btn btn-success"
               @click="showEditProductModal = true"
             >
               {{ $t("edit") }}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -110,7 +124,7 @@
     @submit="handleDelete"
   >
     <div>
-      <span class="text-break">{{ product?.title }}</span>
+      <span class="break-words">{{ product?.title }}</span>
     </div>
   </Modal>
   <Modal
@@ -142,11 +156,16 @@ useHead({
     },
   ],
 });
-import { useProductsStore } from "~/store/products.store";
-import { useOrdersStore } from "~/store/order.store";
+//stores
+import { useProductsStore } from "~/stores/products.store";
+import { useOrdersStore } from "~/stores/order.store";
+//helpers
 import { formatTimestampLong } from "~/lib/utils";
 //TODO: change mock data to product data
 import { mockLocations } from "~/constants";
+//components
+import Button from "~/components/ui/Button.vue";
+
 const { locale } = useI18n();
 const productsStore = useProductsStore();
 const ordersStore = useOrdersStore();
@@ -203,96 +222,3 @@ const handleUpdateProduct = async (input: UpdateProductInput) => {
   }
 };
 </script>
-
-<style scoped>
-.product-page {
-  height: calc(100vh - 10rem);
-  padding: 0 2rem;
-}
-.product-page__header {
-  display: flex;
-  align-items: center;
-  padding: 1rem 0;
-}
-.product-page__content {
-  width: 100%;
-  height: 100%;
-  padding: 2rem 0;
-  background: var(--color-neutral-white);
-  border-radius: 1rem;
-  overflow: auto;
-
-  display: flex;
-
-  gap: 1rem;
-}
-.content__left-side {
-  flex: 1;
-  border-right: 0.1rem solid var(--color-neutral-grey-75);
-  padding: 0 1.5rem;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  animation: slideDown 0.5s ease;
-}
-.content__right-side {
-  flex: 1;
-  padding: 0 1.5rem;
-
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  animation: slideDown 0.5s ease;
-}
-
-.product-details {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.product-details li {
-  display: flex;
-  gap: 1rem;
-}
-
-.product-details b {
-  min-width: 150px;
-  font-weight: bold;
-}
-
-.product-details span {
-  flex: 1;
-}
-.right-side__footer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 1rem;
-}
-.image-selector {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-.image-selector__slide {
-  cursor: pointer;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-2.5rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-</style>

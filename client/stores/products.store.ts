@@ -77,7 +77,6 @@ export const useProductsStore = defineStore("products", {
     setSelectedProducts(data: Product[] | Product | null) {
       this.$patch({ selectedProducts: data });
     },
-
     async updateProduct(productId: string, input: UpdateProductInput) {
       try {
         const { updateProduct } = await GqlUpdateProduct({

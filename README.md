@@ -9,13 +9,13 @@ https://inventoria-app.vercel.app
 Technologies:
 -
 
-**Frontend:** Nuxt 3, Vue 3, Pinia, TypeScript, Bootstrap, GraphQL, Chart.js, Leaflet, 
+**Frontend:** Nuxt 3, Vue 3, Pinia, TypeScript, Tailwind, GraphQL, Chart.js, Leaflet, 
 
 **Backend:** Node.js, Express, MongoDB, TypeScript,  Socket.io, GraphQL, AWS S3
 
 **Deployment:** Docker, Docker Compose.
 
-**Other:** Git, ESLint, Prettier, i18n, JWT, date-fns,
+**Other:** Git, ESLint, Prettier, i18n, JWT, date-fns.
 
 ------------
 Setup and Running

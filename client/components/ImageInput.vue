@@ -1,11 +1,16 @@
 <template>
   <div>
     <div
-      class="upload-container"
+      class="border border-gray-200 bg-gray-100/50 rounded-md text-center p-5 relative flex items-center justify-center cursor-pointer h-40"
       @click="openFileInput"
       @dragover="handleDragOver"
       @drop="handleDrop"
-      :class="{ 'has-images': uploadedFiles.length > 0 }"
+      :class="
+        cn(
+          { 'has-images': uploadedFiles.length > 0 },
+          { 'border-red-500': error },
+        )
+      "
     >
       <input
         type="file"
@@ -16,42 +21,48 @@
         style="display: none"
       />
 
-      <div v-if="uploadedFiles.length > 0" class="preview-container">
+      <div v-if="uploadedFiles.length > 0" class="flex flex-wrap gap-2.5">
         <div
           v-for="(file, index) in uploadedFiles"
           :key="index"
-          class="preview-item"
+          class="relative border border-gray-200 bg-white rounded-sm"
         >
-          <Image :src="file.preview" alt="Preview" class="preview-image" />
+          <nuxt-img
+            :src="file.preview"
+            alt="Preview"
+            class="max-w-24 max-h-24"
+          />
           <button
             @click="(event) => removeImage(index, event)"
-            class="remove-button"
+            class="absolute top-1.5 right-1.5 bg-white text-black shadow-lg border-0 rounded-full cursor-pointer w-5 h-5 flex items-center justify-center text-xs"
           >
-            <Icon name="ri:close-fill" size="15" />
+            <Icon name="ri:close-fill" />
           </button>
         </div>
 
-        <div
+        <button
           v-if="uploadedFiles.length < 4"
-          class="upload-more"
+          type="button"
           @click.stop="openFileInput"
+          class="border border-gray-200 bg-white rounded-sm p-1.5 w-24"
         >
-          <Icon name="ri:add-large-fill" size="40" />
-        </div>
+          <Icon name="ri:add-large-fill" />
+        </button>
       </div>
 
-      <div v-else class="upload-placeholder">
+      <div v-else class="flex flex-col items-center gap-2.5">
         <p>Click or drag and drop to upload images</p>
       </div>
     </div>
-    <p v-if="error" class="text-danger">{{ error }}</p>
+    <p v-if="error" class="text-red-500 text-xs">{{ error }}</p>
   </div>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script setup lang="ts">
+import { cn } from "~/lib/utils.js";
 
 const emit = defineEmits(["upload-complete"]);
+
 const fileInput = ref(null);
 const uploadedFiles = ref([]);
 const imageUrls = ref([]);
@@ -147,84 +158,3 @@ defineExpose({
   uploadFiles,
 });
 </script>
-
-<style>
-.upload-container {
-  border: 0.063rem solid var(--color-neutral-grey-25);
-  border-radius: 0.5rem;
-  background-color: var(--color-neutral-white);
-  padding: 1.25rem;
-  text-align: center;
-  cursor: pointer;
-  position: relative;
-  min-height: 9.375rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.upload-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.625rem;
-}
-
-.preview-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.625rem;
-}
-
-.preview-item {
-  position: relative;
-  border: 0.063rem solid var(--color-neutral-grey-75);
-  padding: 0.313rem;
-  border-radius: 0.313rem;
-}
-
-.preview-image {
-  max-width: 6.25rem;
-  max-height: 6.25rem;
-  display: block;
-}
-
-.remove-button {
-  position: absolute;
-  top: 0.313rem;
-  right: 0.313rem;
-  background: var(--color-neutral-white);
-  color: var(--color-neutral-black);
-  box-shadow: var(--large-shadow);
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  width: 1.25rem;
-  height: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-}
-
-.upload-more {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 0.063rem solid var(--color-neutral-grey-75);
-  width: 6.25rem;
-  height: 7rem;
-  cursor: pointer;
-  color: var(--color-neutral-grey-75);
-}
-
-.upload-more span {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.upload-more p {
-  margin: 0;
-  font-size: 0.75rem;
-}
-</style>
