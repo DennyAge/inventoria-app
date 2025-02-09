@@ -51,7 +51,7 @@ const handleShowPassword = (e: Event) => {
 
 <template>
   <div>
-    <label v-if="label" class="text-[14px] mb-1" :for="name">{{ label }}</label>
+    <label v-if="label" class="text-sm mb-1" :for="name">{{ label }}</label>
     <div class="relative">
       <div v-show="leftIcon" class="absolute top-3 left-2 flex items-center">
         <slot name="left-icon" />
@@ -98,7 +98,7 @@ const handleShowPassword = (e: Event) => {
         <Icon v-if="showPassword" name="ri:eye-line" />
         <Icon v-else name="ri:eye-off-line" />
       </button>
-      <span v-if="error" class="text-red-500 text-xs absolute top-10">
+      <span v-if="error" class="text-red-500 text-xs absolute top-11">
         {{ error }}
       </span>
     </div>

@@ -18,8 +18,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        "ibm-plex-sans": ["IBM Plex Sans", "sans-serif"],
-        "bebas-neue": ["var(--bebas-neue)"],
+        inter: ["Inter", "sans-serif"],
       },
       colors: {
         background: "hsl(var(--background))",
@@ -36,9 +35,6 @@ const config: Config = {
         "page-content-sm": "calc(100% - 6.5rem)",
         "sidebar-md": "16.5rem",
         "sidebar-sm": "6.5rem",
-      },
-      screens: {
-        xs: "480px",
       },
       backgroundImage: {
         auth: "url('/images/chris-lee-unsplash.jpg')",

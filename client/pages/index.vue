@@ -28,12 +28,15 @@
 </template>
 
 <script setup lang="ts">
+//components
 import BarChart from "~/components/charts/BarChart.vue";
 import Header from "~/components/MainHeader.vue";
 import DoughnutChart from "~/components/charts/DoughnutChart.vue";
 import TwoSideBarChart from "~/components/charts/TwoSideBarChart.vue";
 import TopListCard from "~/components/TopListCard.vue";
+//helpers
 import { typesStatistics, cityStatistics, sellStatistics } from "~/constants";
+//store
 import { useOrdersStore } from "~/store/order.store";
 import { useProductsStore } from "~/store/products.store";
 

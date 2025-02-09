@@ -1,5 +1,14 @@
+@import './fonts.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
+@layer base {
+    html {
+        width: 100%;
+        height: 100vh;
+        background: #ecebed;
+        font-family: 'Inter', sans-serif;
+    }
+}

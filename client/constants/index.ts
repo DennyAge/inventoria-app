@@ -17,11 +17,26 @@ export const navigationLinks = [
 ];
 
 export const productSpecification = [
-  "Display",
-  "Performance",
-  "Camera",
-  "Battery",
-  "Other Features",
+  {
+    label: "Display",
+    value: "Display",
+  },
+  {
+    label: "Performance",
+    value: "Performance",
+  },
+  {
+    label: "Camera",
+    value: "Camera",
+  },
+  {
+    label: "Battery",
+    value: "Battery",
+  },
+  {
+    label: "Other Features",
+    value: "Other Features",
+  },
 ];
 export const productTypes = [
   {
@@ -64,8 +79,8 @@ export const productGuarantee = [
     value: 6,
   },
   {
-    title: "1 year",
-    label: 12,
+    label: "1 year",
+    value: 12,
   },
 ];
 

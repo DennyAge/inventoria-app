@@ -1,80 +1,59 @@
 <template>
-  <form class="product-form" @submit.prevent="onSubmit">
-    <div class="form-group">
-      <label for="title">{{ $t("title") }}:</label>
-      <input
-        v-model="form.title"
-        type="text"
-        class="form-control"
-        id="title"
-        aria-describedby="title"
-        required
-        maxlength="75"
-        :class="{ 'is-invalid': !form.title.trim() && showFormError }"
-      />
-      <span v-if="!form.title.trim() && showFormError" class="text-danger">
-        Title is required
-      </span>
+  <form class="flex flex-col gap-4" @submit.prevent="onSubmit">
+    <CustomInput
+      v-model="form.title"
+      :label="$t('title')"
+      placeholder="Title"
+      type="text"
+      name="title"
+      id="title"
+      maxlength="75"
+      required
+      :error="!form.title.trim() && showFormError ? 'Title is required' : ''"
+    />
+    <CustomSelect
+      :options="productTypes"
+      :label="$t('type')"
+      v-model="form.type"
+      placeholder="Type"
+      required
+      :error="!form.type.trim() && showFormError ? 'Type is required' : ''"
+    />
+    <CustomSelect
+      :options="productSpecification"
+      :label="$t('specification')"
+      v-model="form.specification"
+      placeholder="Specification"
+      required
+      :error="
+        !form.specification.trim() && showFormError
+          ? 'Specification is required'
+          : ''
+      "
+    />
+    <div class="flex flex-col gap-2">
+      <label class="text-sm">{{ $t("guarantee") }}</label>
+      <div class="flex gap-2 items-center">
+        <DatePicker
+          key="guaranteeStart"
+          v-model="form.guaranteeStart"
+          :error="
+            !form.guaranteeStart && showFormError
+              ? 'Start date is required'
+              : ''
+          "
+        />
+        <span> - </span>
+        <DatePicker
+          key="guaranteeEnd"
+          v-model="form.guaranteeEnd"
+          :error="
+            !form.guaranteeEnd && showFormError ? 'End date is required' : ''
+          "
+        />
+      </div>
     </div>
-    <div class="form-group">
-      <label for="type">{{ $t("type") }}:</label>
-      <select
-        class="form-control"
-        id="type"
-        :class="{ 'is-invalid': !form.type.trim() && showFormError }"
-        v-model="form.type"
-      >
-        <option v-for="option in productTypes" :key="option" :value="option">
-          {{ option }}
-        </option>
-      </select>
-      <span v-if="!form.type.trim() && showFormError" class="text-danger">
-        Type is required
-      </span>
-    </div>
-    <div class="form-group">
-      <label for="specification">{{ $t("specification") }}:</label>
-      <select
-        class="form-control"
-        :class="{ 'is-invalid': !form.specification.trim() && showFormError }"
-        id="specification"
-        v-model="form.specification"
-      >
-        <option
-          v-for="option in productSpecification"
-          :key="option"
-          :value="option"
-        >
-          {{ option }}
-        </option>
-      </select>
-      <span
-        v-if="!form.specification.trim() && showFormError"
-        class="text-danger"
-      >
-        Specification is required
-      </span>
-    </div>
-    <div class="form-group" v-if="!editMode">
-      <label for="guarantee">{{ $t("guarantee") }}:</label>
-      <select
-        class="form-control"
-        :class="{ 'is-invalid': !form.guarantee && showFormError }"
-        id="guarantee"
-        v-model="form.guarantee"
-      >
-        <option
-          v-for="option in productGuarantee"
-          :key="option.title"
-          :value="option.value"
-        >
-          {{ option.title }}
-        </option>
-      </select>
-      <span v-if="!form.guarantee && showFormError" class="text-danger">
-        Guarantee is required
-      </span>
-    </div>
+
     <!--    TODO: refactor upload-input code to edit mode -->
     <div v-if="!editMode">
       <label class="sr-only mb-1"> {{ $t("image") }}:</label>
@@ -151,7 +130,7 @@
         Price is required
       </span>
     </div>
-    <div class="form-footer">
+    <div class="flex justify-end gap-4">
       <button
         @click="onClose"
         :disabled="isLoading"
@@ -186,7 +165,10 @@ import {
   productSpecification,
   productTypes,
 } from "~/constants";
-import { Guarantee, Product } from "~/types";
+import { Product } from "~/types";
+import CustomInput from "~/components/ui/CustomInput.vue";
+import CustomSelect from "~/components/ui/CustomSelect.vue";
+import DatePicker from "~/components/ui/DatePicker.vue";
 const emit = defineEmits(["close", "submit"]);
 
 interface Props {
@@ -204,7 +186,8 @@ interface Form {
   type: string;
   specification: string;
   photo: string[];
-  guarantee: string | Guarantee;
+  guaranteeStart: string | Date | null;
+  guaranteeEnd: string | Date | null;
   state: boolean;
   priceUSD: number;
   priceUAH: number;
@@ -214,7 +197,8 @@ const form = reactive<Form>({
   title: props?.product?.title || "",
   type: props?.product?.type || "",
   specification: props?.product?.specification || "",
-  guarantee: props?.product?.guarantee || "",
+  guaranteeStart: props?.product?.guarantee?.start || null,
+  guaranteeEnd: props?.product?.guarantee?.end || null,
   photo: props?.product?.photo || [],
   state: props?.product?.isUsed || false,
   priceUSD: props?.product?.price[0]?.value || 0,
@@ -247,7 +231,8 @@ const onSubmit = async () => {
     !form.title.trim() ||
     !form.type.trim() ||
     !form.specification.trim() ||
-    !form.guarantee ||
+    !form.guaranteeStart ||
+    !form.guaranteeEnd ||
     !form.priceUSD ||
     !form.priceUAH
   ) {
@@ -259,7 +244,10 @@ const onSubmit = async () => {
     title: form.title,
     type: form.type,
     specification: form.specification,
-    guarantee: form.guarantee,
+    guarantee: {
+      start: form.guaranteeStart,
+      end: form.guaranteeEnd,
+    },
     photo: form.photo,
     price: [
       {
@@ -278,19 +266,3 @@ const onSubmit = async () => {
   });
 };
 </script>
-
-<style scoped>
-.product-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.form-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-}
-.text-danger {
-  font-size: 0.8rem;
-}
-</style>

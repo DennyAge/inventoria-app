@@ -1,8 +1,9 @@
 <template>
-  <div class="relative w-52" ref="selectRef">
-    <label v-if="label" for="selectRef">{{ label }}</label>
+  <div class="relative" ref="selectRef">
+    <label v-if="label" class="text-sm" for="selectRef">{{ label }}</label>
     <div
       class="h-10 border border-gray-300 rounded-lg p-2 cursor-pointer bg-white flex items-center justify-between"
+      :class="error && 'border-red-500'"
       @click="toggleDropdown"
     >
       <span v-if="selectedOptions.length" class="truncate">{{
@@ -52,11 +53,14 @@
         </li>
       </ul>
     </div>
+    <span v-if="error" class="text-red-500 text-xs">
+      {{ error }}
+    </span>
   </div>
 </template>
 
 <script setup lang="ts">
-type Option = { value: string; label: string };
+type Option = { value: string | number; label: string };
 
 const props = defineProps<{
   options: Option[];
@@ -64,6 +68,7 @@ const props = defineProps<{
   multiple?: boolean;
   placeholder?: string;
   label?: string;
+  error?: string;
   searchable?: boolean;
 }>();
 const emit = defineEmits(["update:modelValue", "input"]);
