@@ -60,14 +60,15 @@
 
 <script setup lang="ts">
 import { cn } from "~/lib/utils.js";
+import { useLoadingStore } from "~/stores/loading.store.js";
 
 const emit = defineEmits(["upload-complete"]);
+const loadingStore = useLoadingStore();
 
 const fileInput = ref(null);
 const uploadedFiles = ref([]);
 const imageUrls = ref([]);
 const error = ref("");
-const isLoading = ref(false);
 
 const openFileInput = () => {
   fileInput.value.click();
@@ -124,7 +125,7 @@ const uploadFiles = async () => {
     return;
   }
 
-  isLoading.value = true;
+  loadingStore.setLoading(true);
   error.value = "";
 
   const formData = new FormData();
@@ -151,7 +152,7 @@ const uploadFiles = async () => {
   } catch (err) {
     error.value = err.message;
   } finally {
-    isLoading.value = false;
+    loadingStore.setLoading(false);
   }
 };
 defineExpose({

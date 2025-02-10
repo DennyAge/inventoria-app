@@ -19,10 +19,9 @@
       >
         <div
           class="flex flex-col"
-          :class="{ 'w-1/2': selectedOrder }"
+          :class="{ 'md:w-1/2': selectedOrder }"
           ref="componentTop"
         >
-          <Spinner v-if="isLoading" />
           <div v-for="order in filteredOrders" :key="order?._id || order.title">
             <OrderCard :order="order" @delete-order="openDeleteModal" />
           </div>
@@ -71,7 +70,6 @@
         :orderId="selectedOrder?._id"
         @close="showAddProductModal = false"
         @submit="handleAddProduct"
-        :is-loading="isLoading"
       />
     </Modal>
   </section>
@@ -90,28 +88,34 @@ useHead({
     },
   ],
 });
+//types
 import type { CreateProductInput, Order, OrderInput, Product } from "~/types";
+//components
+import MainHeader from "~/components/MainHeader.vue";
+//store
 import { useOrdersStore } from "~/stores/order.store";
 import { useProductsStore } from "~/stores/products.store";
-import MainHeader from "~/components/MainHeader.vue";
+import { useLoadingStore } from "~/stores/loading.store.js";
+
 const ordersStore = useOrdersStore();
 const productsStore = useProductsStore();
+const loadingStore = useLoadingStore();
 
-const isLoading = ref(true);
+//data
 const orders = computed(() => ordersStore.orders);
 const selectedOrder = computed(() => ordersStore.selectedOrder);
 const selectedProducts = computed(() => productsStore.selectedProducts);
+
 const showDeleteModal = ref(false);
 const showAddOrderModal = ref(false);
 const showAddProductModal = ref(false);
 const deleteData = ref();
 const deletedType = ref<string | null>(null);
 const componentTop = ref<HTMLElement | null>(null);
-
 const filteredOrders = ref<Order[]>([]);
 
 onMounted(async () => {
-  isLoading.value = true;
+  loadingStore.setLoading(true);
   ordersStore.setSelectedOrder(null);
   productsStore.setSelectedProducts(null);
   try {
@@ -121,7 +125,7 @@ onMounted(async () => {
     }
     filteredOrders.value = orders.value;
   } finally {
-    isLoading.value = false;
+    loadingStore.setLoading(false);
   }
 });
 
@@ -144,7 +148,7 @@ const openDeleteModal = (data: Order | Product, type: string) => {
 const handleDelete = async () => {
   const { _id } = deleteData.value;
   try {
-    isLoading.value = true;
+    loadingStore.setLoading(true);
     if (deletedType.value === "order") {
       await ordersStore.deleteOrder(_id);
     }
@@ -155,8 +159,8 @@ const handleDelete = async () => {
     console.error(error);
   } finally {
     showDeleteModal.value = false;
-    isLoading.value = false;
     filteredOrders.value = orders.value;
+    loadingStore.setLoading(false);
   }
 };
 const closeOrderProductsCard = () => {
@@ -166,26 +170,26 @@ const closeOrderProductsCard = () => {
 
 const handleAddOrder = async (input: OrderInput) => {
   try {
-    isLoading.value = true;
+    loadingStore.setLoading(true);
     await ordersStore.createOrder(input);
   } catch (error) {
     console.error(error);
   } finally {
     showAddOrderModal.value = false;
-    isLoading.value = false;
     filteredOrders.value = orders.value;
+    loadingStore.setLoading(false);
   }
 };
 const handleAddProduct = async (input: CreateProductInput) => {
   console.log(input);
   try {
-    isLoading.value = true;
+    loadingStore.setLoading(true);
     await productsStore.createProduct(input);
   } catch (error) {
     console.error(error);
   } finally {
     showAddProductModal.value = false;
-    isLoading.value = false;
+    loadingStore.setLoading(false);
   }
 };
 const filteredByInput = (value: string) => {

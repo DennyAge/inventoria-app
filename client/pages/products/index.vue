@@ -14,7 +14,6 @@
       />
       <div v-else class="h-[calc(100vh-14rem)] overflow-scroll">
         <div class="flex flex-col">
-          <Spinner v-if="isLoading" />
           <div
             v-for="product in filteredProducts"
             :key="product?._id || product.title"
@@ -51,22 +50,28 @@ useHead({
     },
   ],
 });
+//components
+import EmptyContent from "~/components/EmptyContent.vue";
+import Loader from "~/components/ui/Loader.vue";
+//store
 import { useOrdersStore } from "~/stores/order.store";
 import { useProductsStore } from "~/stores/products.store";
-import EmptyContent from "~/components/EmptyContent.vue";
+import { useLoadingStore } from "~/stores/loading.store.js";
+
 const ordersStore = useOrdersStore();
 const productsStore = useProductsStore();
+const loadingStore = useLoadingStore();
 
-const isLoading = ref(true);
+//data
 const showDeleteModal = ref(false);
 const deleteData = ref();
 const products = computed(() => productsStore.products);
-
 const filteredProducts = ref<Product[]>([]);
 
 onMounted(async () => {
   try {
     if (products.value.length === 0) {
+      loadingStore.setLoading(true);
       await ordersStore.getOrders();
       await productsStore.getProducts();
     }
@@ -74,9 +79,10 @@ onMounted(async () => {
   } catch (error) {
     console.error(error);
   } finally {
-    isLoading.value = false;
+    loadingStore.setLoading(false);
   }
 });
+
 const openDeleteModal = (product: Product) => {
   showDeleteModal.value = true;
   deleteData.value = product;
@@ -84,18 +90,17 @@ const openDeleteModal = (product: Product) => {
 const deleteProduct = async () => {
   const { _id } = deleteData.value;
   try {
-    isLoading.value = true;
+    loadingStore.setLoading(true);
     await productsStore.deleteProduct(_id);
   } catch (error) {
     console.error(error);
   } finally {
     showDeleteModal.value = false;
-    isLoading.value = false;
     filteredProducts.value = products.value;
+    loadingStore.setLoading(false);
   }
 };
 const filterProducts = (type: string) => {
-  console.log(type);
   if (type === "All") {
     filteredProducts.value = products.value;
   } else {

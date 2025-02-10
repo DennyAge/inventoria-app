@@ -4,10 +4,12 @@ const defaultValues: {
   orders: Order[];
   order: Order | null;
   selectedOrder: Order | null;
+  isLoading: false;
 } = {
   orders: [],
   order: null,
   selectedOrder: null,
+  isLoading: false,
 };
 
 export const useOrdersStore = defineStore("orders", {

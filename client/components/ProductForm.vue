@@ -142,7 +142,6 @@ interface Props {
   orderId?: string;
   product?: Product | null;
   editMode?: boolean;
-  isLoading?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   editMode: false,

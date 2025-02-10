@@ -1,5 +1,6 @@
 <template>
   <main v-if="user" class="w-full h-dvh flex flex-row">
+    <Loader v-if="isLoading" />
     <SideBar :user="user" />
     <div
       class="flex flex-col flex-1 overflow-hidden w-page-content-sm md:w-page-content-md"
@@ -7,19 +8,25 @@
       <slot />
     </div>
   </main>
-  <Loader v-else />
+  <MainLoader v-else />
 </template>
 
 <script setup lang="ts">
 import { useAuthStore } from "~/stores/auth.store";
+import MainLoader from "~/components/MainLoader.vue";
+import { useLoadingStore } from "~/stores/loading.store.js";
+import Loader from "~/components/ui/Loader.vue";
+
 const router = useRouter();
 const authStore = useAuthStore();
+const loadingStore = useLoadingStore();
 
 const user = computed(() => authStore.user);
+const isLoading = computed(() => loadingStore.isLoading);
 
 const checkAuth = async () => {
   try {
-    await authStore.loadUserFromLocalStorage();
+    authStore.loadUserFromLocalStorage();
     if (!authStore.isAuth) {
       await router.push("/sign-in");
     }

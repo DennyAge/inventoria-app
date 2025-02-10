@@ -1,30 +1,28 @@
 <template>
-  <section>
-    <Header />
-    <div class="p-8">
-      <div class="flex flex-col h-[calc(100vh - 7rem)] gap-8 overflow-x-auto">
-        <div class="flex gap-4">
-          <div class="w-full py-4 px-8 bg-white rounded-2xl flex items-center">
-            <DoughnutChart :items="typesStatistics" :index="1" />
-          </div>
-          <div class="w-full py-4 px-8 bg-white rounded-2xl">
-            <TopListCard type="order" :data="orders" />
-          </div>
-          <div class="w-full py-4 px-8 bg-white rounded-2xl">
-            <TopListCard type="product" :data="products" />
-          </div>
+  <Header />
+  <div class="p-8 overflow-x-scroll">
+    <div class="flex flex-col h-[calc(100vh-7rem)] gap-8">
+      <div class="flex flex-wrap lg:flex-nowrap gap-4">
+        <div class="w-full py-4 px-8 bg-white rounded-2xl flex items-center">
+          <DoughnutChart :items="typesStatistics" :index="1" />
         </div>
-        <div class="flex gap-8">
-          <div class="w-full py-4 px-8 bg-white rounded-2xl">
-            <TwoSideBarChart :items="cityStatistics" />
-          </div>
-          <div class="w-full py-4 px-8 bg-white rounded-2xl">
-            <BarChart :items="sellStatistics" />
-          </div>
+        <div class="w-full py-4 px-8 bg-white rounded-2xl">
+          <TopListCard type="order" :data="orders" />
+        </div>
+        <div class="w-full py-4 px-8 bg-white rounded-2xl">
+          <TopListCard type="product" :data="products" />
+        </div>
+      </div>
+      <div class="flex flex-wrap lg:flex-nowrap gap-8">
+        <div class="w-full py-4 px-8 bg-white rounded-2xl">
+          <TwoSideBarChart :items="cityStatistics" />
+        </div>
+        <div class="w-full py-4 px-8 bg-white rounded-2xl">
+          <BarChart :items="sellStatistics" />
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup lang="ts">

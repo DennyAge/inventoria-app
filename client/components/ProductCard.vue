@@ -25,9 +25,7 @@
     </li>
     <li class="flex flex-col text-nowrap">
       <span class="text-xs">{{ product.price[0]?.value }} $</span>
-      <span class="text-sm lg:text-base"
-        >{{ product.price[1]?.value }} UAH</span
-      >
+      <span class="text-sm lg:text-base">{{ product.price[1]?.value }} ₴</span>
     </li>
     <li class="truncate md:break-words text-sm lg:text-base">
       {{ order?.title }}

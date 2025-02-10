@@ -14,11 +14,12 @@
       <slot />
     </div>
   </main>
-  <Loader v-else />
+  <MainLoader v-else />
 </template>
 
 <script lang="ts" setup>
 import { useAuthStore } from "~/stores/auth.store";
+import MainLoader from "~/components/MainLoader.vue";
 const router = useRouter();
 const authStore = useAuthStore();
 

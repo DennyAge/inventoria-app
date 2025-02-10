@@ -34,7 +34,7 @@ const config: Config = {
         "page-content-md": "calc(100% - 16.5rem)",
         "page-content-sm": "calc(100% - 6.5rem)",
         "sidebar-md": "16.5rem",
-        "sidebar-sm": "6.5rem",
+        "sidebar-sm": "5rem",
       },
       backgroundImage: {
         auth: "url('/images/chris-lee-unsplash.jpg')",

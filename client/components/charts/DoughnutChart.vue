@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-col items-center gap-3">
-    <div class="relative w-60">
-      <canvas ref="pieChart" class="w-full h-full"></canvas>
+  <div class="flex flex-wrap items-center justify-center gap-3">
+    <div class="relative flex-1">
+      <canvas ref="pieChart" class="max-w-60 h-full" />
     </div>
-    <div class="flex flex-wrap items-start gap-y-2 gap-x-4">
+    <div class="flex flex-wrap flex-1 items-start gap-y-2 gap-x-4">
       <div
         v-for="info in items"
         :key="info.label"

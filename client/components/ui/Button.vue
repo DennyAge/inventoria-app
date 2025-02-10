@@ -3,7 +3,7 @@ import { cva } from "class-variance-authority";
 import { cn } from "~/lib/utils.js";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-md shadow-xs",
+  "inline-flex items-center justify-center rounded-md text-md shadow-xs w-max",
   {
     variants: {
       variant: {
@@ -37,9 +37,7 @@ withDefaults(defineProps<Props>(), {});
 </script>
 
 <template>
-  <div>
-    <button :class="cn(buttonVariants({ variant, size }), $attrs.class ?? '')">
-      <slot />
-    </button>
-  </div>
+  <button :class="cn(buttonVariants({ variant, size }), $attrs.class ?? '')">
+    <slot />
+  </button>
 </template>
