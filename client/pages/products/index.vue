@@ -1,7 +1,7 @@
 <template>
   <section>
     <MainHeader show-input @filter="filteredByInput" />
-    <div class="w-full h-full p-8">
+    <div class="w-full h-full p-4 md:p-8">
       <PageHeader
         :title="$t('product')"
         :count="filteredProducts?.length"
@@ -52,7 +52,6 @@ useHead({
 });
 //components
 import EmptyContent from "~/components/EmptyContent.vue";
-import Loader from "~/components/ui/Loader.vue";
 //store
 import { useOrdersStore } from "~/stores/order.store";
 import { useProductsStore } from "~/stores/products.store";

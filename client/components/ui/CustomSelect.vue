@@ -6,9 +6,11 @@
       :class="error && 'border-red-500'"
       @click="toggleDropdown"
     >
-      <span v-if="selectedOptions.length" class="truncate">{{
-        selectedText
-      }}</span>
+      <span
+        v-if="selectedOptions.length"
+        class="text-sm md:text-base truncate"
+        >{{ selectedText }}</span
+      >
       <span v-else class="text-gray-400">{{ placeholder }}</span>
       <Icon
         name="ri:arrow-down-s-line"
@@ -33,7 +35,7 @@
         <li
           v-for="option in filteredOptions"
           :key="option.value"
-          class="p-2 cursor-pointer rounded-md hover:bg-primary-25 flex items-center mb-1"
+          class="p-2 cursor-pointer rounded-md hover:bg-primary-25 flex items-center mb-1 text-sm md:text-base"
           :class="{ 'bg-primary-25': isSelected(option) }"
           @click="toggleSelection(option)"
         >

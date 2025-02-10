@@ -19,7 +19,7 @@
         >
           <div>
             <nuxt-img
-              :src="selectedImage ? selectedImage : '/images/devices.svg'"
+              :src="selectedImage ? selectedImage : ''"
               :alt="product?.title"
               class="max-h-56"
             />
@@ -168,7 +168,6 @@ import { formatTimestampLong } from "~/lib/utils";
 import { mockLocations } from "~/constants";
 //components
 import Button from "~/components/ui/Button.vue";
-import Loader from "~/components/ui/Loader.vue";
 //store
 import { useLoadingStore } from "~/stores/loading.store.js";
 
