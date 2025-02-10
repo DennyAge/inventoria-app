@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <div class="p-8 overflow-x-scroll">
+  <div class="p-4 md:p-8 overflow-x-scroll">
     <div class="flex flex-col h-[calc(100vh-7rem)] gap-8">
       <div class="flex flex-wrap lg:flex-nowrap gap-4">
         <div class="w-full py-4 px-8 bg-white rounded-2xl flex items-center">

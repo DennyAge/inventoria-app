@@ -30,7 +30,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from "vue";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 
@@ -41,12 +40,12 @@ const props = defineProps<{
 }>();
 const emit = defineEmits(["update:modelValue"]);
 
+//data
 const isOpen = ref(false);
 const pickerRef = ref<HTMLElement | null>(null);
 const selectedDate = ref<number | null>(
   props.modelValue ? Number(props.modelValue) : null,
 );
-
 const formattedDate = computed(() =>
   selectedDate.value ? new Date(selectedDate.value).toLocaleDateString() : "",
 );

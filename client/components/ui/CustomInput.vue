@@ -58,7 +58,9 @@
 </template>
 
 <script setup lang="ts">
+//core
 import { HTMLAttributes } from "vue";
+//helpers
 import { cn } from "@/lib/utils";
 
 const props = defineProps<{
@@ -85,18 +87,17 @@ const emit = defineEmits<{
   (e: "update:modelValue", payload: string | number): void;
 }>();
 
+//data
 const modelValue = computed({
   get: () => props.modelValue ?? props.defaultValue ?? "",
   set: (value) => emit("update:modelValue", value),
 });
-
-const showPassword = ref(false);
-
 const inputType = computed(() =>
   showPassword.value && props.name === "password"
     ? "text"
     : props.type || "text",
 );
+const showPassword = ref(false);
 
 const handleClearValue = (e: Event) => {
   e.preventDefault();

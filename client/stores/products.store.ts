@@ -1,4 +1,10 @@
-import type { CreateProductInput, Product, UpdateProductInput } from "~/types";
+import type {
+  CreateProductInput,
+  Product,
+  Order,
+  UpdateProductInput,
+} from "~/types.js";
+import { defineStore } from "pinia";
 
 const defaultValues: {
   products: Product[];
@@ -38,7 +44,7 @@ export const useProductsStore = defineStore("products", {
 
           const ordersStore = useOrdersStore();
           const order = ordersStore.orders.find(
-            (order) => order._id === createProduct.order,
+            (order: Order) => order._id === createProduct.order,
           );
           if (order) {
             if (!order.products) {

@@ -52,7 +52,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Product, Order } from "~/types";
+//types
+import type { Product, Order } from "~/types.js";
 interface Props {
   data: Product[] | Order[] | null;
   type: string;
@@ -60,6 +61,7 @@ interface Props {
 
 const props = defineProps<Props>();
 
+//data
 //TODO: create BE functional for top order/products
 const randomData = computed(() => {
   if (!props.data) return null;

@@ -29,10 +29,11 @@
 </template>
 
 <script lang="ts" setup>
+//helpers
 import { cn } from "~/lib/utils.js";
 
+//data
 const { locale, locales, setLocale } = useI18n();
-
 const showDropdown = ref<boolean>(false);
 
 const toggleDropdown = () => {

@@ -1,4 +1,4 @@
-import type { LoginInput, SignUpInput, User } from "~/types";
+import type { LoginInput, SignUpInput, User } from "~/types.js";
 import { defineStore } from "pinia";
 
 const defaultValues: {

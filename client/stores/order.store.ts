@@ -1,4 +1,5 @@
-import type { Order, OrderInput } from "~/types";
+import type { Order, OrderInput } from "~/types.js";
+import { defineStore } from "pinia";
 
 const defaultValues: {
   orders: Order[];

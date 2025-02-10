@@ -1,7 +1,7 @@
 <template>
   <section>
     <MainHeader />
-    <div class="h-[calc(100vh-10rem)] px-8">
+    <div class="h-[calc(100vh-6rem)] px-4 md:px-8 overflow-x-scroll">
       <div class="flex items-center py-4">
         <NuxtLink
           to="/products"
@@ -11,17 +11,15 @@
           Back
         </NuxtLink>
       </div>
-      <Spinner v-if="isLoading" />
       <div
-        v-else
-        class="w-full h-full flex py-8 bg-white overflow-auto rounded-2xl gap-4"
+        class="w-full h-max flex flex-col md:flex-row py-8 bg-white rounded-md gap-4"
       >
         <div
-          class="flex flex-col justify-between items-center flex-1 px-6 animate-slide-down border-r border-gray-200"
+          class="flex flex-col justify-between items-center gap-12 flex-1 px-6 animate-slide-down md:border-r border-gray-200"
         >
           <div>
             <nuxt-img
-              :src="selectedImage"
+              :src="selectedImage ? selectedImage : '/images/devices.svg'"
               :alt="product?.title"
               class="max-h-56"
             />
@@ -40,7 +38,7 @@
               />
             </div>
           </div>
-          <Map :locations="mockLocations" :zoom="12" />
+          <Map :locations="mockLocations" :zoom="12" class="hidden md:block" />
         </div>
         <div
           class="flex flex-col justify-between flex-1 px-6 animate-slide-down"
@@ -101,6 +99,11 @@
               </li>
             </ul>
           </div>
+          <Map
+            :locations="mockLocations"
+            :zoom="12"
+            class="block my-8 md:hidden"
+          />
           <div class="flex items-center justify-end gap-4">
             <Button @click="showDeleteModal = true" variant="outline">
               {{ $t("delete") }}
@@ -144,7 +147,7 @@
 </template>
 
 <script setup lang="ts">
-import { UpdateProductInput } from "~/types";
+import { UpdateProductInput } from "~/types.js";
 
 useHead({
   title: "Products",
@@ -165,16 +168,20 @@ import { formatTimestampLong } from "~/lib/utils";
 import { mockLocations } from "~/constants";
 //components
 import Button from "~/components/ui/Button.vue";
+import Loader from "~/components/ui/Loader.vue";
+//store
+import { useLoadingStore } from "~/stores/loading.store.js";
 
-const { locale } = useI18n();
 const productsStore = useProductsStore();
 const ordersStore = useOrdersStore();
-
-const isLoading = ref(true);
+const loadingStore = useLoadingStore();
 const route = useRoute();
 const router = useRouter();
-const productId = route.params.id.toString();
+const { locale } = useI18n();
 
+//data
+const productId = route.params.id.toString();
+const isLoading = computed(() => loadingStore.isLoading);
 const product = computed(() => productsStore.product);
 const order = computed(() => ordersStore.order);
 const selectedImage = ref<string | null>(null);
@@ -184,6 +191,7 @@ const showEditProductModal = ref(false);
 
 onMounted(async () => {
   try {
+    loadingStore.setLoading(true);
     await productsStore.getProduct(productId);
     const orderId = product.value?.order;
     if (orderId) {
@@ -194,12 +202,12 @@ onMounted(async () => {
     console.error(error);
     router.push(localePath("/products"));
   } finally {
-    isLoading.value = false;
+    loadingStore.setLoading(false);
   }
 });
 const handleDelete = async () => {
   try {
-    isLoading.value = true;
+    loadingStore.setLoading(true);
     await productsStore.deleteProduct(productId).then(() => {
       router.push(localePath("/products"));
     });
@@ -207,18 +215,18 @@ const handleDelete = async () => {
     console.error(error);
   } finally {
     showDeleteModal.value = false;
-    isLoading.value = false;
+    loadingStore.setLoading(false);
   }
 };
 const handleUpdateProduct = async (input: UpdateProductInput) => {
   try {
-    isLoading.value = true;
+    loadingStore.setLoading(true);
     await productsStore.updateProduct(productId, input);
   } catch (error) {
     console.error(error);
   } finally {
-    isLoading.value = false;
     showEditProductModal.value = false;
+    loadingStore.setLoading(false);
   }
 };
 </script>

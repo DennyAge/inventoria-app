@@ -59,12 +59,15 @@
 </template>
 
 <script setup lang="ts">
+//helpers
 import { cn } from "~/lib/utils.js";
+//store
 import { useLoadingStore } from "~/stores/loading.store.js";
 
 const emit = defineEmits(["upload-complete"]);
 const loadingStore = useLoadingStore();
 
+//data
 const fileInput = ref(null);
 const uploadedFiles = ref([]);
 const imageUrls = ref([]);

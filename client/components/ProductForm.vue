@@ -128,7 +128,7 @@
 //helpers
 import { productSpecification, productTypes } from "~/constants";
 //types
-import { Product } from "~/types";
+import { Product } from "~/types.js";
 //components
 import CustomInput from "~/components/ui/CustomInput.vue";
 import CustomSelect from "~/components/ui/CustomSelect.vue";
@@ -159,6 +159,7 @@ interface Form {
   priceUAH: number;
 }
 
+//data
 const form = reactive<Form>({
   title: props?.product?.title || "",
   type: props?.product?.type || "",

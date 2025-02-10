@@ -26,6 +26,7 @@ const props = defineProps<{
   error?: string;
 }>();
 const emit = defineEmits(["update:modelValue"]);
+
 const updateValue = () => {
   emit("update:modelValue", props.value);
 };

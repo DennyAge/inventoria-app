@@ -1,7 +1,7 @@
 <template>
   <section>
     <MainHeader show-input @filter="filteredByInput" />
-    <div class="p-8">
+    <div class="p-4 md:p-8">
       <PageHeader
         :title="$t('orders')"
         :count="filteredOrders?.length"
@@ -89,7 +89,12 @@ useHead({
   ],
 });
 //types
-import type { CreateProductInput, Order, OrderInput, Product } from "~/types";
+import type {
+  CreateProductInput,
+  Order,
+  OrderInput,
+  Product,
+} from "~/types.js";
 //components
 import MainHeader from "~/components/MainHeader.vue";
 //store

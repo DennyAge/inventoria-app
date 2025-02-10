@@ -1,8 +1,9 @@
-import type { Product } from "~/types";
+import type { Product } from "~/types.js";
 import { Chart } from "chart.js/auto";
 
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { Price } from "~/types.js";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -70,7 +71,7 @@ export const sumPricesByProduct = (
 
   return products.reduce(
     (acc, item) => {
-      item.price.forEach((priceItem) => {
+      item.price.forEach((priceItem: Price) => {
         if (priceItem?.symbol === "USD") {
           acc.USD += priceItem?.value;
         } else if (priceItem?.symbol === "UAH") {

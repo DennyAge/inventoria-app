@@ -1,6 +1,6 @@
 <template>
   <header
-    class="h-[3.75rem] p-8 flex items-center justify-between bg-white shadow-sm relative"
+    class="h-[3.75rem] p-4 md:p-8 flex items-center justify-between bg-white shadow-sm relative"
   >
     <div class="flex items-end gap-4 w-full">
       <Button
@@ -12,7 +12,7 @@
         <Icon v-if="showSidebar" name="ri:close-large-fill" class="h-6 w-6" />
         <Icon v-else name="ri:menu-line" class="h-6 w-6" />
       </Button>
-      <div class="w-1/3">
+      <div class="w-1/2">
         <CustomInput
           v-if="showInput"
           v-model="inputValue"
@@ -25,7 +25,6 @@
         />
       </div>
     </div>
-    <!--    <DateTime />-->
     <div class="flex items-end gap-2">
       <LanguageSelect />
       <Avatar :user="user" />
@@ -35,10 +34,13 @@
 </template>
 
 <script setup lang="ts">
+//components
 import CustomInput from "~/components/ui/CustomInput.vue";
 import Button from "~/components/ui/Button.vue";
 import MobileSidebar from "~/components/MobileSidebar.vue";
 import Avatar from "~/components/ui/Avatar.vue";
+// store
+import { useAuthStore } from "~/stores/auth.store";
 
 interface Props {
   showInput?: boolean;
@@ -46,20 +48,21 @@ interface Props {
 withDefaults(defineProps<Props>(), {
   showInput: false,
 });
-import { useAuthStore } from "~/stores/auth.store";
-const router = useRouter();
-const authStore = useAuthStore();
 
-const user = computed(() => authStore.user);
-const { locale } = useI18n();
 const emit = defineEmits(["filter"]);
 
+const authStore = useAuthStore();
+const { locale } = useI18n();
+
+//data
+const user = computed(() => authStore.user);
 const inputValue = ref<string>("");
 const showSidebar = ref<boolean>(false);
 
 watch(inputValue, (newValue) => {
   emit("filter", newValue);
 });
+
 const openSidebar = () => {
   showSidebar.value = !showSidebar.value;
 };

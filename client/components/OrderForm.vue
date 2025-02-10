@@ -39,12 +39,14 @@
 </template>
 
 <script setup lang="ts">
+//components
 import CustomInput from "~/components/ui/CustomInput.vue";
 import TextArea from "~/components/ui/TextArea.vue";
 import Button from "~/components/ui/Button.vue";
 
 const emit = defineEmits(["close", "submit"]);
 
+//data
 const form = reactive({
   title: "",
   description: "",
@@ -62,5 +64,3 @@ const onSubmit = () => {
   emit("submit", form);
 };
 </script>
-
-<style scoped></style>

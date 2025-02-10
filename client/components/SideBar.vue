@@ -43,11 +43,14 @@
 </template>
 
 <script setup lang="ts">
+//helpers
 import { navigationLinks } from "~/constants/index.js";
-import Button from "~/components/ui/Button.vue";
 import { cn } from "~/lib/utils.js";
+//components
+import Button from "~/components/ui/Button.vue";
 
 const localePath = useLocalePath();
+//data
 const smallSidebar = ref<boolean>(false);
 
 const setSmallSidebar = () => {

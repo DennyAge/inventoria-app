@@ -20,12 +20,17 @@
       "tailwindcss"
     ]
   },
+  "paths": {
+    "~/*": ["./*"],
+    "@/*": ["./*"]
+  },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     "**/*.vue",
     ".nuxt/**/*.ts",
-    "nuxt.config.ts"
+    "nuxt.config.ts",
+    "**/*.d.ts"
   ],
   "exclude": [
     "node_modules",

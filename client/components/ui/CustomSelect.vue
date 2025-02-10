@@ -73,6 +73,7 @@ const props = defineProps<{
 }>();
 const emit = defineEmits(["update:modelValue", "input"]);
 
+//data
 const isOpen = ref(false);
 const searchQuery = ref("");
 const selectRef = ref<HTMLElement | null>(null);

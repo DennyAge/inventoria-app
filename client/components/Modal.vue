@@ -3,7 +3,7 @@
     class="fixed top-0 left-0 z-[1000] flex justify-center items-center w-full h-full bg-black/60"
   >
     <div
-      class="flex flex-col overflow-hidden bg-white max-h-[95%] w-[37.25rem] rounded-md shadow-sm"
+      class="flex flex-col overflow-hidden bg-white max-h-[95%] w-11/12 md:w-[37.25rem] rounded-md shadow-sm"
     >
       <div
         class="flex justify-between items-center py-3 px-8 border-b border-gray-200"
@@ -30,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+//components
 import Button from "~/components/ui/Button.vue";
 
 defineProps<{

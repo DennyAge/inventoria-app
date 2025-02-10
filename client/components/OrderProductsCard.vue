@@ -62,14 +62,17 @@
 </template>
 
 <script setup lang="ts">
-import type { Product, Order } from "~/types";
+//types
+import type { Product, Order } from "~/types.js";
+//components
 import Button from "~/components/ui/Button.vue";
+
 interface Props {
   products: Product[] | null;
   order: Order | null;
 }
-
 defineProps<Props>();
+
 const emit = defineEmits([
   "delete-product",
   "add-product",

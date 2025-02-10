@@ -1,32 +1,3 @@
-<script setup lang="ts">
-import { HTMLAttributes } from "vue";
-import { cn } from "@/lib/utils";
-
-const props = defineProps<{
-  defaultValue?: string;
-  modelValue?: string;
-  class?: HTMLAttributes["class"];
-  placeholder?: string;
-  label?: string;
-  name?: string;
-  error?: string;
-  required?: boolean;
-  readOnly?: boolean;
-  disabled?: boolean;
-  maxLength?: number;
-  rows?: string;
-}>();
-
-const emit = defineEmits<{
-  (e: "update:modelValue", payload: string | number): void;
-}>();
-
-const modelValue = computed({
-  get: () => props.modelValue ?? props.defaultValue ?? "",
-  set: (value) => emit("update:modelValue", value),
-});
-</script>
-
 <template>
   <div>
     <label v-if="label" class="text-[14px] mb-1" :for="name">{{ label }}</label>
@@ -53,3 +24,34 @@ const modelValue = computed({
     </div>
   </div>
 </template>
+<script setup lang="ts">
+//core
+import { HTMLAttributes } from "vue";
+//helpers
+import { cn } from "@/lib/utils";
+
+const props = defineProps<{
+  defaultValue?: string;
+  modelValue?: string;
+  class?: HTMLAttributes["class"];
+  placeholder?: string;
+  label?: string;
+  name?: string;
+  error?: string;
+  required?: boolean;
+  readOnly?: boolean;
+  disabled?: boolean;
+  maxLength?: number;
+  rows?: string;
+}>();
+
+const emit = defineEmits<{
+  (e: "update:modelValue", payload: string | number): void;
+}>();
+
+//data
+const modelValue = computed({
+  get: () => props.modelValue ?? props.defaultValue ?? "",
+  set: (value) => emit("update:modelValue", value),
+});
+</script>

@@ -8,17 +8,20 @@
 </template>
 
 <script setup lang="ts">
+//helpers
 import { getInitials } from "~/lib/utils";
-import type { User } from "~/types";
+//types
+import type { User } from "~/types.js";
+
+interface Props {
+  user: User;
+}
+defineProps<Props>();
+
 const router = useRouter();
 const localePath = useLocalePath();
 
 const goToProfile = () => {
   router.push(localePath("/profile"));
 };
-
-interface Props {
-  user: User;
-}
-defineProps<Props>();
 </script>

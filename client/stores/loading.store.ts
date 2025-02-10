@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 
 const defaultValues: {
-  isLoading: false;
+  isLoading: boolean;
 } = {
   isLoading: false,
 };

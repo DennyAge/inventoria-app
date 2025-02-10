@@ -22,7 +22,9 @@
 </template>
 
 <script setup lang="ts">
+//helpers
 import { productTypes } from "~/constants";
+//components
 import Button from "~/components/ui/Button.vue";
 import CustomSelect from "~/components/ui/CustomSelect.vue";
 
@@ -37,6 +39,8 @@ withDefaults(defineProps<Props>(), {
   addBtn: false,
 });
 const emit = defineEmits(["filter"]);
+
+//data
 const type = ref<string | string[]>("All");
 
 const onChange = () => {

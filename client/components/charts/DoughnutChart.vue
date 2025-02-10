@@ -20,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+//core
 import {
   Chart,
   type ChartItem,
@@ -42,6 +43,7 @@ const props = withDefaults(defineProps<Props>(), {
   index: 1,
 });
 
+//date
 const pieChart = ref<HTMLCanvasElement | null>(null);
 
 let chart: Chart<"doughnut", number[], string> | null = null;

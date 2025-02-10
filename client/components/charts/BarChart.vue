@@ -23,7 +23,9 @@
 </template>
 
 <script lang="ts" setup>
+//core
 import { Chart, type ChartOptions } from "chart.js/auto";
+//helpers
 import { formatCurrency, crossLine } from "~/lib/utils";
 
 interface ItemData {

@@ -42,45 +42,50 @@
   </table>
 
   <table v-else class="w-full">
-    <tr
-      @click="handleOpenOrderProducts"
-      class="hidden max-w-[31.25rem] md:grid items-center grid-cols-[4fr_4fr_1fr] p-5 pr-0 border border-neutral-200 shadow-md rounded-lg mb-4 cursor-pointer hover:bg-primary-25"
-      :class="selectedOrder._id === order._id ? 'bg-primary-25' : 'bg-white'"
-    >
-      <td class="flex gap-2 items-center">
-        <div class="flex flex-col text-sm lg:text-base">
-          <span class="text-base">{{ products?.length }}</span>
-          <span class="text-gray-400 text-xs lg:text-sm">
-            {{ $t("product") }}
+    <tbody>
+      <tr
+        @click="handleOpenOrderProducts"
+        class="hidden max-w-[31.25rem] md:grid items-center grid-cols-[4fr_4fr_1fr] p-5 pr-0 border border-neutral-200 shadow-md rounded-lg mb-4 cursor-pointer hover:bg-primary-25"
+        :class="selectedOrder._id === order._id ? 'bg-primary-25' : 'bg-white'"
+      >
+        <td class="flex gap-2 items-center">
+          <div class="flex flex-col text-sm lg:text-base">
+            <span class="text-base">{{ products?.length }}</span>
+            <span class="text-gray-400 text-xs lg:text-sm">
+              {{ $t("product") }}
+            </span>
+          </div>
+        </td>
+        <td class="flex flex-col items-center text-nowrap">
+          <span class="text-xs text-gray-400">
+            {{ formatTimestampShort(order?.createdAt) }}
           </span>
-        </div>
-      </td>
-      <td class="flex flex-col items-center text-nowrap">
-        <span class="text-xs text-gray-400">
-          {{ formatTimestampShort(order?.createdAt) }}
-        </span>
-        <span class="text-sm lg:text-base">
-          {{ formatTimestampLong(order?.createdAt, locale) }}
-        </span>
-      </td>
-      <td v-if="selectedOrder._id === order._id">
-        <Icon name="ri:arrow-right-wide-line" size="30" />
-      </td>
-    </tr>
+          <span class="text-sm lg:text-base">
+            {{ formatTimestampLong(order?.createdAt, locale) }}
+          </span>
+        </td>
+        <td v-if="selectedOrder._id === order._id">
+          <Icon name="ri:arrow-right-wide-line" size="30" />
+        </td>
+      </tr>
+    </tbody>
   </table>
 </template>
 <script setup lang="ts">
-import type { Order } from "~/types";
+//types
+import type { Order } from "~/types.js";
+//helpers
 import {
-  cn,
   formatTimestampLong,
   formatTimestampShort,
   sumPricesByProduct,
 } from "~/lib/utils";
+
+//store
 import { useProductsStore } from "~/stores/products.store";
 import { useOrdersStore } from "~/stores/order.store";
+//components
 import Button from "~/components/ui/Button.vue";
-const { locale } = useI18n();
 
 interface Props {
   order: Order;
@@ -90,10 +95,12 @@ const emit = defineEmits(["delete-order"]);
 
 const productsStore = useProductsStore();
 const ordersStore = useOrdersStore();
+
+//data
+const { locale } = useI18n();
 const products = computed(() => {
   return productsStore.getProductsByIds(props.order.products);
 });
-
 const selectedOrder = computed(() => ordersStore.selectedOrder);
 const totalPrice = computed(() => sumPricesByProduct(products.value));
 

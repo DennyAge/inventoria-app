@@ -29,9 +29,10 @@
 </template>
 
 <script lang="ts" setup>
+//core
 import { Chart, type ChartOptions } from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
-import { ref, computed, onMounted } from "vue";
+//helpers
 import { formatCurrency, crossLine } from "~/lib/utils";
 
 interface ItemData {
@@ -56,6 +57,7 @@ const props = withDefaults(defineProps<Props>(), {
   productColor: "#9CBEED",
 });
 
+//data
 const barChart = ref<HTMLCanvasElement | null>(null);
 
 const chartConfig = computed(() => {

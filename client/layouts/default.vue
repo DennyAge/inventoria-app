@@ -12,15 +12,18 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from "~/stores/auth.store";
+//components
 import MainLoader from "~/components/MainLoader.vue";
-import { useLoadingStore } from "~/stores/loading.store.js";
 import Loader from "~/components/ui/Loader.vue";
+//store
+import { useAuthStore } from "~/stores/auth.store";
+import { useLoadingStore } from "~/stores/loading.store.js";
 
 const router = useRouter();
 const authStore = useAuthStore();
 const loadingStore = useLoadingStore();
 
+//data
 const user = computed(() => authStore.user);
 const isLoading = computed(() => loadingStore.isLoading);
 

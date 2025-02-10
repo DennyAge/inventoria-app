@@ -38,21 +38,26 @@
   </ul>
 </template>
 <script setup lang="ts">
-import type { Product } from "~/types";
+//types
+import type { Product } from "~/types.js";
+//store
 import { useOrdersStore } from "~/stores/order.store";
+//helpers
 import { formatTimestampLong } from "~/lib/utils";
-const { locale } = useI18n();
 
 interface Props {
   product: Product;
 }
-
 const props = defineProps<Props>();
 const emit = defineEmits(["delete-product"]);
 
 const ordersStore = useOrdersStore();
-const order = ordersStore.getOrderById(props.product.order);
 const localePath = useLocalePath();
+
+//data
+const { locale } = useI18n();
+const order = ordersStore.getOrderById(props.product.order);
+
 const handleDeleteProduct = (product: Product) => {
   emit("delete-product", product);
 };
