@@ -2,13 +2,13 @@
   <div class="relative" ref="selectRef">
     <label v-if="label" class="text-sm" for="selectRef">{{ label }}</label>
     <div
-      class="h-10 border border-gray-300 rounded-lg p-2 cursor-pointer bg-white flex items-center justify-between"
+      class="h-8 md:h-10 border border-gray-300 rounded-lg p-2 cursor-pointer bg-white flex items-center justify-between"
       :class="error && 'border-red-500'"
       @click="toggleDropdown"
     >
       <span
         v-if="selectedOptions.length"
-        class="text-sm md:text-base truncate"
+        class="text-xs sm:text-sm md:text-base truncate"
         >{{ selectedText }}</span
       >
       <span v-else class="text-gray-400">{{ placeholder }}</span>
