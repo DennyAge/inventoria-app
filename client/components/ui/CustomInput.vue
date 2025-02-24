@@ -18,12 +18,12 @@
         :min="min"
         :class="
           cn(
-            'flex h-10 py-2 w-full rounded-md border border-gray-200 bg-white',
-            { 'pl-8 pr-2': leftIcon },
-            { 'pl-8 pr-8': leftIcon && rightIcon },
-            { 'pr-8 pl-2': rightIcon || removeBtn },
+            'flex h-8 md:h-10 py-2 w-full text-sm md:text-base rounded-md border border-gray-200 bg-white',
+            { 'pl-6 md:pl-8 pr-2': leftIcon },
+            { 'pl-6 md:pl-8 pr-6 md:pr-8': leftIcon && rightIcon },
+            { 'pr-6 md:pr-8 pl-2': rightIcon || removeBtn },
             { 'pr-8 pl-2': name === 'password' },
-            { 'pr-8 pl-8': leftIcon && removeBtn },
+            { 'pr-6 md:pr-8 pl-6 md:pl-8': leftIcon && removeBtn },
             { 'px-2': !rightIcon && !leftIcon && !removeBtn },
             { 'border-red-500 mb-1': error },
           )
@@ -31,21 +31,21 @@
       />
       <div
         v-show="rightIcon"
-        class="absolute top-2 right-1.5 flex items-center"
+        class="absolute top-2 md:top-3 right-1.5 flex items-center"
       >
         <slot name="right-icon" />
       </div>
       <button
         v-if="removeBtn && modelValue?.length > 0"
         @click="handleClearValue"
-        class="absolute top-3 right-2 flex items-center p-0 m-0 w-max h-max z-1000"
+        class="absolute top-2 md:top-3 right-2 flex items-center p-0 m-0 w-max h-max z-1000"
       >
         <Icon name="ri:close-fill" />
       </button>
       <button
         v-if="name === 'password'"
         @click="handleShowPassword"
-        class="absolute top-3 right-2 flex items-center p-0 m-0 w-max h-max z-1000"
+        class="absolute top-2 md:top-3 right-2 flex items-center p-0 m-0 w-max h-max z-1000"
       >
         <Icon v-if="showPassword" name="ri:eye-line" />
         <Icon v-else name="ri:eye-off-line" />
