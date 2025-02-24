@@ -1,7 +1,7 @@
 <template>
   <section>
     <MainHeader show-input @filter="filteredByInput" />
-    <div class="w-full h-full p-4 md:p-8">
+    <div class="p-4 md:p-8">
       <PageHeader
         :title="$t('product')"
         :count="filteredProducts?.length"
@@ -12,7 +12,10 @@
         v-if="filteredProducts.length <= 0"
         :title="$t('productEmpty')"
       />
-      <div v-else class="h-[calc(100vh-14rem)] overflow-scroll">
+      <div
+        v-else
+        class="h-[calc(100dvh-11rem)] overflow-x-hidden overflow-y-scroll"
+      >
         <div class="flex flex-col">
           <div
             v-for="product in filteredProducts"

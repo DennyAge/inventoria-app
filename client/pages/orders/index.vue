@@ -14,7 +14,7 @@
       />
       <div
         v-else
-        class="h-[calc(100vh-14rem)] overflow-scroll"
+        class="h-[calc(100dvh-11rem)] overflow-x-hidden overflow-y-scroll"
         :class="{ 'flex gap-4': selectedOrder }"
       >
         <div
