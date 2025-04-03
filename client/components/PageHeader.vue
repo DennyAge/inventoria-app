@@ -6,8 +6,8 @@
         <span v-if="count">/ {{ count }}</span>
       </div>
     </div>
-    <div v-if="filter" class="flex items-center gap-2 w-60 md:w-64">
-      <label for="type">{{ $t("type") }}:</label>
+    <div v-if="filter" class="flex items-center gap-2 w-48 sm:w-60 md:w-64">
+      <label class="text-sm md:text-base" for="type">{{ $t("type") }}:</label>
       <CustomSelect
         :options="productTypes"
         v-model="type"

@@ -2,7 +2,7 @@
   <div class="relative">
     <button
       @click="toggleDropdown"
-      class="flex items-center justify-between py-1 px-2 border border-gray-200 rounded-md bg-white"
+      class="flex items-center justify-between h-8 md:h-10 text-sm md:text-base py-1 px-2 border border-gray-200 rounded-md bg-white"
     >
       {{ locale ? locale.toUpperCase() : "" }}
       <Icon
@@ -18,7 +18,7 @@
       <button
         v-for="loc in locales"
         :key="loc.code"
-        class="border-none cursor-pointer rounded-md hover:bg-primary-25 py-1 px-2"
+        class="border-none cursor-pointer rounded-md hover:bg-primary-25 text-sm md:text-base py-1 px-2"
         :class="cn(loc.code === locale && 'bg-primary-25')"
         @click="setLocale(loc.code)"
       >
